@@ -2,6 +2,7 @@
 
 const name = document.getElementById("name");
 const address = document.getElementById("address");
+const navBtn = document.getElementById("navigation");
 let currentPos = null;
 
 const map = L.map('mapid');
@@ -23,6 +24,7 @@ function error(err){
 function addMarker(crd, data){
   L.marker([crd.latitude, crd.longitude]).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();;
   console.log(data);
+  navBtn.href = `https://www.google.com/maps/dir/?api=1&origin=${omaLatitude},${omaLongitude}&destination=${crd.latitude},${crd.longitude}&travelmode=driving`;
 }
 
 navigator.geolocation.getCurrentPosition(getPos, error);
@@ -60,6 +62,7 @@ function findInfo(data) {
           longitude: data.location.coordinates.wgs84.lon,
         };
         addMarker(coords, data)
+
   })
 }
 //------------------------------------------------------------------------------//
