@@ -9,6 +9,7 @@ const summary = document.getElementById('summary');
 
 const searchButton = document.getElementById('searchButton');
 const input = document.getElementById('input');
+input.addEventListener('keyup',searchNatureTrail);
 
 let myLocation = null;
 
