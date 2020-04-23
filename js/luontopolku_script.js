@@ -17,12 +17,32 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
-// Asetukset paikkatiedon hakua varten (valinnainen)
-const options = {
-  enableHighAccuracy: true,
-  timeout: 5000,
-  maximumAge: 0,
-};
+let proxyURL = `https://cors-anywhere.herokuapp.com/`,
+    targetURL = `http://lipas.cc.jyu.fi/api/sports-place-types?lang=fi`
+fetch(proxyURL + targetURL).
+then(function(response) {
+  return response.json();
+}).then(function(data) {
+
+  console.log(data);
+  //for loop
+
+});
+
+function searchNatureTrail(data) {
+  fetch (`http://lipas.cc.jyu.fi/api/sports-places/${data.}`).
+      then(function(response) {
+        return response.json();
+      }).then(function(data) {
+    console.log(data);
+
+
+  })
+}
+
+
+
+
 
 
 function userLocation(pos) {
@@ -39,24 +59,31 @@ function userLocation(pos) {
 
 }
 
-searchButton.addEventListener('click', function(){
+/*searchButton.addEventListener('click', function(){
   searchNatureTrail();
-});
+}); */
 
-
-function searchNatureTrail() {
-  fetch (`https://citynature.eu/api/wp/v2/places?cityid=5&lat=${input.value}`).
-      then(function(result) {
-        return result.json();
-      }).then(function(natureTrails) {
-    console.log(natureTrails);
-
-
-  })
-}
 
 function error(err) {
   console.warn(`ERROR(${err.code}): ${err.message}`);
 }
 
-navigator.geolocation.getCurrentPosition(userLocation, error, options);
+navigator.geolocation.getCurrentPosition(userLocation, error);
+
+function addMarker(crd, text, data) {
+  L.marker([crd.latitude, crd.longitude]).
+      addTo(map).
+      bindPopup(text).
+      openPopup().
+      on('click', function() {
+        name.innerHTML = trail.title;
+        address.innerHTML = latauspiste.AddressInfo.AddressLine1;
+        kaupunki.innerHTML = latauspiste.AddressInfo.Town;
+        lisatiedot.innerHTML = latauspiste.AddressInfo.AccessComments;
+        navigoi.href = `https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=${paikka.latitude}, ${paikka.longitude}&destination=${crd.latitude}, ${crd.longitude}`;
+      })
+
+  ;
+
+
+}
