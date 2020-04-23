@@ -1,6 +1,7 @@
 'use strict';
 
 const navBtn = document.getElementById("navigation");
+const navLink = document.getElementById("navLink");
 
 const name = document.getElementById('name');
 const address = document.getElementById('address');
@@ -32,9 +33,9 @@ function addMarker(crd, text, data) {
         console.log(data);
         name.innerHTML = data.name;
         address.innerHTML = data.location.address;
+        navigate(currentPos, crd);
       });
   console.log(data);
-  navBtn.href = `https://www.google.com/maps/dir/?api=1&origin=${omaLatitude},${omaLongitude}&destination=${crd.latitude},${crd.longitude}&travelmode=driving`;
 }
 
 navigator.geolocation.getCurrentPosition(getPos, error);
@@ -43,6 +44,12 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
+function navigate(currentPos, crd) {
+  navBtn.addEventListener('click', navClick);
+  function navClick(evt) {
+    window.open(`https://www.google.com/maps/dir/?api=1&origin=${currentPos.latitude},${currentPos.longitude}&destination=${crd.latitude},${crd.longitude}&travelmode=driving`);
+  }
+}
 //------------------------------------------------------------------------------//
 let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
     targetUrl = 'http://lipas.cc.jyu.fi/api/sports-places?typeCodes=4405';
