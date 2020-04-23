@@ -1,8 +1,11 @@
 'use strict';
 
+const navBtn = document.getElementById("navigation");
+
 const name = document.getElementById('name');
 const address = document.getElementById('address');
 const summary = document.getElementById('summary');
+
 let currentPos = null;
 
 const map = L.map('mapid');
@@ -35,6 +38,7 @@ function addMarker(crd, text, data) {
         }
       });
   console.log(data);
+  navBtn.href = `https://www.google.com/maps/dir/?api=1&origin=${omaLatitude},${omaLongitude}&destination=${crd.latitude},${crd.longitude}&travelmode=driving`;
 }
 
 navigator.geolocation.getCurrentPosition(getPos, error);
@@ -64,12 +68,13 @@ function findInfo(data) {
       then(function(response) {
         return response.json();
       }).then(function(data) {
-    console.log(data);
-    const coords = {
-      latitude: data.location.coordinates.wgs84.lat,
-      longitude: data.location.coordinates.wgs84.lon,
-    };
-    addMarker(coords, data.name, data);
-  });
+
+        console.log(data);
+        const coords = {
+          latitude: data.location.coordinates.wgs84.lat,
+          longitude: data.location.coordinates.wgs84.lon,
+        };
+        addMarker(coords,data.name, data)
+  })
 }
 //------------------------------------------------------------------------------//
