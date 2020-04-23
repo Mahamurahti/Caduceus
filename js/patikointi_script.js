@@ -33,7 +33,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 //------------------------------------------------------------------------------//
 let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-    targetUrl = 'http://lipas.cc.jyu.fi/api/sports-place-types?lang=fi';
+    targetUrl = 'http://lipas.cc.jyu.fi/api/sports-places?typeCodes=4405';
 fetch(proxyUrl + targetUrl)
 .then(function(response) {
   return response.json();
