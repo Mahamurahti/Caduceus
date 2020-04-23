@@ -1,0 +1,31 @@
+button {
+    background-color: #042A2B;
+    padding: 20px;
+    border-radius: 12px;
+}
+input {
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 20px;
+    width: 130px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+input[type=text] {
+    width: 130px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+input:focus {
+    width: 50%;
+}
+.container {
+    margin:20px;
+}
+tag1 {
+    color: #F7F7F9;
+}
+
+
+
+

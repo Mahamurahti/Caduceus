@@ -7,6 +7,7 @@ const city = document.getElementById('city');
 const summary = document.getElementById('summary');
 
 const input = document.getElementById('input');
+input.addEventListener('keyup',searchNatureTrail);
 
 
 
