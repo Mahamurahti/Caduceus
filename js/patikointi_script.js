@@ -1,5 +1,7 @@
 'use strict';
 
+const name = document.getElementById("name");
+const address = document.getElementById("address");
 let currentPos = null;
 
 const map = L.map('mapid');
@@ -11,10 +13,16 @@ function showMap(crd) {
 function getPos(pos){
   currentPos = pos.coords;
   showMap(currentPos);
+  addMarker(currentPos);
 }
 
 function error(err){
   console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+function addMarker(crd, data){
+  L.marker([crd.latitude, crd.longitude]).addTo(map).bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();;
+  console.log(data);
 }
 
 navigator.geolocation.getCurrentPosition(getPos, error);
