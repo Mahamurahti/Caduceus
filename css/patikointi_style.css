@@ -1,8 +1,18 @@
-.container{
+body{
     display: flex;
     flex-wrap: wrap;
+}
+h1{
+    width: 100%;
 }
 #mapid {
     width: 50%;
     height: 500px;
+}
+#info{
+    width: 50%;
+    height: 500px;
+}
+#info p{
+    text-align: center;
 }
