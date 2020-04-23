@@ -5,6 +5,7 @@ const navLink = document.getElementById("navLink");
 
 const name = document.getElementById('name');
 const address = document.getElementById('address');
+const summary = document.getElementById('summary');
 
 let currentPos = null;
 
@@ -34,6 +35,10 @@ function addMarker(crd, text, data) {
         name.innerHTML = data.name;
         address.innerHTML = data.location.address;
         navigate(currentPos, crd);
+
+        if(data.properties.infoFi != undefined){
+          summary.innerHTML = data.properties.infoFi;
+        }
       });
   console.log(data);
 }
@@ -52,8 +57,9 @@ function navigate(currentPos, crd) {
 }
 //------------------------------------------------------------------------------//
 let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-    targetUrl = 'http://lipas.cc.jyu.fi/api/sports-places?typeCodes=4405';
-fetch(proxyUrl + targetUrl).then(function(response) {
+    targetUrlType = 'http://lipas.cc.jyu.fi/api/sports-places?typeCodes=4405',
+    targetUrlId = 'http://lipas.cc.jyu.fi/api/sports-places/';
+fetch(proxyUrl + targetUrlType).then(function(response) {
   return response.json();
 }).then(function(data) {
   console.log(data);
@@ -66,8 +72,7 @@ fetch(proxyUrl + targetUrl).then(function(response) {
 });
 
 function findInfo(data) {
-  fetch(proxyUrl +
-      `http://lipas.cc.jyu.fi/api/sports-places/${data.sportsPlaceId}`).
+  fetch(proxyUrl + targetUrlId + data.sportsPlaceId).
       then(function(response) {
         return response.json();
       }).then(function(data) {
@@ -78,8 +83,6 @@ function findInfo(data) {
           longitude: data.location.coordinates.wgs84.lon,
         };
         addMarker(coords,data.name, data)
-
   })
-
 }
 //------------------------------------------------------------------------------//
