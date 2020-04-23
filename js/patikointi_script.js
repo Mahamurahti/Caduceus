@@ -39,20 +39,27 @@ fetch(proxyUrl + targetUrl)
   return response.json();
 })
 .then(function(data) {
-  console.table(data);
+  console.log(data);
+  for(let i = 0; i < data.length; i++){
+    findInfo(data[i]);
+  }
   document.querySelector("pre").innerHTML = JSON.stringify(data, null, 2);
-  return data;
 })
 .catch(function(error) {
   console.log('Error: ' + error);
 });
 
-function findInfo() {
-  fetch(proxyUrl + `http://lipas.cc.jyu.fi/api/sports-places/524338`).
+function findInfo(data) {
+  fetch(proxyUrl + `http://lipas.cc.jyu.fi/api/sports-places/${data.sportsPlaceId}`).
       then(function(response) {
         return response.json();
-      }).then(function(response) {
-    console.log(response);
+      }).then(function(data) {
+        console.log(data);
+        const coords = {
+          latitude: data.location.coordinates.wgs84.lat,
+          longitude: data.location.coordinates.wgs84.lon,
+        };
+        addMarker(coords, data)
   })
 }
 //------------------------------------------------------------------------------//
