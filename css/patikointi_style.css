@@ -1,0 +1,8 @@
+.container{
+    display: flex;
+    flex-wrap: wrap;
+}
+#mapid {
+    width: 50%;
+    height: 500px;
+}
