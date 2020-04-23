@@ -46,4 +46,13 @@ fetch(proxyUrl + targetUrl)
 .catch(function(error) {
   console.log('Error: ' + error);
 });
+
+function findInfo() {
+  fetch(proxyUrl + `http://lipas.cc.jyu.fi/api/sports-places/524338`).
+      then(function(response) {
+        return response.json();
+      }).then(function(response) {
+    console.log(response);
+  })
+}
 //------------------------------------------------------------------------------//
