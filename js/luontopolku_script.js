@@ -36,9 +36,10 @@ navigator.geolocation.getCurrentPosition(userLocation, error);
 
 /*Fetching sports places by typeCodes, where 4404 is a code for nature trails */
 let proxyUrl = `https://cors-anywhere.herokuapp.com/`,
-    targetUrl = `http://lipas.cc.jyu.fi/api/sports-places?typeCodes=4404`;
+    targetUrlTypeCode = `https://bridge.buddyweb.fr/api/naturetrails/naturetrails`,
+    targetUrlId = `http://lipas.cc.jyu.fi/api/sports-places/`;
 
-fetch(proxyUrl + targetUrl).
+fetch(proxyUrl + targetUrlTypeCode).
     then(function(response) {
       return response.json();
     }).then(function(data) {
@@ -47,11 +48,13 @@ fetch(proxyUrl + targetUrl).
 
   for (let i = 0; i < data.length; i++) {
     searchNatureTrail(data[i]);
+
   }
+  document.querySelector('pre').innerHTML=JSON.stringify(data, null, 2);
 });
 
 function searchNatureTrail(data) {
-  fetch(proxyUrl + `http://lipas.cc.jyu.fi/api/sports-places/${data.sportsPlaceId}`).
+  fetch(proxyUrl + targetUrlId + data.sportplacesid).
       then(function(response) {
         return response.json();
       }).then(function(data) {
@@ -84,7 +87,6 @@ function addMarker(crd, teksti, data) {
   L.marker([crd.latitude, crd.longitude]).
       addTo(map).
       bindPopup(teksti).
-      openPopup().
       on('click', function() {
         name.innerHTML = data.name;
         address.innerHTML = data.location.address;
