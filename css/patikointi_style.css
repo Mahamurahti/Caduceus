@@ -1,4 +1,4 @@
-.topbar {
+header {
     background-color: #544B3D;
     padding: 20px;
 }
@@ -41,11 +41,11 @@ input:hover + #mapid{
 .container {
     margin:20px;
 }
-tag1 {
+button {
     color: #F7F7F9;
     font-family: 'Montserrat', sans-serif;
 }
-tag2 {
+heading {
     color: #F7F7F9;
     font-size: 60px;
     font-family: 'Montserrat', sans-serif;
@@ -70,13 +70,11 @@ tag2 {
 body {
     background-image: url('https://media.discordapp.net/attachments/702787870628380772/702855547061403728/20190908-IMG_9535.jpg?width=876&height=1314');
 }
-opa {
-    opacity: 0.9;
-}
+
 logo {
     margin: 10px;
 }
-.wrapper {
+.info {
     opacity: 0.5;
     padding: 15px;
     margin-top: 5px;
@@ -85,6 +83,6 @@ logo {
     width: 34%;
     font-family: 'Montserrat', sans-serif;
 }
-.wrapper:hover {
+.info:hover {
     opacity: 1;
 }
