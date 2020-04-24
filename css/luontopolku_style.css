@@ -4,11 +4,13 @@
 }
 button {
     border-color: #04471C;
-    margin-top: 5px;
+    margin-top: 7px;
     background-color: #04471C;
-    padding: 26px;
+    padding: 21px;
     font-size: 20px;
     text-align: center;
+    border-style: ridge;
+    border-color: #04471C;
 }
 button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),
@@ -30,7 +32,7 @@ input {
     transition: width 1s ease-in-out;
 }
 input:hover {
-    width: 45%;
+    width: 26%;
     box-shadow: 0 12px 12px 0 rgba(0,0,0,0.10),
     0 17px 10px 0 rgba(0,0,0,0.10);
 
