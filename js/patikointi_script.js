@@ -38,7 +38,6 @@ function addMarker(crd, text, data) {
   L.marker([crd.latitude, crd.longitude]).
       addTo(map).
       bindPopup(`<b>${text}</b>`).
-      openPopup().
       on('click', function(popup) {
         console.log(data);
         name.innerHTML = data.name;
@@ -61,10 +60,8 @@ function addMarker(crd, text, data) {
 
 function check(data) {
   if (data != undefined) {
-    console.log('data ',data, ' found');
     return true;
   } else {
-    console.log('data not found');
     return false;
   }
 }
@@ -95,17 +92,18 @@ function navigate(currentPos, crd) {
 
 // We use a proxyUrl to allow CORS (Cross-origin resource sharing)
 let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-    targetUrlType = 'http://lipas.cc.jyu.fi/api/sports-places?typeCodes=4405',
+    targetUrlType = 'https://bridge.buddyweb.fr/api/hikingtrails/hikingtrails',
     targetUrlId = 'http://lipas.cc.jyu.fi/api/sports-places/';
 
 /* Fetching the type of sports activity we want to use (hiking)
  * The result will be an id which we will use in the next fetch
  */
+
 fetch(proxyUrl + targetUrlType).then(function(response) {
   return response.json();
 }).then(function(data) {
   console.log(data);
-  for (let i = 0; i < data.length; i++) {
+  for (let i = data.length - 1; i > 0; i--) {
     // Executing the fetching of individual trails
     findInfo(data[i]);
   }
@@ -116,7 +114,7 @@ fetch(proxyUrl + targetUrlType).then(function(response) {
 
 // Fetching the trail info with the id that was obtained
 function findInfo(data) {
-  fetch(proxyUrl + targetUrlId + data.sportsPlaceId).
+  fetch(proxyUrl + targetUrlId + data.sportsplaceid).
       then(function(response) {
         return response.json();
       }).then(function(data) {
