@@ -57,11 +57,11 @@ function searchNatureTrail(data) {
       }).then(function(data) {
     console.log(data);
 
-      const coordinates = {
-        latitude: data.location.coordinates.wgs84.lat,
-        longitude: data.location.coordinates.wgs84.lon
+    const coordinates = {
+      latitude: data.location.coordinates.wgs84.lat,
+      longitude: data.location.coordinates.wgs84.lon
 
-      };
+    };
 
     const teksti = `
             <h3>${data.name}</h3>
@@ -71,7 +71,7 @@ function searchNatureTrail(data) {
 
           `;
 
-      addMarker(coordinates, teksti, data);
+    addMarker(coordinates, teksti, data);
 
   });
 }
