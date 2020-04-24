@@ -38,7 +38,6 @@ function addMarker(crd, text, data) {
   L.marker([crd.latitude, crd.longitude]).
       addTo(map).
       bindPopup(`<b>${text}</b>`).
-      openPopup().
       on('click', function(popup) {
         console.log(data);
         name.innerHTML = data.name;
