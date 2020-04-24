@@ -22,17 +22,12 @@ input {
     margin-top: 5px;
     padding: 20px;
     font-size: 20px;
-    width: 130px;
+    width: 133px;
     font-family: 'Montserrat', sans-serif;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
 }
-input {
-    opacity: 0.9;
-    width: 130px;
-    -webkit-transition: width 1s ease-in-out;
-    transition: width 1s ease-in-out;
-}
+
 input:hover {
     width: 27%;
     opacity: 1;
@@ -80,4 +75,16 @@ opa {
 }
 logo {
     margin: 10px;
+}
+.wrapper {
+    opacity: 0.5;
+    padding: 15px;
+    margin-top: 5px;
+    background-color: #04471C;
+    color: #F7F7F9;
+    width: 34%;
+    font-family: 'Montserrat', sans-serif;
+}
+.wrapper:hover {
+    opacity: 1;
 }
