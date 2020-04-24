@@ -1,16 +1,16 @@
 .topbar {
     background-color: #04471C;
-    padding: 25px;
+    padding: 20px;
 }
 button {
     border-color: #04471C;
-    margin-top: 5px;
+    margin-top: 7px;
     background-color: #04471C;
-    padding: 26px;
+    padding: 21px;
     font-size: 20px;
     text-align: center;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),
-    0 6px 20px 0 rgba(0,0,0,0.19);
+    border-style: ridge;
+    border-color: #04471C;
 }
 button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),
@@ -18,6 +18,7 @@ button:hover {
 
 }
 input {
+    margin-top: 5px;
     padding: 20px;
     font-size: 20px;
     width: 130px;
@@ -31,7 +32,7 @@ input {
     transition: width 1s ease-in-out;
 }
 input:hover {
-    width: 45%;
+    width: 26%;
     box-shadow: 0 12px 12px 0 rgba(0,0,0,0.10),
     0 17px 10px 0 rgba(0,0,0,0.10);
 
@@ -45,17 +46,29 @@ tag1 {
 }
 tag2 {
     color: #F7F7F9;
-    font-size: 50px;
+    font-size: 60px;
     font-family: 'Montserrat', sans-serif;
+    vertical-align: 40px;
+    margin-left: 20px;
 }
 
 #map {
     float: right;
     width: 50%;
-    height: 750px;
+    height: 780px;
+    margin-top: 5px;
 }
 #map:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.15),
     0 17px 50px 0 rgba(0,0,0,0.15);
 }
 
+body {
+    background-image: url('https://media.discordapp.net/attachments/702787870628380772/702855547061403728/20190908-IMG_9535.jpg?width=876&height=1314');
+}
+opa {
+    opacity: 0.9;
+}
+logo {
+    margin: 10px;
+}
