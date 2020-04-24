@@ -1,16 +1,90 @@
-body{
-    display: flex;
-    flex-wrap: wrap;
+.topbar {
+    background-color: #544B3D;
+    padding: 20px;
 }
-h1{
-    width: 100%;
-}
-#mapid {
-    width: 50%;
-    height: 500px;
-}
-#info{
-    width: 50%;
-    height: 500px;
+button {
+    border-color: #856A5D;
+    margin-top: 7px;
+    background-color: #856A5D;
+    padding: 21px;
+    font-size: 20px;
     text-align: center;
+    border-style: ridge;
+    outline: #243010;
+}
+button:hover {
+
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),
+    0 17px 50px 0 rgba(0,0,0,0.19);
+
+}
+input {
+    margin-top: 5px;
+    padding: 20px;
+    font-size: 20px;
+    width: 133px;
+    font-family: 'Montserrat', sans-serif;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input:hover {
+    width: 27%;
+    opacity: 1;
+    box-shadow: 0 12px 12px 0 rgba(0,0,0,0.10),
+    0 17px 10px 0 rgba(0,0,0,0.10);
+
+}
+input:hover + #mapid{
+    opacity: 1;
+}
+.container {
+    margin:20px;
+}
+tag1 {
+    color: #F7F7F9;
+    font-family: 'Montserrat', sans-serif;
+}
+tag2 {
+    color: #F7F7F9;
+    font-size: 60px;
+    font-family: 'Montserrat', sans-serif;
+    vertical-align: 40px;
+    margin-left: 20px;
+}
+
+#mapid {
+    float: right;
+    width: 50%;
+    height: 780px;
+    margin-top: 8px;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+#mapid:hover {
+    opacity: 1;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.15),
+    0 17px 50px 0 rgba(0,0,0,0.15);
+}
+
+body {
+    background-image: url('https://media.discordapp.net/attachments/702787870628380772/702855547061403728/20190908-IMG_9535.jpg?width=876&height=1314');
+}
+opa {
+    opacity: 0.9;
+}
+logo {
+    margin: 10px;
+}
+.wrapper {
+    opacity: 0.5;
+    padding: 15px;
+    margin-top: 5px;
+    background-color: #544B3D;
+    color: #F7F7F9;
+    width: 34%;
+    font-family: 'Montserrat', sans-serif;
+}
+.wrapper:hover {
+    opacity: 1;
 }
