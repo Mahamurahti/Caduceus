@@ -1,11 +1,11 @@
 'use strict';
 
-const navBtn = document.getElementById("navigation");
-const navLink = document.getElementById("navLink");
+const navBtn = document.getElementById('navigation');
 
 const name = document.getElementById('name');
 const address = document.getElementById('address');
 const summary = document.getElementById('summary');
+const rtLength = document.getElementById('rtLength');
 
 let currentPos = null;
 
@@ -39,16 +39,34 @@ function addMarker(crd, text, data) {
       addTo(map).
       bindPopup(`<b>${text}</b>`).
       openPopup().
-      on('popupopen', function(popup) {
+      on('click', function(popup) {
         console.log(data);
         name.innerHTML = data.name;
         address.innerHTML = data.location.address;
-        navigate(currentPos, crd);
-        if(data.properties.infoFi != undefined){
+        summary.innerHTML = "";
+        rtLength.innerHTML = "";
+
+        if(check(data.properties.infoFi)) {
           summary.innerHTML = data.properties.infoFi;
         }
+
+        if (check(data.properties.routeLengthKm)) {
+          rtLength.innerHTML = 'reitin pituus on ' +
+              data.properties.routeLengthKm + " km";
+        }
+        navigate(currentPos, crd);
       });
-  console.log(data);
+}
+
+
+function check(data) {
+  if (data != undefined) {
+    console.log('data ',data, ' found');
+    return true;
+  } else {
+    console.log('data not found');
+    return false;
+  }
 }
 
 // Finding the users location
@@ -66,10 +84,13 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
  */
 function navigate(currentPos, crd) {
   navBtn.addEventListener('click', navClick);
+
   function navClick(evt) {
-    window.open(`https://www.google.com/maps/dir/?api=1&origin=${currentPos.latitude},${currentPos.longitude}&destination=${crd.latitude},${crd.longitude}&travelmode=driving`);
+    window.open(
+        `https://www.google.com/maps/dir/?api=1&origin=${currentPos.latitude},${currentPos.longitude}&destination=${crd.latitude},${crd.longitude}&travelmode=driving`);
   }
 }
+
 //-------------------------Fetching data from Lipas-----------------------------//
 
 // We use a proxyUrl to allow CORS (Cross-origin resource sharing)
@@ -99,13 +120,17 @@ function findInfo(data) {
       then(function(response) {
         return response.json();
       }).then(function(data) {
-        console.log(data);
-        const coords = {
-          latitude: data.location.coordinates.wgs84.lat,
-          longitude: data.location.coordinates.wgs84.lon,
-        };
-        // Adding a marker to the map with the correct location
-        addMarker(coords,data.name, data)
-  })
+        if(check(data.location.coordinates.wgs84.lat) && check(data.location.coordinates.wgs84.lon)) {
+          const coords = {
+            latitude: data.location.coordinates.wgs84.lat,
+            longitude: data.location.coordinates.wgs84.lon,
+          };
+          addMarker(coords, data.name, data);
+        }
+
+    // Adding a marker to the map with the correct location
+
+  });
 }
+
 //------------------------------------------------------------------------------//
