@@ -124,19 +124,20 @@ function findInfo(data) {
       then(function(response) {
         return response.json();
       }).then(function(data) {
+
     if (check(data.location.coordinates.wgs84.lat) &&
         check(data.location.coordinates.wgs84.lon)) {
       const coords = {
         latitude: data.location.coordinates.wgs84.lat,
         longitude: data.location.coordinates.wgs84.lon,
       };
+      // Adding a marker to the map with the correct location
       addMarker(coords, data.name, data);
     }
 
-    // Adding a marker to the map with the correct location
+
 
   });
 
 }
-
 //------------------------------------------------------------------------------//
