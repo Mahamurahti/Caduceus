@@ -123,12 +123,9 @@ function findInfo(data) {
             latitude: data.location.coordinates.wgs84.lat,
             longitude: data.location.coordinates.wgs84.lon,
           };
+          // Adding a marker to the map with the correct location
           addMarker(coords, data.name, data);
         }
-
-    // Adding a marker to the map with the correct location
-
   });
 }
-
 //------------------------------------------------------------------------------//
