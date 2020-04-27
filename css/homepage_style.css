@@ -2,9 +2,13 @@ body {
     font-family: 'Montserrat', sans-serif;
     display: flex;
     flex-wrap: wrap;
-    background-color: red;
+    background-color: white;
+    background-image: url("../images/background_placeholder.JPG");
     margin: 0;
+    min-height: 100vh;
 }
+/* -----------------------------------HEADER---------------------------------------- */
+
 header {
     width: 100%;
     height: 25%;
@@ -29,22 +33,23 @@ header {
     margin: 0;
     color: #04471C;
 }
-
 .info {
     text-align: center;
 }
-/* This height determines the size of tha main element
- *  */
+/* -----------------------------------MAIN---------------------------------------- */
+/* This height determines the size of the main element */
 main{
-    height: 90vh;
+    position: relative;
+    height: 94vh;
 }
 .leftside .rightside{
     height: 100%;
     width: 100%;
 }
-
+/* Nature Trail Side */
+/* Changing the padding's third value stretches the info */
 .leftside{
-    background-color: #78de9f;
+    background-color: #5ccc7a;
     height: 100%;
     padding: 20px 50px 120px 50px;
 }
@@ -53,9 +58,10 @@ main{
     position: absolute;
     bottom: 20px;
 }
-
+/* Hiking Trail Side */
+/* Changing the padding's third value stretches the info */
 .rightside{
-    background-color: #78de9f;
+    background-color: #5ccc7a;
     height: 100%;
     padding: 20px 50px 120px 50px;
 }
@@ -64,6 +70,7 @@ main{
     position: absolute;
     bottom: 20px;
 }
+/* -----BUTTONS----- */
 a{
     display: block;
     color: white;
@@ -78,13 +85,45 @@ a:hover{
     background-color: white;
     color: #04471C
 }
+/* -----IMAGES----- */
+/* Images below info (change width depending on how many images there are) */
 .column {
     float: left;
+    /* Default image count: 6 */
     width: 16.66666666666666666667%;
 }
 .row{
     width: 100%;
     margin: 0;
 }
+/* -----------------------------------FOOTER---------------------------------------- */
+footer{
+    width: 100%;
+}
+.bottomInfo {
+    position: absolute;
+    opacity: 0.7;
+    background-color: #04471C;
+    color: #F7F7F9;
+}
+.bottomInfo:hover {
+    opacity: 1;
+}
+.contact img {
+    width: 40%;
+    border-radius: 50%;
+    opacity: 0.7;
+}
+.contact img:hover{
+    opacity: 1;
+}
+.contact{
+    float: left;
+    width: 25%;
+    padding: 5px;
+    text-align: center;
+}
+/* --------------------------------------------------------------------------- */
+
 
 
