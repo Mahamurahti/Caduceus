@@ -1,12 +1,14 @@
 'use strict';
 
 const navBtn = document.getElementById('navigation');
-const searchBtn = document.getElementById("searchbutton");
+const searchBtn = document.getElementById('searchbutton');
 const name = document.getElementById('name');
 const address = document.getElementById('address');
 const summary = document.getElementById('summary');
 const rtLength = document.getElementById('rtLength');
-const distInput = document.getElementById("distance");
+const distInput = document.getElementById('distance');
+const keywordInput = document.getElementById('keyword');
+
 searchBtn.addEventListener('click', searchClick);
 
 let currentPos = null;
@@ -27,6 +29,10 @@ function getPos(pos) {
   currentPos = pos.coords;
   showMap(currentPos);
   addMarker(currentPos, 'Olet tässä.');
+  let url = "http://lipas.cc.jyu.fi/api/sports-places?closeToLon=" +
+      currentPos.longitude + "&closeToLat=" + currentPos.latitude +
+      "&closeToDistanceKm=100&pageSize=100&typeCodes=4405&page=";
+  findTrails(url);
 }
 
 // Error function in the case that geolocation fails
@@ -84,22 +90,40 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
  * and set the starting point as your location and the ending point
  * as the location you have selected from the map.
  */
-function searchClick(evt) {
-  console.log("Haku nappia painettu");
-  layerGroup.clearLayers();
-  addMarker(currentPos,"olet tässä");
-  let dist = distInput.value;
-  findTrails(dist);
-}
+
 
 // Function for opening google maps to find the route to the destination
 function navigate(currentPos, crd) {
   navBtn.addEventListener('click', navClick);
 
   function navClick(evt) {
-     window.open(
+    window.open(
         `https://www.google.com/maps/dir/?api=1&origin=${currentPos.latitude},${currentPos.longitude}&destination=${crd.latitude},${crd.longitude}&travelmode=driving`);
   }
+}
+/* function for searching trails with keywords or from certain distance
+from the user.
+ */
+function searchClick(evt) {
+  console.log('haku nappi painettu');
+  layerGroup.clearLayers();
+  addMarker(currentPos, 'olet tässä');
+  let dist = distInput.value;
+  let keyword = keywordInput.value;
+  console.log("keyword on ",typeof keyword, keyword);
+  let apiUrl;
+
+  if (keyword === '') {
+    console.log('keywordissa eikä pituudessa mitään');
+    apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
+        currentPos.longitude + '&closeToLat=' + currentPos.latitude +
+        '&closeToDistanceKm=' + dist + '&pageSize=100&typeCodes=4405&page=';
+  } else if (keyword != '') {
+    console.log('keyword tyyppi on', typeof keyword, 'keyword on ', keyword);
+    apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?&pageSize=100&typeCodes=4405&searchString=' +
+        keyword + '&page=';
+  }
+  findTrails(apiUrl);
 }
 
 //-------------------------Fetching data from Lipas-----------------------------//
@@ -111,10 +135,10 @@ let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
 /* Fetching the type of sports activity we want to use (hiking)
  * The result will be an id which we will use in the next fetch
  */
-function findTrails(dist) {
+function findTrails(url) {
+  console.log('url osoite on ', url);
   for (let i = 1; i < 7; i++) {
-    fetch(proxyUrl +
-        `http://lipas.cc.jyu.fi/api/sports-places?closeToLon=${currentPos.longitude}&closeToLat=${currentPos.latitude}&page=${i}&closeToDistanceKm=${dist}&typeCodes=4405`).
+    fetch(proxyUrl + url + i).
         then(function(response) {
           return response.json();
         }).then(function(data) {
@@ -135,12 +159,13 @@ function findInfo(data) {
       then(function(response) {
         return response.json();
       }).then(function(data) {
-      const coords = {
-        latitude: data.location.coordinates.wgs84.lat,
-        longitude: data.location.coordinates.wgs84.lon,
-      };
-      // Adding a marker to the map with the correct location
-      addMarker(coords, data.name, data);
+    const coords = {
+      latitude: data.location.coordinates.wgs84.lat,
+      longitude: data.location.coordinates.wgs84.lon,
+    };
+    // Adding a marker to the map with the correct location
+    addMarker(coords, data.name, data);
   });
 }
+
 //------------------------------------------------------------------------------//
