@@ -11,13 +11,10 @@ searchBtn.addEventListener('click', searchClick);
 
 let currentPos = null;
 
-
-
-
 // Insert the Leaflet map into the map div
 const map = L.map('mapid');
 
-//creating a layerGroup where markers are put
+// Creating a layerGroup where markers are put
 const layerGroup = L.layerGroup().addTo(map);
 
 // Function for setting the map view
@@ -58,13 +55,14 @@ function addMarker(crd, text, data) {
         }
 
         if (check(data.properties.routeLengthKm)) {
-          rtLength.innerHTML = 'reitin pituus on ' +
+          rtLength.innerHTML = 'Patikointireitin pituus on ' +
               data.properties.routeLengthKm + ' km';
         }
         navigate(currentPos, crd);
       });
 }
 
+// Function for null/undefined checking
 function check(data) {
   if (data != undefined) {
     return true;
@@ -84,17 +82,17 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 /* Function for navigating to the targeted place
  * This function is binded to a button that will open google maps
  * and set the starting point as your location and the ending point
- * as the location you have selected from the map
+ * as the location you have selected from the map.
  */
-
 function searchClick(evt) {
-  console.log("haku nappi painettu");
+  console.log("Haku nappia painettu");
   layerGroup.clearLayers();
   addMarker(currentPos,"olet tässä");
   let dist = distInput.value;
   findTrails(dist);
 }
 
+// Function for opening google maps to find the route to the destination
 function navigate(currentPos, crd) {
   navBtn.addEventListener('click', navClick);
 
@@ -113,7 +111,6 @@ let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
 /* Fetching the type of sports activity we want to use (hiking)
  * The result will be an id which we will use in the next fetch
  */
-
 function findTrails(dist) {
   for (let i = 1; i < 7; i++) {
     fetch(proxyUrl +
@@ -145,6 +142,5 @@ function findInfo(data) {
       // Adding a marker to the map with the correct location
       addMarker(coords, data.name, data);
   });
-
 }
 //------------------------------------------------------------------------------//
