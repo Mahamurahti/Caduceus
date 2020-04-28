@@ -1,15 +1,15 @@
-.topbar {
+header {
     background-color: #04471C;
     padding: 20px;
 }
 button {
+    width: 110px;
     border-color: #87A330;
     margin-top: 7px;
     background-color: #87A330;
     padding: 21px;
     font-size: 20px;
     text-align: center;
-    border-style: ridge;
     outline: #243010;
 }
 button:hover {
@@ -19,17 +19,19 @@ button:hover {
 
 }
 input {
+    opacity: 0.7;
     margin-top: 5px;
     padding: 20px;
     font-size: 20px;
-    width: 133px;
+    width: 30%;
+    outline: #243010;
     font-family: 'Montserrat', sans-serif;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
 }
 
 input:hover {
-    width: 27%;
+    width: 40%;
     opacity: 1;
     box-shadow: 0 12px 12px 0 rgba(0,0,0,0.10),
     0 17px 10px 0 rgba(0,0,0,0.10);
@@ -56,10 +58,10 @@ tag2 {
 #map {
     float: right;
     width: 50%;
-    height: 780px;
+    height: 700px;
     margin-top: 8px;
     margin-bottom: 10px;
-    opacity: 0.9;
+    opacity: 0.7;
 }
 #map:hover {
     opacity: 1;
@@ -68,13 +70,13 @@ tag2 {
 }
 
 body {
-    background-image: url('https://media.discordapp.net/attachments/702787870628380772/702855547061403728/20190908-IMG_9535.jpg?width=876&height=1314');
-}
-opa {
-    opacity: 0.9;
+    background-image: url('https://cdn.discordapp.com/attachments/689742770616795161/694806127896166411/IMG_2889-Edit.jpg');
+    background-size: 65%;
+    background-repeat: repeat;
 }
 logo {
     margin: 10px;
+    width: 10%;
 }
 .wrapper {
     opacity: 0.5;
@@ -82,9 +84,44 @@ logo {
     margin-top: 5px;
     background-color: #04471C;
     color: #F7F7F9;
-    width: 34%;
+    width: 31.5%;
     font-family: 'Montserrat', sans-serif;
 }
 .wrapper:hover {
     opacity: 1;
 }
+.leftWrapUp {
+    width: 80%;
+}
+.leftWrapDown {
+    width: 80%;
+}
+.BottomInfo {
+    margin-top: 5px;
+    width: auto;
+    opacity: 0.5;
+    padding: 15px;
+    background-color: #04471C;
+    color: #F7F7F9;
+    font-family: 'Montserrat', sans-serif;
+    float: left;
+}
+.BottomInfo:hover {
+    opacity: 1;
+}
+images.img {
+    border-radius: 40%;
+    opacity: 0.5;
+    width: 10%;
+    padding: 10px;
+}
+.images{
+    float: left;
+    width: 24%;
+    padding: 5px;
+    text-align: center;
+    border-style: ridge;
+}
+
+
+

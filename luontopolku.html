@@ -11,30 +11,52 @@
 
 <body style="background-color: #F7F7F9">
 <main>
-    <div class="topbar">
+    <header>
         <a style="font-size: 30px">
             <logo><img src="Logo.png" alt="Logo" height="100" width="auto"
                        style="border-style: ridge; padding: 10px"></logo>
             <tag2>Luontopolut</tag2>
         </a>
-    </div>
-    <button id="searchbutton">
-        <tag1>Search Trail</tag1>
-    </button>
-
-    <input id="input" placeholder="Hae Polkuja...">
-
+    </header>
     <div id="map"></div>
 
-    <div class="wrapper">
-        <h2 id="name"></h2>
-        <h3 id="difflevel"></h3>
-        <h3 id="address"></h3>
-        <h3 id="city"></h3>
-        <p id="summary"></p>
-        <a id="navigate" href="#" target="_blank" style="color: #A1C349">Navigate</a>
+    <div class="leftWrapUp">
+        <input id="input" placeholder="Hae Polkuja..."><button id="searchbutton"><tag1>Hae</tag1></button>
     </div>
 
+    <div class="leftWrapDown">
+        <div class="wrapper">
+            <h2 id="name"></h2>
+            <h3 id="difflevel"></h3>
+            <h3 id="address"></h3>
+            <h3 id="city"></h3>
+            <p id="summary"></p>
+            <a id="navigate" href="#" target="_blank" style="color: #A1C349">Navigoi</a>
+        </div>
+    </div>
+    <div class="BottomInfo">
+        <div class="images">
+            <img src="joku.jpg" alt="Norway" style="width: 40%; border-radius: 50%"><p>Irina.K</p>
+            <p>Role: Healer</p>
+            <p>Contact: Irina.Konovalova@metropolia.fi</p>
+        </div>
+        <div class="images">
+            <img src="joku.jpg" alt="Norway" style="width: 40%; border-radius: 50%"><p>Janne.K</p>
+            <p>Role: Tank</p>
+            <p>Contact: Janne.Kinnunen2@metropolia.fi</p>
+        </div>
+        <div class="images">
+            <img src="joku.jpg" alt="Norway" style="width: 40%; border-radius: 50%"><p>Jonne.K</p>
+            <p>Role: Support</p>
+            <p>Contact: Jonne.Kirvesoja@metropolia.fi</p>
+        </div>
+        <div class="images">
+            <img src="joku.jpg" alt="Norway" style="width: 40%; border-radius: 50%"><p>Eric.K</p>
+            <p>Role: Damage dealer</p>
+            <p>Contact: Eric.Keränen@metropolia.fi</p>
+        </div>
+
+    </div>
 
 </main>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
