@@ -90,9 +90,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
  * and set the starting point as your location and the ending point
  * as the location you have selected from the map.
  */
-
-
-// Function for opening google maps to find the route to the destination
 function navigate(currentPos, crd) {
   navBtn.addEventListener('click', navClick);
 
@@ -101,8 +98,9 @@ function navigate(currentPos, crd) {
         `https://www.google.com/maps/dir/?api=1&origin=${currentPos.latitude},${currentPos.longitude}&destination=${crd.latitude},${crd.longitude}&travelmode=driving`);
   }
 }
-/* function for searching trails with keywords or from certain distance
-from the user.
+
+/* Function for searching trails with keywords or from certain distance
+ * from the user.
  */
 function searchClick(evt) {
   console.log('haku nappi painettu');
