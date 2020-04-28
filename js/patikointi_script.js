@@ -1,16 +1,24 @@
 'use strict';
 
 const navBtn = document.getElementById('navigation');
+const searchBtn = document.getElementById("searchbutton");
 const name = document.getElementById('name');
 const address = document.getElementById('address');
 const summary = document.getElementById('summary');
 const rtLength = document.getElementById('rtLength');
+const distInput = document.getElementById("distance");
+searchBtn.addEventListener('click', searchClick);
 
 let currentPos = null;
-var markerGroup;
+
+
+
 
 // Insert the Leaflet map into the map div
 const map = L.map('mapid');
+
+//creating a layerGroup where markers are put
+const layerGroup = L.layerGroup().addTo(map);
 
 // Function for setting the map view
 function showMap(crd) {
@@ -22,7 +30,6 @@ function getPos(pos) {
   currentPos = pos.coords;
   showMap(currentPos);
   addMarker(currentPos, 'Olet tässä.');
-  findTrails();
 }
 
 // Error function in the case that geolocation fails
@@ -36,9 +43,8 @@ function error(err) {
  * the clicked markers information.
  */
 function addMarker(crd, text, data) {
-  markerGroup = L.layerGroup().addTo(map);
   L.marker([crd.latitude, crd.longitude]).
-      addTo(markerGroup).
+      addTo(layerGroup).
       bindPopup(`<b>${text}</b>`).
       on('click', function(popup) {
         console.log(data);
@@ -80,11 +86,20 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
  * and set the starting point as your location and the ending point
  * as the location you have selected from the map
  */
+
+function searchClick(evt) {
+  console.log("haku nappi painettu");
+  layerGroup.clearLayers();
+  addMarker(currentPos,"olet tässä");
+  let dist = distInput.value;
+  findTrails(dist);
+}
+
 function navigate(currentPos, crd) {
   navBtn.addEventListener('click', navClick);
 
   function navClick(evt) {
-    window.open(
+     window.open(
         `https://www.google.com/maps/dir/?api=1&origin=${currentPos.latitude},${currentPos.longitude}&destination=${crd.latitude},${crd.longitude}&travelmode=driving`);
   }
 }
@@ -99,11 +114,10 @@ let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
  * The result will be an id which we will use in the next fetch
  */
 
-function findTrails() {
+function findTrails(dist) {
   for (let i = 1; i < 7; i++) {
-
     fetch(proxyUrl +
-        `http://lipas.cc.jyu.fi/api/sports-places?closeToLon=${currentPos.longitude}&closeToLat=${currentPos.latitude}&page=${i}&closeToDistanceKm=100&typeCodes=4405`).
+        `http://lipas.cc.jyu.fi/api/sports-places?closeToLon=${currentPos.longitude}&closeToLat=${currentPos.latitude}&page=${i}&closeToDistanceKm=${dist}&typeCodes=4405`).
         then(function(response) {
           return response.json();
         }).then(function(data) {
@@ -124,19 +138,12 @@ function findInfo(data) {
       then(function(response) {
         return response.json();
       }).then(function(data) {
-
-    if (check(data.location.coordinates.wgs84.lat) &&
-        check(data.location.coordinates.wgs84.lon)) {
       const coords = {
         latitude: data.location.coordinates.wgs84.lat,
         longitude: data.location.coordinates.wgs84.lon,
       };
       // Adding a marker to the map with the correct location
       addMarker(coords, data.name, data);
-    }
-
-
-
   });
 
 }
