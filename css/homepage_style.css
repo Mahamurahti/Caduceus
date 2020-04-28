@@ -1,3 +1,4 @@
+/*-----------------------------------BODY----------------------------------------  */
 body {
     font-family: 'Montserrat', sans-serif;
     display: flex;
@@ -74,7 +75,7 @@ main{
     position: absolute;
     bottom: 20px;
 }
-/* -----BUTTONS----- */
+/* ----------------------------BUTTONS-------------------------------- */
 a{
     display: block;
     color: white;
@@ -89,7 +90,7 @@ a:hover{
     background-color: white;
     color: #04471C
 }
-/* -----IMAGES----- */
+/* ---------------------------IMAGES---------------------------------- */
 /* Images below info (change width depending on how many images there are) */
 .column {
     float: left;
@@ -100,6 +101,7 @@ a:hover{
     width: 100%;
     margin: 0;
 }
+/* ----------------------------NATURE GALLERY-------------------------- */
 main h1{
     text-align: center;
     width: 100%;
