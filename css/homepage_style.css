@@ -54,11 +54,10 @@ main{
 /* Nature Trail Side */
 /* Changing the padding's third value stretches the info */
 .leftside{
-    background-color: #5ccc7a;
+    background-color: #04471C;
     height: 100%;
     padding: 20px 50px 120px 50px;
 }
-
 .leftside a{
     position: absolute;
     bottom: 20px;
@@ -66,7 +65,7 @@ main{
 /* Hiking Trail Side */
 /* Changing the padding's third value stretches the info */
 .rightside{
-    background-color: #5ccc7a;
+    background-color: #544B3D;
     height: 100%;
     padding: 20px 50px 120px 50px;
 }
@@ -76,7 +75,7 @@ main{
     bottom: 20px;
 }
 /* ----------------------------BUTTONS-------------------------------- */
-a{
+a {
     display: block;
     color: white;
 }
@@ -196,7 +195,15 @@ footer{
         width: 30%;
     }
 }
-/* --------------------------------------------------------------------------- */
+/* -----------------------------------Video section---------------------------------------- */
+.video {
+    margin: 15px;
+    text-align: center;
+    opacity: 0.6;
+}
+.video:hover {
+    opacity: 1;
+}
 
 
 
