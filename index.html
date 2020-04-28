@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Caduceus</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="css/homepage_style.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link href="lightbox2-dev/dist/css/lightbox.css" rel="stylesheet" />
+
 </head>
 <body>
 
@@ -64,62 +66,70 @@
         <h1>Luontokuvagalleria</h1>
         <div class="imageList">
             <ul class="row">
-                <li class="column"><a href="images/placeholder1.jpg">
+                <li class="column"><a href="images/placeholder1.jpg" data-lightbox="image-set" data-title="Kuva 1">
                     <img src="images/placeholder1.jpg">
                 </a></li>
-                <li class="column"><a href="images/placeholder2.JPG">
+                <li class="column"><a href="images/placeholder2.JPG" data-lightbox="image-set" data-title="Kuva 2">
                     <img src="images/placeholder2.JPG">
                 </a></li>
-                <li class="column"><a href="images/placeholder3.JPG">
+                <li class="column"><a href="images/placeholder3.JPG" data-lightbox="image-set" data-title="Kuva 3">
                     <img src="images/placeholder3.JPG">
                 </a></li>
-                <li class="column"><a href="images/placeholder4.JPG">
+                <li class="column"><a href="images/placeholder4.JPG" data-lightbox="image-set" data-title="Kuva 4">
                     <img src="images/placeholder4.JPG">
                 </a></li>
-                <li class="column"><a href="images/placeholder5.JPG">
+                <li class="column"><a href="images/placeholder5.JPG" data-lightbox="image-set" data-title="Kuva 5">
                     <img src="images/placeholder5.JPG">
                 </a></li>
-                <li class="column"><a href="images/placeholder6.jpg">
+                <li class="column"><a href="images/placeholder6.jpg" data-lightbox="image-set" data-title="Kuva 6">
                     <img src="images/placeholder6.jpg">
                 </a></li>
-                <li class="column"><a href="images/placeholder1.jpg">
+                <li class="column"><a href="images/placeholder1.jpg" data-lightbox="image-set" data-title="Kuva 7">
                     <img src="images/placeholder1.jpg">
                 </a></li>
-                <li class="column"><a href="images/placeholder2.JPG">
+                <li class="column"><a href="images/placeholder2.JPG" data-lightbox="image-set" data-title="Kuva 8">
                     <img src="images/placeholder2.JPG">
                 </a></li>
-                <li class="column"><a href="images/placeholder3.JPG">
+                <li class="column"><a href="images/placeholder3.JPG" data-lightbox="image-set" data-title="Kuva 9">
                     <img src="images/placeholder3.JPG">
                 </a></li>
-                <li class="column"><a href="images/placeholder4.JPG">
+                <li class="column"><a href="images/placeholder4.JPG" data-lightbox="image-set" data-title="Kuva 10">
                     <img src="images/placeholder4.JPG">
                 </a></li>
-                <li class="column"><a href="images/placeholder5.JPG">
+                <li class="column"><a href="images/placeholder5.JPG" data-lightbox="image-set" data-title="Kuva 11">
                     <img src="images/placeholder5.JPG">
                 </a></li>
-                <li class="column"><a href="images/placeholder6.jpg">
+                <li class="column"><a href="images/placeholder6.jpg" data-lightbox="image-set" data-title="Kuva 12">
                     <img src="images/placeholder6.jpg">
                 </a></li>
-                <li class="column"><a href="images/placeholder1.jpg">
+                <li class="column"><a href="images/placeholder1.jpg" data-lightbox="image-set" data-title="Kuva 13">
                     <img src="images/placeholder1.jpg">
                 </a></li>
-                <li class="column"><a href="images/placeholder2.JPG">
+                <li class="column"><a href="images/placeholder2.JPG" data-lightbox="image-set" data-title="Kuva 14">
                     <img src="images/placeholder2.JPG">
                 </a></li>
-                <li class="column"><a href="images/placeholder3.JPG">
+                <li class="column"><a href="images/placeholder3.JPG" data-lightbox="image-set" data-title="Kuva 15">
                     <img src="images/placeholder3.JPG">
                 </a></li>
-                <li class="column"><a href="images/placeholder4.JPG">
+                <li class="column"><a href="images/placeholder4.JPG" data-lightbox="image-set" data-title="Kuva 16">
                     <img src="images/placeholder4.JPG">
                 </a></li>
-                <li class="column"><a href="images/placeholder5.JPG">
+                <li class="column"><a href="images/placeholder5.JPG" data-lightbox="image-set" data-title="Kuva 17">
                     <img src="images/placeholder5.JPG">
                 </a></li>
-                <li class="column"><a href="images/placeholder6.jpg">
+                <li class="column"><a href="images/placeholder6.jpg" data-lightbox="image-set" data-title="Kuva 18">
                     <img src="images/placeholder6.jpg">
                 </a></li>
 
             </ul>
+        </div>
+    </div>
+    <div class="videoSection">
+        <h1>Video</h1>
+        <div class="video">
+            <video width="400px" controls>
+                <source src="#" type="video/mp4">
+            </video>
         </div>
     </div>
 </main>
@@ -152,7 +162,7 @@
     </div>
 </footer>
 
-
+<script src="lightbox2-dev/dist/js/lightbox-plus-jquery.js"></script>
 <script src="js/homepage_script.js"></script>
 
 </body>
