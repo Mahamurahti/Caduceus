@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 const filterBtn = document.getElementById("FilterBtn");
 const checkbox  = document.getElementById("filters");
 const rtLengthCB = document.getElementById("routeLength");
@@ -46,9 +46,9 @@ function filterSearch() {
     findTrails(apiUrl);
   }
 }
-
+*/
 /* Function for searching trails with keywords.
- */
+
 function searchClick() {
   console.log('haku nappi painettu');
   layerGroup.clearLayers();
@@ -63,4 +63,4 @@ function searchClick() {
         keyword + '&page=';
   }
   findTrails(apiUrl);
-}
+}*/
