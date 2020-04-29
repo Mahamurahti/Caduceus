@@ -1,6 +1,7 @@
 'use strict';
 
 const navBtn = document.getElementById('navigation');
+const resetBtn = document.getElementById('reset');
 const searchBtn = document.getElementById('searchbutton');
 const name = document.getElementById('name');
 const address = document.getElementById('address');
@@ -9,7 +10,57 @@ const rtLength = document.getElementById('rtLength');
 const distInput = document.getElementById('distance');
 const keywordInput = document.getElementById('keyword');
 
+// --------------------------EVENT LISTENERS-------------------------------//
+
+// Event listener for clicking the search button
 searchBtn.addEventListener('click', searchClick);
+
+/* onclick() event for the button that will trigger upon
+ * pressing enter in the inputfields
+ */
+searchBtn.click(function() {
+  console.log('haku nappi painettu enterin kautta');
+  layerGroup.clearLayers();
+  addMarker(currentPos, 'Olet tässä');
+  let dist = distInput.value;
+  let keyword = keywordInput.value;
+  console.log("keyword on ",typeof keyword, keyword);
+  let apiUrl;
+
+  if (keyword === '') {
+    console.log('keywordissa eikä pituudessa mitään');
+    apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
+        currentPos.longitude + '&closeToLat=' + currentPos.latitude +
+        '&closeToDistanceKm=' + dist + '&pageSize=100&typeCodes=4405&page=';
+  } else if (keyword != '') {
+    console.log('keyword tyyppi on', typeof keyword, 'keyword on ', keyword);
+    apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?&pageSize=100&typeCodes=4405&searchString=' +
+        keyword + '&page=';
+  }
+  findTrails(apiUrl);
+});
+
+distInput.addEventListener('keyup', function(evt){
+  console.log("Enteriä painettu");
+  evt.preventDefault();
+  if (evt.keyCode === 13) {
+    searchBtn.click();
+  }
+});
+keywordInput.addEventListener('keyup', function(evt){
+  console.log("Enteriä painettu");
+  evt.preventDefault();
+  if (evt.keyCode === 13) {
+    searchBtn.click();
+  }
+});
+
+resetBtn.addEventListener('click', function(evt) {
+  layerGroup.clearLayers();
+  navigator.geolocation.getCurrentPosition(getPos, error);
+});
+
+//------------------------------------------------------------------------//
 
 let currentPos = null;
 
@@ -105,10 +156,10 @@ function navigate(currentPos, crd) {
 function searchClick(evt) {
   console.log('haku nappi painettu');
   layerGroup.clearLayers();
-  addMarker(currentPos, 'olet tässä');
+  addMarker(currentPos, 'Olet tässä');
   let dist = distInput.value;
   let keyword = keywordInput.value;
-  console.log("keyword on ",typeof keyword, keyword);
+  console.log("keyword on ", typeof keyword, keyword);
   let apiUrl;
 
   if (keyword === '') {
