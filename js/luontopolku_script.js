@@ -10,6 +10,7 @@ const proxyUrl = `https://cors-anywhere.herokuapp.com/`;
 const searchButton = document.getElementById('searchbutton');
 const input = document.getElementById('input');
 
+//Custom icons: user location blue, nature trail green
 const blueIcon = L.divIcon({className: 'blue-icon',
   iconSize: [30, 30],
   iconAnchor: [1, 30]});
@@ -17,10 +18,6 @@ const greenIcon = L.divIcon({className: 'green-icon',
   iconSize: [30, 30],
   iconAnchor: [1, 30]
 });
-
-//Custom icons: user location blue, nature trail green
-const blueIcon = L.divIcon({className: 'blue-icon'});
-const greenIcon = L.divIcon({className: 'green-icon'});
 
 let myLocation = null;
 const map = L.map('map');
