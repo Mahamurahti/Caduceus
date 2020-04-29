@@ -8,6 +8,7 @@ const summary = document.getElementById('summary');
 const navigate = document.getElementById('navigate');
 const proxyUrl = `https://cors-anywhere.herokuapp.com/`;
 const searchButton = document.getElementById('searchbutton');
+const resetButton = document.getElementById('reset');
 const input = document.getElementById('input');
 
 const blueIcon = L.divIcon({className: 'blue-icon',
@@ -17,10 +18,6 @@ const greenIcon = L.divIcon({className: 'green-icon',
   iconSize: [30, 30],
   iconAnchor: [1, 30]
 });
-
-//Custom icons: user location blue, nature trail green
-const blueIcon = L.divIcon({className: 'blue-icon'});
-const greenIcon = L.divIcon({className: 'green-icon'});
 
 let myLocation = null;
 const map = L.map('map');
@@ -36,6 +33,13 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 searchButton.addEventListener('click', function() {
   searchByKeyword();
 });
+
+resetButton.addEventListener('click', function() {
+  LayerGroup.clearLayers();
+  addMarker(myLocation, 'Olen tässä', blueIcon);
+  searchNature();
+});
+
 
 //Function sets the map view
 function showMap() {
