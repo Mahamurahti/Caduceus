@@ -12,6 +12,7 @@ const keywordInput = document.getElementById('keyword');
 searchBtn.addEventListener('click', searchClick);
 
 let currentPos = null;
+let markerCoord = [];
 
 // Insert the Leaflet map into the map div
 const map = L.map('mapid');
@@ -29,10 +30,10 @@ function getPos(pos) {
   currentPos = pos.coords;
   showMap(currentPos);
   addMarker(currentPos, 'Olet tässä.');
-  let url = "http://lipas.cc.jyu.fi/api/sports-places?closeToLon=" +
+  let apiUrl = "http://lipas.cc.jyu.fi/api/sports-places?closeToLon=" +
       currentPos.longitude + "&closeToLat=" + currentPos.latitude +
       "&closeToDistanceKm=100&pageSize=100&typeCodes=4405&page=";
-  findTrails(url);
+  findTrails(apiUrl);
 }
 
 // Error function in the case that geolocation fails
@@ -50,12 +51,15 @@ function addMarker(crd, text, data) {
       addTo(layerGroup).
       bindPopup(`<b>${text}</b>`).
       on('click', function(popup) {
-        console.log(data);
         name.innerHTML = data.name;
         address.innerHTML = data.location.address;
         summary.innerHTML = '';
         rtLength.innerHTML = '';
-
+        markerCoord = [{
+          lat: data.location.coordinates.wgs84.lat,
+          lon: data.location.coordinates.wgs84.lon
+        }];
+        navigate(currentPos);
         if (check(data.properties.infoFi)) {
           summary.innerHTML = data.properties.infoFi;
         }
@@ -64,7 +68,6 @@ function addMarker(crd, text, data) {
           rtLength.innerHTML = 'Patikointireitin pituus on ' +
               data.properties.routeLengthKm + ' km';
         }
-        navigate(currentPos, crd);
       });
 }
 
@@ -90,14 +93,16 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
  * and set the starting point as your location and the ending point
  * as the location you have selected from the map.
  */
-function navigate(currentPos, crd) {
+function navigate(currentPos) {
   navBtn.addEventListener('click', navClick);
 
   function navClick(evt) {
     window.open(
-        `https://www.google.com/maps/dir/?api=1&origin=${currentPos.latitude},${currentPos.longitude}&destination=${crd.latitude},${crd.longitude}&travelmode=driving`);
+        `https://www.google.com/maps/dir/?api=1&origin=${currentPos.latitude},${currentPos.longitude}&destination=${markerCoord[0].lat},${markerCoord[0].lon}&travelmode=driving`);
   }
 }
+
+
 
 /* Function for searching trails with keywords or from certain distance
  * from the user.
