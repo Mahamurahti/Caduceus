@@ -15,7 +15,6 @@ const rtDistanceInput = document.getElementById("routeDistanceInput");
 const rtLengthInput = document.getElementById("routeLengthInput");
 const searchFiltersBtn = document.getElementById("searchFilters");
 const keywordInput = document.getElementById('keyword');
-const rtByCity = document.getElementById('routeByCity');
 const searchBtn = document.getElementById('searchbutton');
 const info = document.getElementById('info');
 const tutorial = document.getElementById('tutorial');
@@ -154,10 +153,8 @@ function filterClick() {
     filters.style.display = "none";
     rtLengthCB.checked = false;
     rtDistanceCB.checked = false;
-    rtByCity.checked = false;
     rtLengthInput.style.display ="none";
     rtDistanceInput.style.display ="none";
-    rtByCity.style.display = 'none';
   }
 }
 

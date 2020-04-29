@@ -31,13 +31,12 @@ button:hover {
     0 17px 50px 0 rgba(0,0,0,0.19);
 }
 #searchbutton{
-    border-color: #856A5D;
-    margin-top: 7px;
+    margin: 8px 0px 2px 0px;
     background-color: #856A5D;
-    padding: 21px;
+    padding: 22px;
     font-size: 20px;
     text-align: center;
-    border-style: ridge;
+    border-style: none;
     outline: #243010;
 }
 #searchbutton:hover{
@@ -48,6 +47,10 @@ button:hover {
 }
 #reset{
     margin: 0;
+}
+#filterBtn{
+    display: block;
+    width: 36%;
 }
 /* -----------------------INFO------------------------- */
 #info {
@@ -93,7 +96,18 @@ button:hover {
     opacity: 1;
     box-shadow: 0 12px 12px 0 rgba(0,0,0,0.10),
     0 17px 10px 0 rgba(0,0,0,0.10);
-
+}
+#filters .searchBar{
+    width: 37%;
+}
+#filters .searchBar:hover{
+    width: 60%;
+}
+#routeLengthInput{
+    width: 10%
+}
+#routeDistanceInput{
+    width: 10%
 }
 /* ---------------------MAP------------------------ */
 #mapid {
@@ -109,22 +123,24 @@ button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.15),
     0 17px 50px 0 rgba(0,0,0,0.15);
 }
+
 /* ---------------------FILTERS------------------------ */
 #filters{
     color: white;
     display: none;
-    background-color: #856A5D;
+    background-color: #544B3D;
     margin: 10px 0px 10px 0px;
     width: 34%;
     padding: 15px;
+    opacity: 0.5;
+}
+#filters:hover{
+    opacity: 1;
 }
 #routeDistanceInput {
     display: none;
 }
 #routeLengthInput {
-    display: none;
-}
-#keyword{
     display: none;
 }
 /* ---------------------TUTORIAL BOX------------------------ */
@@ -139,4 +155,24 @@ button:hover {
 }
 #tutorial:hover {
     opacity: 1;
+}
+/* ---------------------RESPONSIVITY------------------------ */
+
+@media screen and (max-width: 800px){
+    .searchBar:hover {
+        width: 70%;
+    }
+    #info{
+        width: 96%;
+    }
+    #tutorial{
+        width: 96%;
+    }
+    #filters{
+        width: 96%;
+    }
+    #mapid{
+        width: 100%;
+        float: none;
+    }
 }
