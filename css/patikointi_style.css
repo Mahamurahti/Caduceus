@@ -20,7 +20,7 @@ button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),
     0 17px 50px 0 rgba(0,0,0,0.19);
 }
-.info a:link, a:visited{
+#info a:link, a:visited{
     margin-top: 7px;
     background-color: #856A5D;
     color: #A1C349;
@@ -30,7 +30,7 @@ button:hover {
     border-style: none;
     text-decoration: none;
 }
-.info a:hover{
+#info a:hover{
     background-color: white;
     color: #856A5D;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),
@@ -102,7 +102,8 @@ body {
 logo {
     margin: 10px;
 }
-.info {
+#info {
+    display: none;
     opacity: 0.5;
     padding: 15px;
     margin-top: 5px;
@@ -110,6 +111,18 @@ logo {
     color: #F7F7F9;
     width: 34%;
 }
-.info:hover {
+#info:hover {
+    opacity: 1;
+}
+#tutorial{
+    visibility: visible;
+    opacity: 0.5;
+    padding: 15px;
+    margin-top: 5px;
+    background-color: #544B3D;
+    color: #F7F7F9;
+    width: 34%;
+}
+#tutorial:hover {
     opacity: 1;
 }

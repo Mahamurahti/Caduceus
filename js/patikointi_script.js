@@ -9,6 +9,8 @@ const summary = document.getElementById('summary');
 const rtLength = document.getElementById('rtLength');
 const distInput = document.getElementById('distance');
 const keywordInput = document.getElementById('keyword');
+const info = document.getElementById('info');
+const tutorial = document.getElementById('tutorial');
 
 // --------------------------EVENT LISTENERS-------------------------------//
 
@@ -19,7 +21,7 @@ searchBtn.addEventListener('click', searchClick);
  * pressing enter in the inputfields
  */
 searchBtn.click(function() {
-  console.log('haku nappi painettu enterin kautta');
+  console.log('Haku nappi painettu enterin kautta');
   layerGroup.clearLayers();
   addMarker(currentPos, 'Olet tässä');
   let dist = distInput.value;
@@ -28,36 +30,42 @@ searchBtn.click(function() {
   let apiUrl;
 
   if (keyword === '') {
-    console.log('keywordissa eikä pituudessa mitään');
+    console.log('Keywordissa eikä pituudessa mitään');
     apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
         currentPos.longitude + '&closeToLat=' + currentPos.latitude +
         '&closeToDistanceKm=' + dist + '&pageSize=100&typeCodes=4405&page=';
   } else if (keyword != '') {
-    console.log('keyword tyyppi on', typeof keyword, 'keyword on ', keyword);
+    console.log('Keyword tyyppi on', typeof keyword, 'keyword on ', keyword);
     apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?&pageSize=100&typeCodes=4405&searchString=' +
         keyword + '&page=';
   }
   findTrails(apiUrl);
 });
 
+// Redirecting to onclick()
 distInput.addEventListener('keyup', function(evt){
-  console.log("Enteriä painettu");
-  evt.preventDefault();
-  if (evt.keyCode === 13) {
-    searchBtn.click();
-  }
-});
-keywordInput.addEventListener('keyup', function(evt){
-  console.log("Enteriä painettu");
+  console.log("Enteriä painettu distInputissa");
   evt.preventDefault();
   if (evt.keyCode === 13) {
     searchBtn.click();
   }
 });
 
+// Redirecting to onclick()
+keywordInput.addEventListener('keyup', function(evt){
+  console.log("Enteriä painettu keywordInputissa");
+  evt.preventDefault();
+  if (evt.keyCode === 13) {
+    searchBtn.click();
+  }
+});
+
+// Clearing all data and restarting the search around the current position
 resetBtn.addEventListener('click', function(evt) {
   layerGroup.clearLayers();
-  navigator.geolocation.getCurrentPosition(getPos, error);
+  navigator.geolocation.getCurrentPosition(getPosAndSurroundings, error);
+  info.style.display = 'none';
+  tutorial.style.visibility = 'visible';
 });
 
 //------------------------------------------------------------------------//
@@ -65,7 +73,7 @@ resetBtn.addEventListener('click', function(evt) {
 let currentPos = null;
 let markerCoord = [];
 
-// Insert the Leaflet map into the map div
+// Inserting the Leaflet map into the map div
 const map = L.map('mapid');
 
 // Creating a layerGroup where markers are put
@@ -76,8 +84,10 @@ function showMap(crd) {
   map.setView([crd.latitude, crd.longitude], 14);
 }
 
+//----------------------FINDING THE CURRENT USER POSITION-----------------//
+
 // Function for finding the current position of the user
-function getPos(pos) {
+function getPosAndSurroundings(pos) {
   currentPos = pos.coords;
   showMap(currentPos);
   addMarker(currentPos, 'Olet tässä.');
@@ -92,6 +102,13 @@ function error(err) {
   console.warn(`ERROR(${err.code}): ${err.message}`);
 }
 
+// Finding the users location
+navigator.geolocation.getCurrentPosition(getPosAndSurroundings, error);
+
+//----------------------------------------------------------------------------//
+
+//----------------------------ADDING MARKER TO THE MAP------------------------//
+
 /* Function for adding markers into the map
  * A marker will be added into the map with a popup text
  * and a popup function that when executed will display
@@ -102,6 +119,9 @@ function addMarker(crd, text, data) {
       addTo(layerGroup).
       bindPopup(`<b>${text}</b>`).
       on('click', function(popup) {
+        info.style.display = 'block';
+        tutorial.style.visibility = 'hidden';
+
         name.innerHTML = data.name;
         address.innerHTML = data.location.address;
         summary.innerHTML = '';
@@ -122,7 +142,7 @@ function addMarker(crd, text, data) {
       });
 }
 
-// Function for null/undefined checking
+// Function for null/undefined checking in the addMarker function
 function check(data) {
   if (data != undefined) {
     return true;
@@ -130,9 +150,6 @@ function check(data) {
     return false;
   }
 }
-
-// Finding the users location
-navigator.geolocation.getCurrentPosition(getPos, error);
 
 // The map will use openstreetmap as its base
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -153,7 +170,7 @@ function navigate(currentPos) {
   }
 }
 
-
+//----------------------------------------------------------------------------//
 
 /* Function for searching trails with keywords or from certain distance
  * from the user.
@@ -180,7 +197,7 @@ function searchClick(evt) {
   findTrails(apiUrl);
 }
 
-//-------------------------Fetching data from Lipas-----------------------------//
+//-------------------------FETCHING DATA FROM LIPAS-----------------------------//
 
 // We use a proxyUrl to allow CORS (Cross-origin resource sharing)
 let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
@@ -191,6 +208,7 @@ let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
  */
 function findTrails(url) {
   console.log('url osoite on ', url);
+  // First for-loop to cycle throught the pages (7 pages)
   for (let i = 1; i < 7; i++) {
     fetch(proxyUrl + url + i).
         then(function(response) {
@@ -217,9 +235,8 @@ function findInfo(data) {
       latitude: data.location.coordinates.wgs84.lat,
       longitude: data.location.coordinates.wgs84.lon,
     };
-    // Adding a marker to the map with the correct location
+    // Adding a marker to the map with the correct location of the trail
     addMarker(coords, data.name, data);
   });
 }
-
 //------------------------------------------------------------------------------//
