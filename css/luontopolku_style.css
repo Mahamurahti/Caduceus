@@ -68,7 +68,6 @@ tag2 {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.15),
     0 17px 50px 0 rgba(0,0,0,0.15);
 }
-
 body {
     background-image: url('https://cdn.discordapp.com/attachments/689742770616795161/694806127896166411/IMG_2889-Edit.jpg');
     background-size: 65%;
@@ -79,6 +78,7 @@ logo {
     width: 10%;
 }
 .wrapper {
+    visibility: hidden;
     opacity: 0.5;
     padding: 15px;
     margin-top: 5px;
@@ -96,32 +96,16 @@ logo {
 .leftWrapDown {
     width: 80%;
 }
-.BottomInfo {
-    margin-top: 5px;
+#footer {
+    position: absolute;
+    margin-top: 5vh;
     width: auto;
-    opacity: 0.5;
-    padding: 15px;
     background-color: #04471C;
-    color: #F7F7F9;
-    font-family: 'Montserrat', sans-serif;
-    float: left;
+    padding: 20px;
+    float-wrap: wrap;
 }
-.BottomInfo:hover {
-    opacity: 1;
-}
-images.img {
-    border-radius: 40%;
-    opacity: 0.5;
-    width: 10%;
-    padding: 10px;
-}
-.images{
-    float: left;
-    width: 24%;
-    padding: 5px;
-    text-align: center;
-    border-style: ridge;
-}
+
+
 
 
 

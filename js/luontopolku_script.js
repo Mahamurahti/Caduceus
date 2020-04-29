@@ -109,6 +109,7 @@ function addMarker(crd, teksti, data) {
       addTo(LayerGroup).
       bindPopup(teksti).
       on('click', function() {
+        document.getElementById('info').style.visibility='visible';
         name.innerHTML = data.name;
         address.innerHTML = data.location.address;
         city.innerHTML = data.location.city.name;
