@@ -1,15 +1,14 @@
 'use strict';
 
 const navBtn = document.getElementById('navigation');
-const searchBtn = document.getElementById('searchbutton');
 const name = document.getElementById('name');
 const address = document.getElementById('address');
 const summary = document.getElementById('summary');
 const rtLength = document.getElementById('rtLength');
-const distInput = document.getElementById('distance');
-const keywordInput = document.getElementById('keyword');
 
-searchBtn.addEventListener('click', searchClick);
+
+
+
 
 let currentPos = null;
 let markerCoord = [];
@@ -51,6 +50,7 @@ function addMarker(crd, text, data) {
       addTo(layerGroup).
       bindPopup(`<b>${text}</b>`).
       on('click', function(popup) {
+        console.log(data);
         name.innerHTML = data.name;
         address.innerHTML = data.location.address;
         summary.innerHTML = '';
@@ -102,33 +102,6 @@ function navigate(currentPos) {
   }
 }
 
-
-
-/* Function for searching trails with keywords or from certain distance
- * from the user.
- */
-function searchClick(evt) {
-  console.log('haku nappi painettu');
-  layerGroup.clearLayers();
-  addMarker(currentPos, 'olet tässä');
-  let dist = distInput.value;
-  let keyword = keywordInput.value;
-  console.log("keyword on ",typeof keyword, keyword);
-  let apiUrl;
-
-  if (keyword === '') {
-    console.log('keywordissa eikä pituudessa mitään');
-    apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
-        currentPos.longitude + '&closeToLat=' + currentPos.latitude +
-        '&closeToDistanceKm=' + dist + '&pageSize=100&typeCodes=4405&page=';
-  } else if (keyword != '') {
-    console.log('keyword tyyppi on', typeof keyword, 'keyword on ', keyword);
-    apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?&pageSize=100&typeCodes=4405&searchString=' +
-        keyword + '&page=';
-  }
-  findTrails(apiUrl);
-}
-
 //-------------------------Fetching data from Lipas-----------------------------//
 
 // We use a proxyUrl to allow CORS (Cross-origin resource sharing)
@@ -145,6 +118,7 @@ function findTrails(url) {
         then(function(response) {
           return response.json();
         }).then(function(data) {
+
       for (let i = data.length - 1; i > 0; i--) {
         // Executing the fetching of individual trails
         findInfo(data[i]);

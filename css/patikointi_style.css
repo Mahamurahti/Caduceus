@@ -18,7 +18,7 @@ button:hover {
     0 17px 50px 0 rgba(0,0,0,0.19);
 
 }
-input {
+input.searchBar {
     margin-top: 5px;
     padding: 20px;
     font-size: 20px;
@@ -85,4 +85,17 @@ logo {
 }
 .info:hover {
     opacity: 1;
+}
+
+#filters{
+    color: white;
+    display: none;
+}
+
+#routeDistanceInput {
+    display: none;
+}
+
+#routeLengthInput {
+    display: none;
 }

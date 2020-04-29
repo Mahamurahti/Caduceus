@@ -21,8 +21,7 @@
         </a>
     </header>
     <button id="searchbutton">Hae</button>
-    <input id="keyword" placeholder="Hae Polkuja...">
-    <input id="distance" placeholder="Haku matka (km)...">
+    <input class ="searchBar" id="keyword" placeholder="Hae Polkuja...">
     <div id="mapid"></div>
     <div class="info">
         <h2 id="name"></h2>
@@ -31,12 +30,23 @@
         <p id ="rtLength"></p>
         <a id="navigation" href="#" target="_blank" style="color: #A1C349">Navigate</a>
     </div>
+    <button id="FilterBtn">hakujuttuja</button>
+
+    <article id="filters">
+        <button id="searchFilters">hae</button>
+       reitin pituus: <input type="checkbox" id="routeLength"  onclick="routeFilters()">
+       reitin etäisyys: <input type="checkbox" id="routeDistance"  onclick="routeFilters()">
+
+        <input class="searchBar" id="routeLengthInput" placeholder="polun pituus...">
+        <input class="searchBar" id="routeDistanceInput" placeholder ="polun etäisyys (km)...">
+    </article>
 </main>
 
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
 <script src="js/patikointi_script.js"></script>
+<script src="js/patikointiValinnat.js"></script>
 
 </body>
 </html>
