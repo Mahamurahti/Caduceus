@@ -49,7 +49,7 @@ function filterSearch() {
 
 /* Function for searching trails with keywords.
  */
-searchBtn.click(function() {
+function searchClick() {
   console.log('haku nappi painettu');
   layerGroup.clearLayers();
   addMarker(currentPos, 'olet tässä');
@@ -63,4 +63,4 @@ searchBtn.click(function() {
         keyword + '&page=';
   }
   findTrails(apiUrl);
-});
+}
