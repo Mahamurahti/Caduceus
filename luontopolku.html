@@ -10,30 +10,32 @@
 </head>
 <body style="background-color: #F7F7F9">
 <main>
-    <div class="topbar">
+    <header>
         <a style="font-size: 30px">
             <logo><img src="images/Logo.png" alt="Logo" height="100" width="auto"
                        style="border-style: ridge; padding: 10px"></logo>
             <tag2>Luontopolut</tag2>
         </a>
-    </div>
-    <button id="searchbutton">
-        <tag1>Search Trail</tag1>
-    </button>
-    <input id="input" placeholder="Hae Polkuja...">
+
+    </header>
     <div id="map"></div>
-    <div class="wrapper">
-        <h2 id="name"></h2>
-        <h3 id="difflevel"></h3>
-        <h3 id="address"></h3>
-        <h3 id="city"></h3>
-        <p id="summary"></p>
-        <a id="navigate" href="#" target="_blank" style="color: #A1C349">Navigate</a>
+    <div class="leftWrapUp">
+        <input id="input" placeholder="Hae Kaupunkia..."><button id="searchbutton"><tag1>Hae</tag1></button>
+        <button id="reset">Paikanna</button>
+    </div>
+    <div class="leftWrapDown">
+        <div id="info" class="wrapper">
+            <h2 id="name"></h2>
+            <h3 id="address"></h3>
+            <h3 id="city"></h3>
+            <p id="length"></p>
+            <p id="summary"></p>
+            <a id="navigate" href="#" target="_blank">Navigoi</a>
+        </div>
     </div>
 </main>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
 <script src="js/luontopolku_script.js"></script>
-
 </body>
