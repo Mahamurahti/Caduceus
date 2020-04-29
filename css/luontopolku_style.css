@@ -73,6 +73,13 @@ tag2 {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.15),
     0 17px 50px 0 rgba(0,0,0,0.15);
 }
+/*Map marker styles*/
+.blue-icon {
+    background-color: #66D1E8;
+}
+.green-icon {
+    background-color: #87A330;
+}
 /*Backround image*/
 body {
     background-image: url('https://cdn.discordapp.com/attachments/689742770616795161/694806127896166411/IMG_2889-Edit.jpg');
