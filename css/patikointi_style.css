@@ -1,10 +1,20 @@
+/* -----------------------BODY------------------------- */
 body{
     font-family: 'Montserrat', sans-serif;
+    background-image: url('https://media.discordapp.net/attachments/702787870628380772/702855547061403728/20190908-IMG_9535.jpg?width=876&height=1314');
 }
+/* -----------------------HEADER------------------------- */
 header {
     background-color: #544B3D;
     padding: 20px;
 }
+heading {
+    color: #F7F7F9;
+    font-size: 60px;
+    vertical-align: 40px;
+    margin-left: 20px;
+}
+/* -----------------------BUTTONS------------------------- */
 button {
     margin-top: 7px;
     background-color: #856A5D;
@@ -15,22 +25,6 @@ button {
     border-style: none;
 }
 button:hover {
-    background-color: white;
-    color: #856A5D;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),
-    0 17px 50px 0 rgba(0,0,0,0.19);
-}
-#info a:link, a:visited{
-    margin-top: 7px;
-    background-color: #856A5D;
-    color: #A1C349;
-    padding: 10px;
-    font-size: 20px;
-    text-align: center;
-    border-style: none;
-    text-decoration: none;
-}
-#info a:hover{
     background-color: white;
     color: #856A5D;
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),
@@ -52,56 +46,7 @@ button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),
     0 17px 50px 0 rgba(0,0,0,0.19);
 }
-input.searchBar {
-    margin-top: 5px;
-    padding: 20px;
-    font-size: 20px;
-    width: 133px;
-    -webkit-transition: width 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out;
-}
-
-input:hover {
-    width: 27%;
-    opacity: 1;
-    box-shadow: 0 12px 12px 0 rgba(0,0,0,0.10),
-    0 17px 10px 0 rgba(0,0,0,0.10);
-
-}
-input:hover + #mapid{
-    opacity: 1;
-}
-.container {
-    margin:20px;
-}
-heading {
-    color: #F7F7F9;
-    font-size: 60px;
-    vertical-align: 40px;
-    margin-left: 20px;
-}
-
-#mapid {
-    float: right;
-    width: 50%;
-    height: 780px;
-    margin-top: 8px;
-    margin-bottom: 10px;
-    opacity: 0.9;
-}
-#mapid:hover {
-    opacity: 1;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.15),
-    0 17px 50px 0 rgba(0,0,0,0.15);
-}
-
-body {
-    background-image: url('https://media.discordapp.net/attachments/702787870628380772/702855547061403728/20190908-IMG_9535.jpg?width=876&height=1314');
-}
-
-logo {
-    margin: 10px;
-}
+/* -----------------------INFO------------------------- */
 #info {
     display: none;
     opacity: 0.5;
@@ -114,22 +59,71 @@ logo {
 #info:hover {
     opacity: 1;
 }
+#info a:link, a:visited{
+    margin-top: 7px;
+    background-color: #856A5D;
+    color: #A1C349;
+    padding: 10px;
+    font-size: 20px;
+    text-align: center;
+    border-style: none;
+    text-decoration: none;
+}
+#info a:hover{
+    background-color: white;
+    color: #856A5D;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),
+    0 17px 50px 0 rgba(0,0,0,0.19);
+}
+/* ---------------------INPUTS------------------------ */
+.searchBar {
+    margin-top: 5px;
+    padding: 20px;
+    font-size: 20px;
+    width: 133px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
 
+.searchBar:hover {
+    width: 27%;
+    opacity: 1;
+    box-shadow: 0 12px 12px 0 rgba(0,0,0,0.10),
+    0 17px 10px 0 rgba(0,0,0,0.10);
 
+}
+/* ---------------------MAP------------------------ */
+#mapid {
+    float: right;
+    width: 60%;
+    height: 500px;
+    margin-top: 8px;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+#mapid:hover {
+    opacity: 1;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.15),
+    0 17px 50px 0 rgba(0,0,0,0.15);
+}
+/* ---------------------FILTERS------------------------ */
 #filters{
     color: white;
     display: none;
+    background-color: #856A5D;
+    margin: 10px 0px 10px 0px;
+    width: 34%;
+    padding: 15px;
 }
-
 #routeDistanceInput {
     display: none;
 }
-
 #routeLengthInput {
     display: none;
 }
+/* ---------------------TUTORIAL BOX------------------------ */
 #tutorial{
-    visibility: visible;
+    display: block;
     opacity: 0.5;
     padding: 15px;
     margin-top: 5px;
@@ -139,5 +133,4 @@ logo {
 }
 #tutorial:hover {
     opacity: 1;
-
 }

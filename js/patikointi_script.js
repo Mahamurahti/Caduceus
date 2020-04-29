@@ -1,13 +1,14 @@
 'use strict';
 
+//----------------------------DECLARING ELEMENTS-------------------------------//
+
 const navBtn = document.getElementById('navigation');
 const resetBtn = document.getElementById('reset');
 const name = document.getElementById('name');
 const address = document.getElementById('address');
 const summary = document.getElementById('summary');
 const rtLength = document.getElementById('rtLength');
-const filterBtn = document.getElementById("FilterBtn");
-const checkbox  = document.getElementById("filters");
+const filters  = document.getElementById("filters");
 const rtLengthCB = document.getElementById("routeLength");
 const rtDistanceCB = document.getElementById("routeDistance");
 const rtDistanceInput = document.getElementById("routeDistanceInput");
@@ -18,12 +19,14 @@ const searchBtn = document.getElementById('searchbutton');
 const info = document.getElementById('info');
 const tutorial = document.getElementById('tutorial');
 
+//-----------------------------------------------------------------------------//
 
-// --------------------------EVENT LISTENERS-------------------------------//
+// -----------------------------EVENT LISTENERS--------------------------------//
 
 // Event listener for clicking the search button
 searchBtn.addEventListener('click', searchClick);
-filterBtn.addEventListener('click', filterClick);
+
+// Event listener for clicking the search filters button
 searchFiltersBtn.addEventListener('click', filterSearch);
 
 // Clearing all data and restarting the search around the current position
@@ -31,7 +34,7 @@ resetBtn.addEventListener('click', function(evt) {
   layerGroup.clearLayers();
   navigator.geolocation.getCurrentPosition(getPosAndSurroundings, error);
   info.style.display = 'none';
-  tutorial.style.visibility = 'visible';
+  tutorial.style.display = 'block';
 });
 
 //------------------------------------------------------------------------//
@@ -50,7 +53,7 @@ function showMap(crd) {
   map.setView([crd.latitude, crd.longitude], 14);
 }
 
-//----------------------FINDING THE CURRENT USER POSITION-----------------//
+//----------------------FINDING THE CURRENT USER POSITION-----------------------//
 
 // Function for finding the current position of the user
 function getPosAndSurroundings(pos) {
@@ -87,7 +90,7 @@ function addMarker(crd, text, data) {
       on('click', function(popup) {
         console.log(data);
         info.style.display = 'block';
-        tutorial.style.visibility = 'hidden';
+        tutorial.style.display = 'none';
 
         name.innerHTML = data.name;
         address.innerHTML = data.location.address;
@@ -123,6 +126,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
+//----------------------------------------------------------------------------//
+
 /* Function for navigating to the targeted place
  * This function is binded to a button that will open google maps
  * and set the starting point as your location and the ending point
@@ -131,16 +136,29 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 function navigate(currentPos) {
   navBtn.addEventListener('click', navClick);
 
+  // Opening Google maps to navigate to the target location
   function navClick(evt) {
     window.open(
         `https://www.google.com/maps/dir/?api=1&origin=${currentPos.latitude},${currentPos.longitude}&destination=${markerCoord[0].lat},${markerCoord[0].lon}&travelmode=driving`);
   }
 }
-//-------------------------patikointivalinnat.js-----------------------------//
+
+//-------------------------FILTERING THE SEARCH-----------------------------//
+
+// Displaying the filters after clicking
 function filterClick() {
-  checkbox.style.display = "block";
+  if(filters.style.display == "none"){
+    filters.style.display = "block";
+  }else{
+    filters.style.display = "none";
+    rtLengthCB.checked = false;
+    rtDistanceCB.checked = false;
+    rtLengthInput.style.display ="none";
+    rtDistanceInput.style.display ="none";
+  }
 }
 
+// Checking if the filters are on and displaying options accordingly
 function routeFilters() {
   if (rtLengthCB.checked == true) {
     rtLengthInput.style.display ="block";
@@ -155,7 +173,7 @@ function routeFilters() {
   }
 }
 
-
+// Searching for trails with filters
 function filterSearch() {
   layerGroup.clearLayers();
   if(rtLengthCB.checked == true && rtDistanceCB.checked == false) {
@@ -172,8 +190,9 @@ function filterSearch() {
   }
 }
 
-/* Function for searching trails with keywords.
- */
+//-----------------------------------------------------------------------------//
+
+// Function for searching trails with keywords.
 function searchClick() {
   console.log('haku nappi painettu');
   layerGroup.clearLayers();
