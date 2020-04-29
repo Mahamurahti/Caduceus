@@ -15,6 +15,7 @@ const rtDistanceInput = document.getElementById("routeDistanceInput");
 const rtLengthInput = document.getElementById("routeLengthInput");
 const searchFiltersBtn = document.getElementById("searchFilters");
 const keywordInput = document.getElementById('keyword');
+const rtByCity = document.getElementById('routeByCity');
 const searchBtn = document.getElementById('searchbutton');
 const info = document.getElementById('info');
 const tutorial = document.getElementById('tutorial');
@@ -114,7 +115,7 @@ function addMarker(crd, text, data) {
 
 // Function for null/undefined checking in the addMarker function
 function check(data) {
-  if (data != undefined) {
+  if (data !== undefined) {
     return true;
   } else {
     return false;
@@ -147,26 +148,28 @@ function navigate(currentPos) {
 
 // Displaying the filters after clicking
 function filterClick() {
-  if(filters.style.display == "none"){
+  if(filters.style.display === "none"){
     filters.style.display = "block";
   }else{
     filters.style.display = "none";
     rtLengthCB.checked = false;
     rtDistanceCB.checked = false;
+    rtByCity.checked = false;
     rtLengthInput.style.display ="none";
     rtDistanceInput.style.display ="none";
+    rtByCity.style.display = 'none';
   }
 }
 
 // Checking if the filters are on and displaying options accordingly
 function routeFilters() {
-  if (rtLengthCB.checked == true) {
+  if (rtLengthCB.checked === true) {
     rtLengthInput.style.display ="block";
   } else {
     rtLengthInput.style.display ="none";
   }
 
-  if(rtDistanceCB.checked == true) {
+  if(rtDistanceCB.checked === true) {
     rtDistanceInput.style.display ="block";
   } else {
     rtDistanceInput.style.display ="none";
@@ -176,11 +179,11 @@ function routeFilters() {
 // Searching for trails with filters
 function filterSearch() {
   layerGroup.clearLayers();
-  if(rtLengthCB.checked == true && rtDistanceCB.checked == false) {
+  if(rtLengthCB.checked === true && rtDistanceCB.checked === false) {
     //haetaan pelkästään lenkin pituuden mukaan
-  } else if (rtLengthCB.checked == true && rtDistanceCB.checked == true) {
+  } else if (rtLengthCB.checked === true && rtDistanceCB.checked === true) {
     // haetaan molempien mukaan
-  } else if (rtLengthCB.checked == false && rtDistanceCB.checked == true) {
+  } else if (rtLengthCB.checked === false && rtDistanceCB.checked === true) {
     //haetaan pelkästään etäisyyden mukaan
     const rtDist = rtDistanceInput.value;
     let apiUrl = "http://lipas.cc.jyu.fi/api/sports-places?closeToLon=" +

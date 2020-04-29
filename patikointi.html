@@ -18,8 +18,7 @@
     <heading>Patikointi</heading>
 </header>
 <main>
-    <button id="searchbutton">Hae</button>
-    <input id="keyword" class="searchBar" placeholder="Hae kaupunki...">
+    <!--<button id="searchbutton">Hae</button-->
 
     <div id="mapid"></div>
     <div id="info">
@@ -41,9 +40,11 @@
         <button id="searchFilters">Hae suodattimilla</button>
         <p>Reitin pituuden perusteella: <input type="checkbox" id="routeLength"  onclick="routeFilters()"></p>
         <p>Reitin etäisyyden perusteella: <input type="checkbox" id="routeDistance"  onclick="routeFilters()"></p>
+        <p>Kaupungin perusteella: <input type="checkbox" id="routeByCity" onclick="routeByCity()"></p>
 
         <input class="searchBar" id="routeLengthInput" placeholder="polun pituus...">
         <input class="searchBar" id="routeDistanceInput" placeholder ="polun etäisyys (km)...">
+        <input class="searchBar" id="keyword" placeholder="Hae kaupunki...">
     </div>
 </main>
 

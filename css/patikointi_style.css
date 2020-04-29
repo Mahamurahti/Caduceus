@@ -124,6 +124,9 @@ button:hover {
 #routeLengthInput {
     display: none;
 }
+#keyword{
+    display: none;
+}
 /* ---------------------TUTORIAL BOX------------------------ */
 #tutorial{
     display: block;
