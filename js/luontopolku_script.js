@@ -11,6 +11,7 @@ const searchButton = document.getElementById('searchbutton');
 const resetButton = document.getElementById('reset');
 const input = document.getElementById('input');
 
+//Custom icons: user location blue, nature trail green
 const blueIcon = L.divIcon({className: 'blue-icon',
   iconSize: [30, 30],
   iconAnchor: [1, 30]});
