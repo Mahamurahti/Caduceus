@@ -10,6 +10,9 @@ const proxyUrl = `https://cors-anywhere.herokuapp.com/`;
 const searchButton = document.getElementById('searchbutton');
 const input = document.getElementById('input');
 
+const blueIcon = L.divIcon({className: 'blue-icon'});
+const greenIcon = L.divIcon({className: 'green-icon'});
+
 let myLocation = null;
 const map = L.map('map');
 const LayerGroup = L.layerGroup().addTo(map);
@@ -24,14 +27,18 @@ searchButton.addEventListener('click', function() {
 
 });
 
+function showMap(crd) {
+  map.setView([myLocation.latitude, myLocation.longitude], 13);
+}
+
 function userLocation(pos) {
   myLocation = pos.coords;
-  map.setView([myLocation.latitude, myLocation.longitude], 13);
-  addMarker(myLocation, 'Olen tässä');
+ showMap(myLocation)
+  addMarker(myLocation, 'Olen tässä', blueIcon);
   searchNature();
 }
 
-navigator.geolocation.getCurrentPosition(userLocation, error);
+navigator.geolocation.watchPosition(userLocation, error);
 
 
 function searchNature() {
@@ -55,7 +62,7 @@ function searchNature() {
   }
 }
 
-function findTrail(data) {
+function findTrail(data, crd) {
   fetch(proxyUrl +
       `http://lipas.cc.jyu.fi/api/sports-places/${data.sportsPlaceId}`).
       then(function(response) {
@@ -73,7 +80,7 @@ function findTrail(data) {
               <p>${data.location.city.name}</p>
 
             `;
-    addMarker(coords, teksti, data);
+    addMarker(coords, teksti, greenIcon, data);
   });
 }
 
@@ -104,8 +111,8 @@ function error(err) {
   console.warn(`ERROR(${err.code}): ${err.message}`);
 }
 
-function addMarker(crd, teksti, data) {
-  L.marker([crd.latitude, crd.longitude]).
+function addMarker(crd, teksti, icon, data) {
+  L.marker([crd.latitude, crd.longitude], {icon: icon}).
       addTo(LayerGroup).
       bindPopup(teksti).
       on('click', function() {
@@ -117,6 +124,7 @@ function addMarker(crd, teksti, data) {
         navigate.href = `https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=${myLocation.latitude}, ${myLocation.longitude}&destination=${crd.latitude}, ${crd.longitude}`;
       });
 }
+
 
 
 
