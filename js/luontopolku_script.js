@@ -33,6 +33,7 @@ function userLocation(pos) {
 
 navigator.geolocation.getCurrentPosition(userLocation, error);
 
+
 function searchNature() {
 
   for (let i = 1; i < 7; i++) {
