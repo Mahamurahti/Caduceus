@@ -44,8 +44,8 @@ input:hover {
     0 17px 10px 0 rgba(0,0,0,0.10);
 
 }
- input:hover + #map{
-    opacity: 1;
+searchbutton:hover input {
+    width: 40%;
 }
 .container {
     margin:20px;
@@ -79,6 +79,8 @@ body {
     background-size: 65%;
     background-repeat: repeat;
     font-family: 'Montserrat', sans-serif;
+    height: 100%;
+    min-height: 100%;
 }
 /*Left info  table style*/
 .wrapper {
@@ -110,9 +112,10 @@ body {
     text-decoration: none;
 }
 #navigate:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.15),
-    0 17px 50px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.15),
+    0 17px 50px 0 rgba(0, 0, 0, 0.15);
 }
+
 
 
 
