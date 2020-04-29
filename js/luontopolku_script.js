@@ -10,8 +10,14 @@ const proxyUrl = `https://cors-anywhere.herokuapp.com/`;
 const searchButton = document.getElementById('searchbutton');
 const input = document.getElementById('input');
 
-const blueIcon = L.divIcon({className: 'blue-icon'});
-const greenIcon = L.divIcon({className: 'green-icon'});
+const blueIcon = L.divIcon({className: 'blue-icon',
+  iconSize: [30, 30],
+  iconAnchor: [1, 30]});
+const greenIcon = L.divIcon({className: 'green-icon',
+  iconSize: [30, 30],
+  iconAnchor: [1, 30]
+});
+
 
 let myLocation = null;
 const map = L.map('map');

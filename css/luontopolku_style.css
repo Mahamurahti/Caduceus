@@ -75,10 +75,56 @@ tag2 {
 }
 /*Map marker styles*/
 .blue-icon {
-    background-color: #66D1E8;
+    width: 30px;
+    height: 30px;
+    border-radius: 50% 50% 50% 0;
+    background: #66D1E8;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: 50%;
+    top: 50%;
+    margin: -15px 0 0 -15px;
+}
+.blue-icon::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    margin: 3px 0 0 3px;
+    background: #fff;
+    position: absolute;
+    border-radius: 50%;
+}
+.blue-icon:hover {
+    background: #2BBFDF;
 }
 .green-icon {
-    background-color: #87A330;
+    width: 30px;
+    height: 30px;
+    border-radius: 50% 50% 50% 0;
+    background: #87A330;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: 50%;
+    top: 50%;
+    margin: -15px 0 0 -15px;
+}
+.green-icon:after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    margin: 3px 0 0 3px;
+    background: #fff;
+    position: absolute;
+    border-radius: 50%;
+}
+.green-icon:after:after {
+    content: url("https://cdn.discordapp.com/attachments/695621317772443771/704981255686455407/nature_marker.png");
+    width: 240px;
+    height: 240px;
+    position: absolute;
+}
+.green-icon:hover {
+    background: #179C18;
 }
 /*Backround image*/
 body {
@@ -108,8 +154,26 @@ body {
 .leftWrapDown {
     width: 80%;
 }
+.leftWrapDown button {
+    background-color: #87A330;
+    color: #F7F7F9;
+    padding: 7.4px;
+    border-style: ridge;
+    border-color: #04471C;
+    border-width: 2.5px;
+    min-width: 100px;
+    //width: 30%;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: 'Montserrat', sans-serif;
+}
+.leftWrapDowna button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.15),
+    0 17px 50px 0 rgba(0, 0, 0, 0.15);
+}
 /*Navigoi napin style*/
 #navigate {
+    text-align: center;
     background-color: #87A330;
     color: #F7F7F9;
     padding: 7px;
