@@ -185,8 +185,7 @@ footer{
 }
 .contact img {
     width: 50%;
-    border-radius: 50%;
-    border-top-right-radius: 0%;
+    border-radius: 50% 0% 50% 0%;
     opacity: 0.7;
 }
 .contact img:hover{

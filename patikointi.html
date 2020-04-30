@@ -26,15 +26,18 @@
         <h3 id="address"></h3>
         <p id="summary"></p>
         <p id ="rtLength"></p>
-        <a id="navigation" href="#" target="_blank">Navigoi</a>
-        <button id="reset">Paikanna</button>
+        <button id="navigation">Navigoi</button>
     </div>
     <div id="tutorial">
         <h2>Etsi luontopolkuja</h2>
         <p>Paina kartassa näkyvistä merkeistä nähdäksesi lisätietoja reitistä.
             Voit nähdä lisää reittejä zoomaamalla ulos.</p>
     </div>
-    <button id="filterBtn" onclick="filterClick()">Suodata</button>
+
+    <div id="twoButtons">
+        <button id="filterBtn" onclick="filterClick()">Suodata</button>
+        <button id="reset">Paikanna</button>
+    </div>
 
     <div id="filters">
         <button id="searchFilters">Hae suodattimilla</button>
@@ -49,6 +52,7 @@
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
+<script src="https://unpkg.com/leaflet-ant-path" type="text/javascript"></script>
 <script src="js/patikointi_script.js"></script>
 
 </body>

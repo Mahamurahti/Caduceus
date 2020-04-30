@@ -109,6 +109,8 @@ function addMarker(crd, text, data) {
           rtLength.innerHTML = 'Patikointireitin pituus on ' +
               data.properties.routeLengthKm + ' km';
         }
+
+
       });
 }
 
@@ -138,8 +140,18 @@ function navigate(currentPos) {
 
   // Opening Google maps to navigate to the target location
   function navClick(evt) {
+    console.log("NavCLick clicked");
+    let latlngs = [
+      [currentPos.latitude,currentPos.longitude],
+      [markerCoord[0].lat,markerCoord[0].lon]
+    ];
+    let path = L.polyline.antPath(latlngs,{"delay":400,"dashArray":[10,20],"weight":5,"color":"black","paused":true,"reverse":false}
+    ).addTo(layerGroup);
+    map.fitBounds(path.getBounds());
+    /*
     window.open(
         `https://www.google.com/maps/dir/?api=1&origin=${currentPos.latitude},${currentPos.longitude}&destination=${markerCoord[0].lat},${markerCoord[0].lon}&travelmode=driving`);
+    */
   }
 }
 
@@ -226,7 +238,7 @@ function filterSearch() {
 function searchClick() {
   console.log('haku nappi painettu');
   layerGroup.clearLayers();
-  addMarker(currentPos, 'olet tässä');
+  addMarker(currentPos, 'Olet tässä');
   let keyword = keywordInput.value;
   console.log('keyword on ', typeof keyword, keyword);
   let apiUrl;
