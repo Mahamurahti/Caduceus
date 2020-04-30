@@ -23,7 +23,7 @@ button:hover {
     0 17px 50px 0 rgba(0,0,0,0.19);
 }
 .leftWrapUp:hover > input{
-    width: 40%;
+    //width: 59%;
 }
 /*Searchfield style*/
 input {
@@ -31,21 +31,18 @@ input {
     margin-top: 5px;
     padding: 20px;
     font-size: 20px;
-    width: 30%;
+    width: 50%;
     outline: #243010;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
 }
 
 input:hover {
-    width: 40%;
+    width: 59%;
     opacity: 1;
     box-shadow: 0 12px 12px 0 rgba(0,0,0,0.10),
     0 17px 10px 0 rgba(0,0,0,0.10);
 
-}
-searchbutton:hover input {
-    width: 40%;
 }
 .container {
     margin:20px;
@@ -80,7 +77,7 @@ tag2 {
     border-radius: 50% 50% 50% 0;
     background: #66D1E8;
     position: absolute;
-    transform: rotate(-45deg);
+    //transform: rotate(-45deg);
     left: 50%;
     top: 50%;
     margin: -15px 0 0 -15px;
@@ -90,9 +87,9 @@ tag2 {
     width: 24px;
     height: 24px;
     margin: 3px 0 0 3px;
-    background: #fff;
+    background: #9ee2e8;
     position: absolute;
-    border-radius: 50%;
+    border-radius: 50% 50% 50% 20%;
 }
 .blue-icon:hover {
     background: #2BBFDF;
@@ -108,19 +105,9 @@ tag2 {
     top: 50%;
     margin: -15px 0 0 -15px;
 }
-.green-icon:after {
-    content: '';
-    width: 24px;
-    height: 24px;
+.green-icon::after {
+    content: url("../images/tree.png");
     margin: 3px 0 0 3px;
-    background: #fff;
-    position: absolute;
-    border-radius: 50%;
-}
-.green-icon:after:after {
-    content: url("https://cdn.discordapp.com/attachments/695621317772443771/704981255686455407/nature_marker.png");
-    width: 240px;
-    height: 240px;
     position: absolute;
 }
 .green-icon:hover {
@@ -128,7 +115,7 @@ tag2 {
 }
 /*Backround image*/
 body {
-    background-image: url('https://cdn.discordapp.com/attachments/689742770616795161/694806127896166411/IMG_2889-Edit.jpg');
+    background-image: url('../images/metsäPolku.jpg');
     background-size: 65%;
     background-repeat: repeat;
     font-family: 'Montserrat', sans-serif;
@@ -136,6 +123,10 @@ body {
     min-height: 100%;
 }
 /*Left info  table style*/
+.wrapContainer {
+    width: 40%;
+    display: block;
+}
 .wrapper {
     visibility: hidden;
     opacity: 0.5;
@@ -143,32 +134,29 @@ body {
     margin-top: 5px;
     background-color: #04471C;
     color: #F7F7F9;
-    //width: 31.5%;
-    width: 50%;
+    width: auto;
 }
 .wrapper:hover {
     opacity: 1;
 }
 .leftWrapUp {
-    width: 80%;
+    width: 100%;
 }
 .leftWrapDown {
-    width: 73%;
+    width: auto;
 }
+/*Paikanna napin tyyli*/
 #reset {
     background-color: #87A330;
     color: #F7F7F9;
-    //padding: 7.4px;
-    //border-style: ridge;
-    //border-color: #04471C;
-    //border-width: 2.5px;
+    padding: 15px;
     min-width: 100px;
-    width: 50%;
+    width: 100%;
     height: 8%;
     text-decoration: none;
     font-size: 20px;
-
     font-family: 'Montserrat', sans-serif;
+    display: block;
 }
  #reset:hover {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.15),

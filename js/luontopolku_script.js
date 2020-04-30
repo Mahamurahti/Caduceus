@@ -14,10 +14,10 @@ const input = document.getElementById('input');
 //Custom icons: user location blue, nature trail green
 const blueIcon = L.divIcon({className: 'blue-icon',
   iconSize: [30, 30],
-  iconAnchor: [1, 30]});
+  iconAnchor: [15, 1]});
 const greenIcon = L.divIcon({className: 'green-icon',
   iconSize: [30, 30],
-  iconAnchor: [1, 30]
+  iconAnchor: [15, 1]
 });
 
 let myLocation = null;
@@ -123,11 +123,12 @@ function findTrail(data) {
       latitude: data.location.coordinates.wgs84.lat,
       longitude: data.location.coordinates.wgs84.lon,
     };
-    const teksti = `
-              <p style="font-weight: bold">${data.name} </p>
-              <p>${data.location.address} <br> ${data.location.city.name}</p>
+    const text = `
+              <p style="font-weight: bold; font-family: 'Montserrat', sans-serif">${data.name} </p>
+              <p style="font-family: 'Montserrat', sans-serif">${data.location.address} 
+              <br> ${data.location.city.name}</p>
             `;
-    addMarker(coords, teksti, greenIcon, data);
+    addMarker(coords, text, greenIcon, data);
   });
 }
 
