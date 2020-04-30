@@ -37,7 +37,7 @@ resetBtn.addEventListener('click', function(evt) {
   tutorial.style.display = 'block';
 });
 
-//------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------//
 
 let currentPos = null;
 let markerCoord = [];
@@ -49,10 +49,10 @@ const layerGroup = L.layerGroup().addTo(map);
 
 // Function for setting the map view
 function showMap(crd) {
-  map.setView([crd.latitude, crd.longitude], 14);
+  map.setView([crd.latitude, crd.longitude], 8);
 }
 
-//----------------------FINDING THE CURRENT USER POSITION-----------------------//
+//----------------------FINDING THE CURRENT USER POSITION----------------------//
 
 // Function for finding the current position of the user
 function getPosAndSurroundings(pos) {
@@ -73,9 +73,9 @@ function error(err) {
 // Finding the users location
 navigator.geolocation.getCurrentPosition(getPosAndSurroundings, error);
 
-//----------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------//
 
-//----------------------------ADDING MARKER TO THE MAP------------------------//
+//----------------------------ADDING MARKER TO THE MAP-------------------------//
 
 /* Function for adding markers into the map
  * A marker will be added into the map with a popup text
@@ -126,7 +126,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
-//----------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------//
 
 /* Function for navigating to the targeted place
  * This function is binded to a button that will open google maps
@@ -143,7 +143,7 @@ function navigate(currentPos) {
   }
 }
 
-//-------------------------FILTERING THE SEARCH-----------------------------//
+//--------------------------FILTERING THE SEARCH-------------------------------//
 
 // Displaying the search filters after clicking
 function filterClick() {
@@ -239,7 +239,7 @@ function searchClick() {
   findTrails(apiUrl);
 }
 
-//-------------------------FETCHING DATA FROM LIPAS-----------------------------//
+//-------------------------FETCHING DATA FROM LIPAS----------------------------//
 
 // We use a proxyUrl to allow CORS (Cross-origin resource sharing)
 let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
@@ -293,5 +293,4 @@ function findInfo(data) {
     }
   });
 }
-
-//------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------//

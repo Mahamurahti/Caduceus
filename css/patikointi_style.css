@@ -8,11 +8,15 @@ header {
     background-color: #544B3D;
     padding: 20px;
 }
-heading {
+header img{
+    position: absolute;
+    border-style: ridge;
+    padding: 10px;
+}
+header h1 {
     color: #F7F7F9;
     font-size: 60px;
-    vertical-align: 40px;
-    margin-left: 20px;
+    margin: 25px 0px 25px 100px;
 }
 /* -----------------------BUTTONS------------------------- */
 button {

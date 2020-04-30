@@ -164,6 +164,8 @@ li a:link, li a:visited{
 }
 video{
     min-width: 400px;
+    width: 50%;
+    height: auto;
 }
 /* -----------------------------------FOOTER---------------------------------------- */
 footer{
