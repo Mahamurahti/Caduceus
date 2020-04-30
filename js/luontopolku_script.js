@@ -31,8 +31,11 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
+
+
 searchButton.addEventListener('click', function() {
   searchByKeyword();
+
 });
 
 resetButton.addEventListener('click', function() {
@@ -44,7 +47,7 @@ resetButton.addEventListener('click', function() {
 
 //Function sets the map view
 function showMap() {
-  map.setView([myLocation.latitude, myLocation.longitude], 13);
+  map.setView([myLocation.latitude, myLocation.longitude], 7);
 }
 
 //Function locates the user
@@ -56,10 +59,10 @@ function userLocation(pos) {
 }
 
 //Function adds marker on the map
-function addMarker(crd, teksti, icon, data) {
+function addMarker(crd, text, icon, data) {
   L.marker([crd.latitude, crd.longitude], {icon: icon}).
       addTo(LayerGroup).
-      bindPopup(teksti).
+      bindPopup(text).
       on('click', function() {
         document.getElementById('info').style.visibility = 'visible';
         name.innerHTML = data.name;
@@ -132,7 +135,7 @@ function findTrail(data) {
 function searchByKeyword() {
 
   LayerGroup.clearLayers();
-  addMarker(myLocation, 'Olet tässä', blueIcon);
+  addMarker(myLocation, 'Olen tässä', blueIcon);
   for (let i = 1; i < 7; i++) {
     fetch(proxyUrl +
         `http://lipas.cc.jyu.fi/api/sports-places?searchString=${input.value}&typeCodes=4404&pageSize=100&page=${i}`).
@@ -152,6 +155,8 @@ function searchByKeyword() {
   }
 
 }
+
+
 
 
 
