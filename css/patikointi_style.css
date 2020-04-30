@@ -176,3 +176,7 @@ button:hover {
         float: none;
     }
 }
+
+.loading {
+    cursor: wait;
+}

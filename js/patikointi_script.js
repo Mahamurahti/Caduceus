@@ -8,12 +8,12 @@ const name = document.getElementById('name');
 const address = document.getElementById('address');
 const summary = document.getElementById('summary');
 const rtLength = document.getElementById('rtLength');
-const filters  = document.getElementById("filters");
-const rtLengthCB = document.getElementById("routeLength");
-const rtDistanceCB = document.getElementById("routeDistance");
-const rtDistanceInput = document.getElementById("routeDistanceInput");
-const rtLengthInput = document.getElementById("routeLengthInput");
-const searchFiltersBtn = document.getElementById("searchFilters");
+const filters = document.getElementById('filters');
+const rtLengthCB = document.getElementById('routeLength');
+const rtDistanceCB = document.getElementById('routeDistance');
+const rtDistanceInput = document.getElementById('routeDistanceInput');
+const rtLengthInput = document.getElementById('routeLengthInput');
+const searchFiltersBtn = document.getElementById('searchFilters');
 const keywordInput = document.getElementById('keyword');
 const searchBtn = document.getElementById('searchbutton');
 const info = document.getElementById('info');
@@ -41,7 +41,6 @@ resetBtn.addEventListener('click', function(evt) {
 
 let currentPos = null;
 let markerCoord = [];
-
 // Inserting the Leaflet map into the map div
 const map = L.map('mapid');
 
@@ -60,9 +59,9 @@ function getPosAndSurroundings(pos) {
   currentPos = pos.coords;
   showMap(currentPos);
   addMarker(currentPos, 'Olet tässä.');
-  let apiUrl = "http://lipas.cc.jyu.fi/api/sports-places?closeToLon=" +
-      currentPos.longitude + "&closeToLat=" + currentPos.latitude +
-      "&closeToDistanceKm=100&pageSize=100&typeCodes=4405&page=";
+  let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
+      currentPos.longitude + '&closeToLat=' + currentPos.latitude +
+      '&closeToDistanceKm=100&pageSize=100&typeCodes=4405&page=';
   findTrails(apiUrl);
 }
 
@@ -96,10 +95,11 @@ function addMarker(crd, text, data) {
         address.innerHTML = data.location.address;
         summary.innerHTML = '';
         rtLength.innerHTML = '';
-        markerCoord = [{
-          lat: data.location.coordinates.wgs84.lat,
-          lon: data.location.coordinates.wgs84.lon
-        }];
+        markerCoord = [
+          {
+            lat: data.location.coordinates.wgs84.lat,
+            lon: data.location.coordinates.wgs84.lon,
+          }];
         navigate(currentPos);
         if (check(data.properties.infoFi)) {
           summary.innerHTML = data.properties.infoFi;
@@ -145,48 +145,78 @@ function navigate(currentPos) {
 
 //-------------------------FILTERING THE SEARCH-----------------------------//
 
-// Displaying the filters after clicking
+// Displaying the search filters after clicking
 function filterClick() {
-  if(filters.style.display === "none"){
-    filters.style.display = "block";
-  }else{
-    filters.style.display = "none";
+  if (filters.style.display === 'none') {
+    filters.style.display = 'block';
+  } else {
+    filters.style.display = 'none';
     rtLengthCB.checked = false;
     rtDistanceCB.checked = false;
-    rtLengthInput.style.display ="none";
-    rtDistanceInput.style.display ="none";
+    rtLengthInput.style.display = 'none';
+    rtDistanceInput.style.display = 'none';
   }
 }
 
-// Checking if the filters are on and displaying options accordingly
+// Checking if the search filter checkboxes are on and displaying options accordingly
 function routeFilters() {
   if (rtLengthCB.checked === true) {
-    rtLengthInput.style.display ="block";
+    rtLengthInput.style.display = 'block';
   } else {
-    rtLengthInput.style.display ="none";
+    rtLengthInput.style.display = 'none';
   }
 
-  if(rtDistanceCB.checked === true) {
-    rtDistanceInput.style.display ="block";
+  if (rtDistanceCB.checked === true) {
+    rtDistanceInput.style.display = 'block';
   } else {
-    rtDistanceInput.style.display ="none";
+    rtDistanceInput.style.display = 'none';
   }
 }
 
 // Searching for trails with filters
 function filterSearch() {
+
   layerGroup.clearLayers();
-  if(rtLengthCB.checked === true && rtDistanceCB.checked === false) {
-    //haetaan pelkästään lenkin pituuden mukaan
-  } else if (rtLengthCB.checked === true && rtDistanceCB.checked === true) {
-    // haetaan molempien mukaan
-  } else if (rtLengthCB.checked === false && rtDistanceCB.checked === true) {
-    //haetaan pelkästään etäisyyden mukaan
-    const rtDist = rtDistanceInput.value;
-    let apiUrl = "http://lipas.cc.jyu.fi/api/sports-places?closeToLon=" +
-        currentPos.longitude + "&closeToLat=" + currentPos.latitude +
-        "&closeToDistanceKm="+ rtDist + "&pageSize=100&typeCodes=4405&page=";
-    findTrails(apiUrl);
+
+//searching only with Route length filter
+  if (rtLengthCB.checked === true && rtDistanceCB.checked === false) {
+    if (Number.isInteger(+rtLengthInput.value)) {
+      console.log('on numero');
+      let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?pageSize=100&typeCodes=4405&page=';
+      findTrails(apiUrl);
+    } else {
+      alert('Anna reitin pituus ja etäisyys numeroina!');
+      console.log("pelkkä pituus");
+    }
+  }
+
+//searching with both filters
+  else if (rtLengthCB.checked === true && rtDistanceCB.checked === true) {
+    if (Number.isInteger(+rtDistanceInput.value) &&
+        Number.isInteger(+rtLengthInput.value)) {
+      let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
+          currentPos.longitude + '&closeToLat=' + currentPos.latitude +
+          '&closeToDistanceKm=' + rtDistanceInput.value +
+          '&pageSize=100&typeCodes=4405&page=';
+      findTrails(apiUrl);
+    } else {
+      alert('Anna reitin pituus ja etäisyys numeroina!');
+      console.log("molemmat");
+    }
+  }
+
+//searching with only route distance filter
+  else if (rtLengthCB.checked === false && rtDistanceCB.checked === true) {
+    if (Number.isInteger(+rtDistanceInput.value)) {
+      let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
+          currentPos.longitude + '&closeToLat=' + currentPos.latitude +
+          '&closeToDistanceKm=' + rtDistanceInput.value +
+          '&pageSize=100&typeCodes=4405&page=';
+      findTrails(apiUrl);
+    } else {
+      alert('Anna reitin pituus ja etäisyys numeroina!');
+      console.log("pelkkä etäisyys");
+    }
   }
 }
 
@@ -198,11 +228,11 @@ function searchClick() {
   layerGroup.clearLayers();
   addMarker(currentPos, 'olet tässä');
   let keyword = keywordInput.value;
-  console.log("keyword on ", typeof keyword, keyword);
+  console.log('keyword on ', typeof keyword, keyword);
   let apiUrl;
-
   if (keyword != '') {
-    console.log('keyword tyyppi on', typeof keyword, 'keyword on ', keyword);
+    console.log('keyword tyyppi on', typeof keyword, 'keyword on ',
+        keyword);
     apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?&pageSize=100&typeCodes=4405&searchString=' +
         keyword + '&page=';
   }
@@ -226,12 +256,12 @@ function findTrails(url) {
         then(function(response) {
           return response.json();
         }).then(function(data) {
-
       for (let i = data.length - 1; i > 0; i--) {
         // Executing the fetching of individual trails
         findInfo(data[i]);
       }
-      document.querySelector('pre').innerHTML = JSON.stringify(data, null, 2);
+      document.querySelector('pre').innerHTML = JSON.stringify(data, null,
+          2);
     }).catch(function(error) {
       console.log('Error: ' + error);
     });
@@ -244,12 +274,24 @@ function findInfo(data) {
       then(function(response) {
         return response.json();
       }).then(function(data) {
-    const coords = {
-      latitude: data.location.coordinates.wgs84.lat,
-      longitude: data.location.coordinates.wgs84.lon,
-    };
-    // Adding a marker to the map with the correct location of the trail
-    addMarker(coords, data.name, data);
+    if (rtLengthCB.checked && rtLengthInput.value <
+        data.properties.routeLengthKm) {
+      console.log('tarpeeksi pitkä reitti, reitin pituus ',
+          data.properties.routeLengthKm);
+      const coords = {
+        latitude: data.location.coordinates.wgs84.lat,
+        longitude: data.location.coordinates.wgs84.lon,
+      };
+      addMarker(coords, data.name, data);
+    } else if (!rtLengthCB.checked) {
+      const coords = {
+        latitude: data.location.coordinates.wgs84.lat,
+        longitude: data.location.coordinates.wgs84.lon,
+      };
+      // Adding a marker to the map with the correct location of the trail
+      addMarker(coords, data.name, data);
+    }
   });
 }
+
 //------------------------------------------------------------------------------//
