@@ -76,6 +76,16 @@ button:hover {
 #info:hover {
     opacity: 1;
 }
+#info a{
+    margin-top: 7px;
+    background-color: #856A5D;
+    color: #A1C349;
+    padding: 10px;
+    font-size: 20px;
+    text-align: center;
+    border-style: none;
+    text-decoration: none;
+}
 #info a:link, a:visited{
     margin-top: 7px;
     background-color: #856A5D;

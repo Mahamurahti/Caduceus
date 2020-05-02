@@ -1,5 +1,4 @@
 'use strict';
-
 //----------------------------DECLARING ELEMENTS-------------------------------//
 
 const navBtn = document.getElementById('navigation');
@@ -22,7 +21,6 @@ const tutorial = document.getElementById('tutorial');
 //-----------------------------------------------------------------------------//
 
 // -----------------------------EVENT LISTENERS--------------------------------//
-
 // Event listener for clicking the search button
 searchBtn.addEventListener('click', searchClick);
 
@@ -32,11 +30,11 @@ searchFiltersBtn.addEventListener('click', filterSearch);
 // Clearing all data and restarting the search around the current position
 resetBtn.addEventListener('click', function(evt) {
   layerGroup.clearLayers();
+  layerGroupPath.clearLayers();
   navigator.geolocation.getCurrentPosition(getPosAndSurroundings, error);
   info.style.display = 'none';
   tutorial.style.display = 'block';
 });
-
 //-----------------------------------------------------------------------------//
 
 let currentPos = null;
@@ -47,13 +45,15 @@ const map = L.map('mapid');
 // Creating a layerGroup where markers are put
 const layerGroup = L.layerGroup().addTo(map);
 
+// Creating a layerGroup where paths are put
+const layerGroupPath = L.layerGroup().addTo(map);
+
 // Function for setting the map view
 function showMap(crd) {
   map.setView([crd.latitude, crd.longitude], 8);
 }
 
 //----------------------FINDING THE CURRENT USER POSITION----------------------//
-
 // Function for finding the current position of the user
 function getPosAndSurroundings(pos) {
   currentPos = pos.coords;
@@ -72,11 +72,9 @@ function error(err) {
 
 // Finding the users location
 navigator.geolocation.getCurrentPosition(getPosAndSurroundings, error);
-
 //-----------------------------------------------------------------------------//
 
 //----------------------------ADDING MARKER TO THE MAP-------------------------//
-
 /* Function for adding markers into the map
  * A marker will be added into the map with a popup text
  * and a popup function that when executed will display
@@ -91,6 +89,7 @@ function addMarker(crd, text, data) {
         info.style.display = 'block';
         tutorial.style.display = 'none';
 
+        // Displaying info about the route
         name.innerHTML = data.name;
         address.innerHTML = data.location.address;
         summary.innerHTML = '';
@@ -100,6 +99,10 @@ function addMarker(crd, text, data) {
             lat: data.location.coordinates.wgs84.lat,
             lon: data.location.coordinates.wgs84.lon,
           }];
+        /* Adding an event listener to each individual markers navigate button,
+         * so that the user can see the route which has to be taken to the
+         * destination. Opens Google Maps.
+         */
         navigate(currentPos);
         if (check(data.properties.infoFi)) {
           summary.innerHTML = data.properties.infoFi;
@@ -110,6 +113,12 @@ function addMarker(crd, text, data) {
               data.properties.routeLengthKm + ' km';
         }
 
+        /* Adding a visible path on the map.
+         * The route can be very buggy, but it is a fault in the API, not the code
+         * since majority of the routes display normal paths and only a minority
+         * display a zig zaggy path which make no sense.
+         */
+        addPath(data);
 
       });
 }
@@ -130,6 +139,57 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 //-----------------------------------------------------------------------------//
 
+//---------------------------------DRAW PATH-----------------------------------//
+// Function for adding a path to the marker
+function addPath(data) {
+  layerGroupPath.clearLayers();
+
+  let latlngs = [];
+
+  // Fetching the path coordinates from the data
+  for(let i = 0; i < 500; i++){
+    for(let j = 0; j < 500; j++){
+      if(data.location.geometries.features[j] !== undefined){
+        if(data.location.geometries.features[j].geometry.coordinates[i] !== undefined){
+          latlngs[i] = data.location.geometries.features[j].geometry.coordinates[i];
+          // Sorting the coordinates, since they are reversed in the data
+          latlngs[i].sort(function(a,b){
+            return b - a;
+          });
+        }
+      }
+    }
+  }
+  // For Debugging
+  /*
+  console.log('Features length', data.location.geometries.features.length);
+  for(let i = 0; i <= data.location.geometries.features.length - 1; i++){
+    console.log('Coordinate length', data.location.geometries.features[i].geometry.coordinates.length);
+  }
+  console.log('Latlngs', latlngs);
+   */
+
+  // Drawing the path on the map. We use an antPath library for this.
+  let path = L.polyline.antPath(latlngs,{"delay":1400,"dashArray":[20,30],"weight":5,"color":"red","paused":false,"reverse":false}
+  ).addTo(layerGroupPath);
+  map.fitBounds(path.getBounds());
+}
+
+
+//------------------------------DRAW CIRCLE------------------------------------//
+// Drawing a circle if the user has defined a search radius
+function drawCircle(currentPos) {
+    addMarker(currentPos);
+    let circle = L.circle([currentPos.latitude, currentPos.longitude], {
+    color: 'brown',
+    fillColor: '#734e03',
+    fillOpacity: 0.1,
+    radius: rtDistanceInput.value * 1000
+  }).addTo(layerGroup);
+}
+//-----------------------------------------------------------------------------//
+
+//-------------------------------NAVIGATE BUTTON-------------------------------//
 /* Function for navigating to the targeted place
  * This function is binded to a button that will open google maps
  * and set the starting point as your location and the ending point
@@ -140,24 +200,16 @@ function navigate(currentPos) {
 
   // Opening Google maps to navigate to the target location
   function navClick(evt) {
-    console.log("NavCLick clicked");
-    let latlngs = [
-      [currentPos.latitude,currentPos.longitude],
-      [markerCoord[0].lat,markerCoord[0].lon]
-    ];
-    let path = L.polyline.antPath(latlngs,{"delay":400,"dashArray":[10,20],"weight":5,"color":"black","paused":true,"reverse":false}
-    ).addTo(layerGroup);
-    map.fitBounds(path.getBounds());
-    /*
+    console.log("NavClick clicked");
+
     window.open(
         `https://www.google.com/maps/dir/?api=1&origin=${currentPos.latitude},${currentPos.longitude}&destination=${markerCoord[0].lat},${markerCoord[0].lon}&travelmode=driving`);
-    */
   }
 }
+//-----------------------------------------------------------------------------//
 
 //--------------------------FILTERING THE SEARCH-------------------------------//
-
-// Displaying the search filters after clicking
+// Displaying the search filters after clicking. If clicked again, hides them.
 function filterClick() {
   if (filters.style.display === 'none') {
     filters.style.display = 'block';
@@ -188,9 +240,10 @@ function routeFilters() {
 // Searching for trails with filters
 function filterSearch() {
 
+  layerGroupPath.clearLayers();
   layerGroup.clearLayers();
 
-//searching only with Route length filter
+// Searching only with Route length filter
   if (rtLengthCB.checked === true && rtDistanceCB.checked === false) {
     if (Number.isInteger(+rtLengthInput.value)) {
       console.log('on numero');
@@ -202,7 +255,7 @@ function filterSearch() {
     }
   }
 
-//searching with both filters
+// Searching with both filters
   else if (rtLengthCB.checked === true && rtDistanceCB.checked === true) {
     if (Number.isInteger(+rtDistanceInput.value) &&
         Number.isInteger(+rtLengthInput.value)) {
@@ -211,13 +264,14 @@ function filterSearch() {
           '&closeToDistanceKm=' + rtDistanceInput.value +
           '&pageSize=100&typeCodes=4405&page=';
       findTrails(apiUrl);
+      drawCircle(currentPos);
     } else {
       alert('Anna reitin pituus ja etäisyys numeroina!');
       console.log("molemmat");
     }
   }
 
-//searching with only route distance filter
+// Searching only with route distance filter
   else if (rtLengthCB.checked === false && rtDistanceCB.checked === true) {
     if (Number.isInteger(+rtDistanceInput.value)) {
       let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
@@ -225,18 +279,19 @@ function filterSearch() {
           '&closeToDistanceKm=' + rtDistanceInput.value +
           '&pageSize=100&typeCodes=4405&page=';
       findTrails(apiUrl);
+      drawCircle(currentPos);
     } else {
       alert('Anna reitin pituus ja etäisyys numeroina!');
       console.log("pelkkä etäisyys");
     }
   }
 }
-
 //-----------------------------------------------------------------------------//
 
 // Function for searching trails with keywords.
 function searchClick() {
   console.log('haku nappi painettu');
+  layerGroupPath.clearLayers();
   layerGroup.clearLayers();
   addMarker(currentPos, 'Olet tässä');
   let keyword = keywordInput.value;
@@ -252,7 +307,6 @@ function searchClick() {
 }
 
 //-------------------------FETCHING DATA FROM LIPAS----------------------------//
-
 // We use a proxyUrl to allow CORS (Cross-origin resource sharing)
 let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
     targetUrlId = 'http://lipas.cc.jyu.fi/api/sports-places/';
@@ -294,6 +348,7 @@ function findInfo(data) {
         latitude: data.location.coordinates.wgs84.lat,
         longitude: data.location.coordinates.wgs84.lon,
       };
+      // Adding a marker to the map with the correct location of the trail
       addMarker(coords, data.name, data);
     } else if (!rtLengthCB.checked) {
       const coords = {
