@@ -341,6 +341,7 @@ let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
  * The result will be an id which we will use in the next fetch
  */
 function findTrails(url) {
+  loading();
   // First for-loop to cycle throught the pages (7 pages)
   for (let i = 1; i < 7; i++) {
     fetch(proxyUrl + url + i).
@@ -375,11 +376,12 @@ function findCity(city) {
 }
 // Fetching the trail info with the id that was obtained
 function findInfo(data) {
+  loading();
   fetch(proxyUrl + targetUrlId + data).
       then(function(response) {
         return response.json();
       }).then(function(data) {
-        loading();
+        clearTimeout(countdown);
         try {
           if (rtLengthCB.checked && rtLengthInput.value <
               data.properties.routeLengthKm) {
@@ -405,6 +407,7 @@ function findInfo(data) {
               finishedLoading();
             }
           }
+          countdown = setTimeout(finishedLoading, 1000);
         } catch {
           console.warn("virhe, aikaa 10 sek ennen kuin lataus loppuu");
           countdown = setTimeout(finishedLoading, 10000);
