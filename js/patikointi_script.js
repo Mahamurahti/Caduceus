@@ -17,9 +17,12 @@ const keywordInput = document.getElementById('keyword');
 const searchBtn = document.getElementById('searchbutton');
 const info = document.getElementById('info');
 const tutorial = document.getElementById('tutorial');
+const loadingIcon = document.getElementById("juttu");
+const loadingScreen = document.getElementById("loadingScreen");
 
-//-----------------------------------------------------------------------------//
-
+//--------------------------------------variables------------------------------//
+let lastTrail = 0;
+let countdown;
 // -----------------------------EVENT LISTENERS--------------------------------//
 // Event listener for clicking the search button
 searchBtn.addEventListener('click', searchClick);
@@ -81,6 +84,15 @@ navigator.geolocation.getCurrentPosition(getPosAndSurroundings, error);
  * the clicked markers information.
  */
 function addMarker(crd, text, data) {
+  try {
+    if(data.sportsPlaceId == lastTrail) {
+      console.log("homma valmis");
+        window.setTimeout(finishedLoading, 3000);
+    }
+  } catch {
+    console.log("tyhjä");
+  }
+
   L.marker([crd.latitude, crd.longitude]).
       addTo(layerGroup).
       bindPopup(`<b>${text}</b>`).
@@ -245,11 +257,14 @@ function filterSearch() {
 
 // Searching only with Route length filter
   if (rtLengthCB.checked === true && rtDistanceCB.checked === false) {
-    if (Number.isInteger(+rtLengthInput.value)) {
+    if (Number.isInteger(+rtLengthInput.value) && keywordInput.value == "") {
       console.log('on numero');
       let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?pageSize=100&typeCodes=4405&page=';
       findTrails(apiUrl);
-    } else {
+    } else if (Number.isInteger(+rtLengthInput.value) && keywordInput.value != "") {
+      findCity(keywordInput.value);
+    }
+    else  {
       alert('Anna reitin pituus ja etäisyys numeroina!');
       console.log("pelkkä pituus");
     }
@@ -257,35 +272,44 @@ function filterSearch() {
 
 // Searching with both filters
   else if (rtLengthCB.checked === true && rtDistanceCB.checked === true) {
-    if (Number.isInteger(+rtDistanceInput.value) &&
-        Number.isInteger(+rtLengthInput.value)) {
-      let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
-          currentPos.longitude + '&closeToLat=' + currentPos.latitude +
-          '&closeToDistanceKm=' + rtDistanceInput.value +
-          '&pageSize=100&typeCodes=4405&page=';
-      findTrails(apiUrl);
-      drawCircle(currentPos);
+    if(keywordInput.value !="") {
+      alert("Et voi etsiä kaupungista tietyllä säteellä!");
     } else {
-      alert('Anna reitin pituus ja etäisyys numeroina!');
-      console.log("molemmat");
+      if (Number.isInteger(+rtDistanceInput.value) &&
+          Number.isInteger(+rtLengthInput.value)) {
+        let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
+            currentPos.longitude + '&closeToLat=' + currentPos.latitude +
+            '&closeToDistanceKm=' + rtDistanceInput.value +
+            '&pageSize=100&typeCodes=4405&page=';
+        findTrails(apiUrl);
+        drawCircle(currentPos);
+      } else {
+        alert('Anna reitin pituus ja etäisyys numeroina!');
+        console.log("molemmat");
+      }
     }
   }
 
 // Searching only with route distance filter
   else if (rtLengthCB.checked === false && rtDistanceCB.checked === true) {
-    if (Number.isInteger(+rtDistanceInput.value)) {
-      let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
-          currentPos.longitude + '&closeToLat=' + currentPos.latitude +
-          '&closeToDistanceKm=' + rtDistanceInput.value +
-          '&pageSize=100&typeCodes=4405&page=';
-      findTrails(apiUrl);
-      drawCircle(currentPos);
+    if(keywordInput.value != "") {
+      alert("Et voi etsiä kaupungista tietyllä säteellä");
     } else {
-      alert('Anna reitin pituus ja etäisyys numeroina!');
-      console.log("pelkkä etäisyys");
+      if (Number.isInteger(+rtDistanceInput.value)) {
+        let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
+            currentPos.longitude + '&closeToLat=' + currentPos.latitude +
+            '&closeToDistanceKm=' + rtDistanceInput.value +
+            '&pageSize=100&typeCodes=4405&page=';
+        findTrails(apiUrl);
+        drawCircle(currentPos);
+      } else {
+        alert('Anna reitin pituus ja etäisyys numeroina!');
+        console.log("pelkkä etäisyys");
+      }
     }
   }
 }
+
 //-----------------------------------------------------------------------------//
 
 // Function for searching trails with keywords.
@@ -295,17 +319,19 @@ function searchClick() {
   layerGroup.clearLayers();
   addMarker(currentPos, 'Olet tässä');
   let keyword = keywordInput.value;
-  console.log('keyword on ', typeof keyword, keyword);
-  let apiUrl;
-  if (keyword != '') {
-    console.log('keyword tyyppi on', typeof keyword, 'keyword on ',
-        keyword);
-    apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?&pageSize=100&typeCodes=4405&searchString=' +
-        keyword + '&page=';
-  }
-  findTrails(apiUrl);
+  findCity(keyword);
 }
 
+function loading() {
+  clearTimeout(countdown);
+  loadingIcon.style.visibility = "visible";
+  loadingScreen.style.visibility ="visible";
+}
+
+function finishedLoading() {
+  loadingIcon.style.visibility = "hidden";
+  loadingScreen.style.visibility ="hidden";
+}
 //-------------------------FETCHING DATA FROM LIPAS----------------------------//
 // We use a proxyUrl to allow CORS (Cross-origin resource sharing)
 let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
@@ -315,7 +341,6 @@ let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
  * The result will be an id which we will use in the next fetch
  */
 function findTrails(url) {
-  console.log('url osoite on ', url);
   // First for-loop to cycle throught the pages (7 pages)
   for (let i = 1; i < 7; i++) {
     fetch(proxyUrl + url + i).
@@ -324,7 +349,8 @@ function findTrails(url) {
         }).then(function(data) {
       for (let i = data.length - 1; i > 0; i--) {
         // Executing the fetching of individual trails
-        findInfo(data[i]);
+        lastTrail = data[i].sportsPlaceId;
+        findInfo(data[i].sportsPlaceId);
       }
       document.querySelector('pre').innerHTML = JSON.stringify(data, null,
           2);
@@ -334,30 +360,55 @@ function findTrails(url) {
   }
 }
 
+//fetching Trails from certain cities using different API
+function findCity(city) {
+  fetch(`https://bridge.buddyweb.fr/api/hikingtrails/hikingtrails?kunta=` + city).
+      then(function(response) {
+        return response.json();
+      }).then(function(cityTrails) {
+        for(let i = 0; i < cityTrails.length; i++) {
+          lastTrail = cityTrails[i].sportsplaceid;
+          console.log("haetaan reittiä ", cityTrails[i].sportsplaceid);
+          findInfo(cityTrails[i].sportsplaceid);
+        }
+  })
+}
 // Fetching the trail info with the id that was obtained
 function findInfo(data) {
-  fetch(proxyUrl + targetUrlId + data.sportsPlaceId).
+  fetch(proxyUrl + targetUrlId + data).
       then(function(response) {
         return response.json();
       }).then(function(data) {
-    if (rtLengthCB.checked && rtLengthInput.value <
-        data.properties.routeLengthKm) {
-      console.log('tarpeeksi pitkä reitti, reitin pituus ',
-          data.properties.routeLengthKm);
-      const coords = {
-        latitude: data.location.coordinates.wgs84.lat,
-        longitude: data.location.coordinates.wgs84.lon,
-      };
-      // Adding a marker to the map with the correct location of the trail
-      addMarker(coords, data.name, data);
-    } else if (!rtLengthCB.checked) {
-      const coords = {
-        latitude: data.location.coordinates.wgs84.lat,
-        longitude: data.location.coordinates.wgs84.lon,
-      };
-      // Adding a marker to the map with the correct location of the trail
-      addMarker(coords, data.name, data);
-    }
+        loading();
+        try {
+          if (rtLengthCB.checked && rtLengthInput.value <
+              data.properties.routeLengthKm) {
+            console.log("reitti riittävän pitkä, reitti on ",
+                data.sportsPlaceId);
+            const coords = {
+              latitude: data.location.coordinates.wgs84.lat,
+              longitude: data.location.coordinates.wgs84.lon,
+            };
+            // Adding a marker to the map with the correct location of the trail
+            addMarker(coords, data.name, data);
+
+          } else if (!rtLengthCB.checked) {
+            const coords = {
+              latitude: data.location.coordinates.wgs84.lat,
+              longitude: data.location.coordinates.wgs84.lon,
+            };
+            // Adding a marker to the map with the correct location of the trail
+            addMarker(coords, data.name, data);
+          } else {
+            if (data.sportsPlaceId == lastTrail) {
+              console.log("valmis");
+              finishedLoading();
+            }
+          }
+        } catch {
+          console.warn("virhe, aikaa 10 sek ennen kuin lataus loppuu");
+          countdown = setTimeout(finishedLoading, 10000);
+        }
   });
 }
 //-----------------------------------------------------------------------------//
