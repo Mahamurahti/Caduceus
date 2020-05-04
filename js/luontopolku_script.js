@@ -24,7 +24,7 @@ let myLocation = null;
 const map = L.map('map');
 
 //Layer group created for the markers
-const LayerGroup = L.layerGroup().addTo(map);
+const LayerGroup = L.featureGroup().addTo(map);
 
 //Using openstreetmap
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -56,6 +56,7 @@ function userLocation(pos) {
   showMap(myLocation);
   addMarker(myLocation, 'Olen tässä', blueIcon);
   searchNature();
+
 }
 
 //Function adds marker on the map
@@ -75,8 +76,11 @@ function addMarker(crd, text, icon, data) {
         if (data.properties.infoFi != null) {
           summary.innerHTML = data.properties.infoFi;
         }
+
         navigate.href = `https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=${myLocation.latitude}, ${myLocation.longitude}&destination=${crd.latitude}, ${crd.longitude}`;
       });
+
+
 }
 
 //Function starts if geolocation search fails
@@ -94,7 +98,7 @@ function searchNature() {
 
   for (let i = 1; i < 7; i++) {
     fetch(proxyUrl +
-        `http://lipas.cc.jyu.fi/api/sports-places?closeToLon=${myLocation.longitude}&closeToLat=${myLocation.latitude}&closeToDistanceKm=100&typeCodes=4404&pageSize=100&page=${i}`).
+        `http://lipas.cc.jyu.fi/api/sports-places?closeToLon=${myLocation.longitude}&closeToLat=${myLocation.latitude}&closeToDistanceKm=50&typeCodes=4404&pageSize=100&page=${i}`).
         then(function(response) {
           return response.json();
         }).then(function(data) {
@@ -104,7 +108,6 @@ function searchNature() {
       for (let j = 0; j < data.length; j++) {
         findTrail(data[j]);
       }
-
     }).catch(function(error) {
       console.log(error);
     });
@@ -129,6 +132,10 @@ function findTrail(data) {
               <br> ${data.location.city.name}</p>
             `;
     addMarker(coords, text, greenIcon, data);
+
+    //Centers map view around group of visible markers
+    map.fitBounds(LayerGroup.getBounds());
+
   });
 }
 
@@ -136,7 +143,7 @@ function findTrail(data) {
 function searchByKeyword() {
 
   LayerGroup.clearLayers();
-  addMarker(myLocation, 'Olen tässä', blueIcon);
+  //addMarker(myLocation, 'Olen tässä', blueIcon);
   for (let i = 1; i < 7; i++) {
     fetch(proxyUrl +
         `http://lipas.cc.jyu.fi/api/sports-places?searchString=${input.value}&typeCodes=4404&pageSize=100&page=${i}`).
@@ -156,10 +163,6 @@ function searchByKeyword() {
   }
 
 }
-
-
-
-
 
 
 
