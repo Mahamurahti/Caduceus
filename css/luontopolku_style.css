@@ -23,7 +23,7 @@ button:hover {
     0 17px 50px 0 rgba(0,0,0,0.19);
 }
 .leftWrapUp:hover > input{
-    //width: 59%;
+    width: 59%;
 }
 /*Searchfield style*/
 input {
