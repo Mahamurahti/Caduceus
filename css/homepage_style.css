@@ -75,15 +75,17 @@ main{
 /* Changing the padding's third value stretches the info */
 .leftside{
     background-color: #04471C;
+    color: #F7F7F9;
     height: 100%;
-    padding: 20px 50px 120px 50px;
+    padding: 20px 50px 80px 50px;
 }
 /* Hiking Trail Side */
 /* Changing the padding's third value stretches the info */
 .rightside{
     background-color: #544B3D;
+    color: #F7F7F9;
     height: 100%;
-    padding: 20px 50px 120px 50px;
+    padding: 20px 50px 80px 50px;
 }
 /* ----------------------------BUTTONS-------------------------------- */
 a {
