@@ -69,6 +69,7 @@ for (let i = 0; i < dropdownOptions.length; i++) {
         break;
     }
   });
+  //document.getElementById('dropdown_container').classList.toggle('hidden');
 }
 
 //--------------------SETTING UP THE MAP AND USER LOCATION--------------------//

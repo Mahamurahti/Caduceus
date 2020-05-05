@@ -211,7 +211,9 @@ body {
     cursor: pointer;
     min-width: 150px;
 }
-
+#dropdown_container {
+    //visibility: visible;
+}
 .dropbutton:hover, .dropbutton:focus {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.15),
     0 17px 50px 0 rgba(0, 0, 0, 0.15);
@@ -223,6 +225,7 @@ body {
 }
 
 .dropdown_items {
+    cursor: pointer;
     margin-left: 41%;
     display: none;
     position:absolute;
