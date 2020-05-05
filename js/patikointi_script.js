@@ -40,6 +40,7 @@ resetBtn.addEventListener('click', function(evt) {
 });
 //-----------------------------------------------------------------------------//
 
+
 let currentPos = null;
 let markerCoord = [];
 // Inserting the Leaflet map into the map div
@@ -200,7 +201,15 @@ function drawCircle(currentPos) {
   }).addTo(layerGroup);
 }
 //-----------------------------------------------------------------------------//
+//-------------------------REMOVE ROUTE INFO-----------------------------------//
+//removes route info and shows tutorial if user clicks the map
+map.on('click', function() {
+  info.style.display = 'none';
+  tutorial.style.display = 'block';
+  layerGroupPath.clearLayers();
+});
 
+//-----------------------------------------------------------------------------//
 //-------------------------------NAVIGATE BUTTON-------------------------------//
 /* Function for navigating to the targeted place
  * This function is binded to a button that will open google maps
