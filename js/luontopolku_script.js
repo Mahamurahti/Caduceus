@@ -51,30 +51,25 @@ for (let i = 0; i < dropdownOptions.length; i++) {
     switch (event.target.id) {
       case '20km':
         searchNature(20);
-        document.getElementById('dropdown_container').style.visibility= 'hidden';
         break;
 
       case '40km':
         searchNature(40);
-        document.getElementById('dropdown_container').style.visibility='hidden';
         break;
 
       case '60km':
         searchNature(60);
-        document.getElementById('dropdown_container').style.visibility='hidden';
         break;
 
       case '100km':
         searchNature(100);
-        document.getElementById('dropdown_container').style.visibility= 'hidden';
         break;
 
       case '150km':
         searchNature(150);
-        document.getElementById('dropdown_container').style.visibility= 'hidden';
         break;
     }
-
+    document.getElementById('dropdown_container').style.visibility= 'hidden';
   });
 }
 
