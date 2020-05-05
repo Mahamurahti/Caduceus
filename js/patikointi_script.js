@@ -40,10 +40,17 @@ resetBtn.addEventListener('click', function(evt) {
 });
 //-----------------------------------------------------------------------------//
 
+
 let currentPos = null;
 let markerCoord = [];
 // Inserting the Leaflet map into the map div
 const map = L.map('mapid');
+
+map.on('click', function() {
+  info.style.display = 'none';
+  tutorial.style.display = 'block';
+  layerGroupPath.clearLayers();
+});
 
 // Creating a layerGroup where markers are put
 const layerGroup = L.layerGroup().addTo(map);
