@@ -40,8 +40,6 @@ dropdownButton.addEventListener('click', function() {
   document.getElementById('dropdown_container').style.visibility= 'visible';
   document.getElementById('dropdown_container').classList.toggle('show');
   document.getElementById('info').style.visibility = 'hidden';
-    document.getElementById('dropdown_container').classList.toggle('show');
-    document.getElementById('info').style.visibility = 'hidden';
 });
 
 /*On click event listener for each option of the dropdown button
