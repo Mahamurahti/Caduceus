@@ -20,9 +20,20 @@ const tutorial = document.getElementById('tutorial');
 const loadingIcon = document.getElementById("juttu");
 const loadingScreen = document.getElementById("loadingScreen");
 
-//--------------------------------------variables------------------------------//
+//---------------------------------VARIABLES-----------------------------------//
 let lastTrail = 0;
 let countdown;
+//---------------------------------MAP MARKERS---------------------------------//
+const redIcon = L.divIcon({
+  className: 'red-icon',
+  iconSize: [20, 20],
+  iconAnchor: [12, 1],
+});
+const brownIcon = L.divIcon({
+  className: 'brown-icon',
+  iconSize: [20, 20],
+  iconAnchor: [15, 1],
+});
 // -----------------------------EVENT LISTENERS--------------------------------//
 // Event listener for clicking the search button
 searchBtn.addEventListener('click', searchClick);
@@ -62,7 +73,7 @@ function showMap(crd) {
 function getPosAndSurroundings(pos) {
   currentPos = pos.coords;
   showMap(currentPos);
-  addMarker(currentPos, 'Olet tässä.');
+  addMarker(currentPos, 'Olet tässä.', null, redIcon);
   let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
       currentPos.longitude + '&closeToLat=' + currentPos.latitude +
       '&closeToDistanceKm=100&pageSize=100&typeCodes=4405&page=';
@@ -84,55 +95,62 @@ navigator.geolocation.getCurrentPosition(getPosAndSurroundings, error);
  * and a popup function that when executed will display
  * the clicked markers information.
  */
-function addMarker(crd, text, data) {
+function addMarker(crd, text, data, icon) {
   try {
     if(data.sportsPlaceId == lastTrail) {
-      console.log("homma valmis");
+      console.log("Homma valmis");
         window.setTimeout(finishedLoading, 3000);
     }
   } catch {
-    console.log("tyhjä");
+    console.log("Tyhjä");
   }
 
-  L.marker([crd.latitude, crd.longitude]).
+  L.marker([crd.latitude, crd.longitude], {icon: icon}).
       addTo(layerGroup).
       bindPopup(`<b>${text}</b>`).
       on('click', function(popup) {
-        console.log(data);
-        info.style.display = 'block';
-        tutorial.style.display = 'none';
+        try{
+          console.log(data);
+          info.style.display = 'block';
+          tutorial.style.display = 'none';
 
-        // Displaying info about the route
-        name.innerHTML = data.name;
-        address.innerHTML = data.location.address;
-        summary.innerHTML = '';
-        rtLength.innerHTML = '';
-        markerCoord = [
-          {
-            lat: data.location.coordinates.wgs84.lat,
-            lon: data.location.coordinates.wgs84.lon,
-          }];
-        /* Adding an event listener to each individual markers navigate button,
-         * so that the user can see the route which has to be taken to the
-         * destination. Opens Google Maps.
-         */
-        navigate(currentPos);
-        if (check(data.properties.infoFi)) {
-          summary.innerHTML = data.properties.infoFi;
+          // Displaying info about the route
+          name.innerHTML = data.name;
+          address.innerHTML = data.location.address;
+          summary.innerHTML = '';
+          rtLength.innerHTML = '';
+          markerCoord = [
+            {
+              lat: data.location.coordinates.wgs84.lat,
+              lon: data.location.coordinates.wgs84.lon,
+            }];
+          /* Adding an event listener to each individual markers navigate button,
+           * so that the user can see the route which has to be taken to the
+           * destination. Opens Google Maps.
+           */
+          navigate(currentPos);
+          if (check(data.properties.infoFi)) {
+            summary.innerHTML = data.properties.infoFi;
+          }
+
+          if (check(data.properties.routeLengthKm)) {
+            rtLength.innerHTML = 'Patikointireitin pituus on ' +
+                data.properties.routeLengthKm + ' km';
+          }
+
+          /* Adding a visible path on the map.
+           * The route can be very buggy, but it is a fault in the API, not the code
+           * since majority of the routes display normal paths and only a minority
+           * display a zig zaggy path which make no sense.
+           */
+          addPath(data);
+
+        } catch{
+          console.log("Ei voida lisätä elementtejä markeriin.");
+          info.style.display = 'none';
+          tutorial.style.display = 'block';
+          layerGroupPath.clearLayers();
         }
-
-        if (check(data.properties.routeLengthKm)) {
-          rtLength.innerHTML = 'Patikointireitin pituus on ' +
-              data.properties.routeLengthKm + ' km';
-        }
-
-        /* Adding a visible path on the map.
-         * The route can be very buggy, but it is a fault in the API, not the code
-         * since majority of the routes display normal paths and only a minority
-         * display a zig zaggy path which make no sense.
-         */
-        addPath(data);
-
       });
 }
 
@@ -192,7 +210,7 @@ function addPath(data) {
 //------------------------------DRAW CIRCLE------------------------------------//
 // Drawing a circle if the user has defined a search radius
 function drawCircle(currentPos) {
-    addMarker(currentPos);
+    addMarker(currentPos, 'Olet tässä', null, redIcon);
     let circle = L.circle([currentPos.latitude, currentPos.longitude], {
     color: 'brown',
     fillColor: '#734e03',
@@ -201,6 +219,7 @@ function drawCircle(currentPos) {
   }).addTo(layerGroup);
 }
 //-----------------------------------------------------------------------------//
+
 //-------------------------REMOVE ROUTE INFO-----------------------------------//
 //removes route info and shows tutorial if user clicks the map
 map.on('click', function() {
@@ -210,6 +229,7 @@ map.on('click', function() {
 });
 
 //-----------------------------------------------------------------------------//
+
 //-------------------------------NAVIGATE BUTTON-------------------------------//
 /* Function for navigating to the targeted place
  * This function is binded to a button that will open google maps
@@ -221,8 +241,6 @@ function navigate(currentPos) {
 
   // Opening Google maps to navigate to the target location
   function navClick(evt) {
-    console.log("NavClick clicked");
-
     window.open(
         `https://www.google.com/maps/dir/?api=1&origin=${currentPos.latitude},${currentPos.longitude}&destination=${markerCoord[0].lat},${markerCoord[0].lon}&travelmode=driving`);
   }
@@ -264,10 +282,10 @@ function filterSearch() {
   layerGroupPath.clearLayers();
   layerGroup.clearLayers();
 
-// Searching only with Route length filter
+  // Searching only with Route length filter
   if (rtLengthCB.checked === true && rtDistanceCB.checked === false) {
     if (Number.isInteger(+rtLengthInput.value) && keywordInput.value == "") {
-      console.log('on numero');
+      console.log('On numero');
       let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?pageSize=100&typeCodes=4405&page=';
       findTrails(apiUrl);
     } else if (Number.isInteger(+rtLengthInput.value) && keywordInput.value != "") {
@@ -275,11 +293,28 @@ function filterSearch() {
     }
     else  {
       alert('Anna reitin pituus ja etäisyys numeroina!');
-      console.log("pelkkä pituus");
+      console.log("Pelkkä pituus");
     }
   }
-
-// Searching with both filters
+  // Searching only with route distance filter
+  else if (rtLengthCB.checked === false && rtDistanceCB.checked === true) {
+    if(keywordInput.value != "") {
+      alert("Et voi etsiä kaupungista tietyllä säteellä");
+    } else {
+      if (Number.isInteger(+rtDistanceInput.value)) {
+        let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
+            currentPos.longitude + '&closeToLat=' + currentPos.latitude +
+            '&closeToDistanceKm=' + rtDistanceInput.value +
+            '&pageSize=100&typeCodes=4405&page=';
+        findTrails(apiUrl);
+        drawCircle(currentPos);
+      } else {
+        alert('Anna reitin pituus ja etäisyys numeroina!');
+        console.log("Pelkkä etäisyys");
+      }
+    }
+  }
+  // Searching with both filters
   else if (rtLengthCB.checked === true && rtDistanceCB.checked === true) {
     if(keywordInput.value !="") {
       alert("Et voi etsiä kaupungista tietyllä säteellä!");
@@ -294,26 +329,7 @@ function filterSearch() {
         drawCircle(currentPos);
       } else {
         alert('Anna reitin pituus ja etäisyys numeroina!');
-        console.log("molemmat");
-      }
-    }
-  }
-
-// Searching only with route distance filter
-  else if (rtLengthCB.checked === false && rtDistanceCB.checked === true) {
-    if(keywordInput.value != "") {
-      alert("Et voi etsiä kaupungista tietyllä säteellä");
-    } else {
-      if (Number.isInteger(+rtDistanceInput.value)) {
-        let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
-            currentPos.longitude + '&closeToLat=' + currentPos.latitude +
-            '&closeToDistanceKm=' + rtDistanceInput.value +
-            '&pageSize=100&typeCodes=4405&page=';
-        findTrails(apiUrl);
-        drawCircle(currentPos);
-      } else {
-        alert('Anna reitin pituus ja etäisyys numeroina!');
-        console.log("pelkkä etäisyys");
+        console.log("Molemmat: etäisyys sekä pituus");
       }
     }
   }
@@ -323,10 +339,10 @@ function filterSearch() {
 
 // Function for searching trails with keywords.
 function searchClick() {
-  console.log('haku nappi painettu');
+  console.log('Haku nappia painettu');
   layerGroupPath.clearLayers();
   layerGroup.clearLayers();
-  addMarker(currentPos, 'Olet tässä');
+  addMarker(currentPos, 'Olet tässä', null, redIcon);
   let keyword = keywordInput.value;
   findCity(keyword);
 }
@@ -378,7 +394,7 @@ function findCity(city) {
       }).then(function(cityTrails) {
         for(let i = 0; i < cityTrails.length; i++) {
           lastTrail = cityTrails[i].sportsplaceid;
-          console.log("haetaan reittiä ", cityTrails[i].sportsplaceid);
+          console.log("Haetaan reittiä ", cityTrails[i].sportsplaceid);
           findInfo(cityTrails[i].sportsplaceid);
         }
   })
@@ -394,14 +410,14 @@ function findInfo(data) {
         try {
           if (rtLengthCB.checked && rtLengthInput.value <
               data.properties.routeLengthKm) {
-            console.log("reitti riittävän pitkä, reitti on ",
+            console.log("Reitti riittävän pitkä, reitti on ",
                 data.sportsPlaceId);
             const coords = {
               latitude: data.location.coordinates.wgs84.lat,
               longitude: data.location.coordinates.wgs84.lon,
             };
             // Adding a marker to the map with the correct location of the trail
-            addMarker(coords, data.name, data);
+            addMarker(coords, data.name, data, brownIcon);
 
           } else if (!rtLengthCB.checked) {
             const coords = {
@@ -409,16 +425,16 @@ function findInfo(data) {
               longitude: data.location.coordinates.wgs84.lon,
             };
             // Adding a marker to the map with the correct location of the trail
-            addMarker(coords, data.name, data);
+            addMarker(coords, data.name, data, brownIcon);
           } else {
             if (data.sportsPlaceId == lastTrail) {
-              console.log("valmis");
+              console.log("Valmis");
               finishedLoading();
             }
           }
           countdown = setTimeout(finishedLoading, 1000);
         } catch {
-          console.warn("virhe, aikaa 10 sek ennen kuin lataus loppuu");
+          console.warn("Virhe, aikaa 10 sek ennen kuin lataus loppuu");
           countdown = setTimeout(finishedLoading, 10000);
         }
   });
