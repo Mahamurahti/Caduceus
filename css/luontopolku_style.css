@@ -106,12 +106,8 @@ tag2 {
 }
 .blue-icon::after {
     content: url("../images/shoes.png");
-    width: 24px;
-    height: 24px;
-    margin: 3px 0 0 3px;
-    background: #9ee2e8;
+    margin: 4px 0 0 4px;
     position: absolute;
-    border-radius: 50% 50% 50% 20%;
 }
 .blue-icon:hover {
     background: #2BBFDF;
