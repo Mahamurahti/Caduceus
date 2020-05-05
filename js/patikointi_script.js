@@ -46,12 +46,6 @@ let markerCoord = [];
 // Inserting the Leaflet map into the map div
 const map = L.map('mapid');
 
-map.on('click', function() {
-  info.style.display = 'none';
-  tutorial.style.display = 'block';
-  layerGroupPath.clearLayers();
-});
-
 // Creating a layerGroup where markers are put
 const layerGroup = L.layerGroup().addTo(map);
 
@@ -207,7 +201,15 @@ function drawCircle(currentPos) {
   }).addTo(layerGroup);
 }
 //-----------------------------------------------------------------------------//
+//-------------------------REMOVE ROUTE INFO-----------------------------------//
+//removes route info and shows tutorial if user clicks the map
+map.on('click', function() {
+  info.style.display = 'none';
+  tutorial.style.display = 'block';
+  layerGroupPath.clearLayers();
+});
 
+//-----------------------------------------------------------------------------//
 //-------------------------------NAVIGATE BUTTON-------------------------------//
 /* Function for navigating to the targeted place
  * This function is binded to a button that will open google maps
