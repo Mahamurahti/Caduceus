@@ -41,6 +41,26 @@ header {
 .info {
     text-align: center;
 }
+.info a{
+    all: unset;
+}
+.info a:link, .info a:visited{
+    all: unset;
+}
+.info a:hover{
+    all: unset;
+}
+.info a{
+    color: #04471C;
+}
+.info a:link, .info a:visited{
+    color: #04471C;
+    text-decoration: underline;
+}
+.info a:hover{
+    background-color: #04471C;
+    color: white;
+}
 /* -----------------------------------MAIN---------------------------------------- */
 /* This height determines the size of the main element */
 main{
