@@ -42,7 +42,7 @@ button:hover {
     position: absolute;
     margin-top: 5px;
     border-radius: 0 10% 10% 0;
-    background-image: url("../images/search64.png");
+    background-image: url("../images/suurennuslasi.png");
 }
 #searchbutton::after {
 }
