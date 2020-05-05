@@ -10,20 +10,72 @@ const proxyUrl = `https://cors-anywhere.herokuapp.com/`;
 const searchButton = document.getElementById('searchbutton');
 const resetButton = document.getElementById('reset');
 const input = document.getElementById('input');
+const dropdownOptions = document.getElementsByClassName('dropdown_option');
+const dropdownButton = document.getElementById('dropdown_button');
 
-//Custom icons: user location blue, nature trail green
-const blueIcon = L.divIcon({className: 'blue-icon',
-  iconSize: [30, 30],
-  iconAnchor: [15, 1]});
-const greenIcon = L.divIcon({className: 'green-icon',
-  iconSize: [30, 30],
-  iconAnchor: [15, 1]
+//------------------------------EVENT LISTENERS-------------------------------//
+
+//On click event listener for search button
+searchButton.addEventListener('click', function() {
+  searchByKeyword();
+
 });
+
+/*On click event listener for reset button (paikanna)
+* Clears all markers from the map
+* Adds marker for current user location
+* Adds markers for nature trails within approximately 50 km distance from the
+* user
+* */
+resetButton.addEventListener('click', function() {
+  LayerGroup.clearLayers();
+  addMarker(myLocation, 'Olen tässä', blueIcon);
+  searchNature(50);
+});
+
+/*On click event listener for dropdown button
+* Displays all dropdown options on click
+*/
+dropdownButton.addEventListener('click', function() {
+  document.getElementById('dropdown_container').classList.toggle('show');
+});
+
+/*On click event listener for each option of the dropdown button
+*Displays nature trails within a given distance (km) from the user
+*/
+for (let i = 0; i < dropdownOptions.length; i++) {
+  dropdownOptions[i].addEventListener('click', function(event) {
+
+    switch (event.target.id) {
+      case '20km':
+        searchNature(20);
+        break;
+
+      case '40km':
+        searchNature(40);
+        break;
+
+      case '60km':
+        searchNature(60);
+        break;
+
+      case '100km':
+        searchNature(100);
+        break;
+
+      case '150km':
+        searchNature(150);
+        break;
+    }
+  });
+}
+
+//--------------------SETTING UP THE MAP AND USER LOCATION--------------------//
 
 let myLocation = null;
 const map = L.map('map');
 
-//Layer group created for the markers
+//Feature group created in order to group the markers
 const LayerGroup = L.featureGroup().addTo(map);
 
 //Using openstreetmap
@@ -31,35 +83,47 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
-
-
-searchButton.addEventListener('click', function() {
-  searchByKeyword();
-
-});
-
-resetButton.addEventListener('click', function() {
-  LayerGroup.clearLayers();
-  addMarker(myLocation, 'Olen tässä', blueIcon);
-  searchNature();
-});
-
-
 //Function sets the map view
-function showMap() {
-  map.setView([myLocation.latitude, myLocation.longitude], 7);
+function showMap(crd) {
+  map.setView([crd.latitude, crd.longitude], 7);
 }
 
-//Function locates the user
+//Function finds current user location
 function userLocation(pos) {
   myLocation = pos.coords;
   showMap(myLocation);
   addMarker(myLocation, 'Olen tässä', blueIcon);
-  searchNature();
+  searchNature(50);
 
 }
 
-//Function adds marker on the map
+//Function starts if geolocation search fails
+function error(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+//Start geolocation search
+navigator.geolocation.getCurrentPosition(userLocation, error);
+
+//-------------------------------SETTING UP MARKERS---------------------------//
+
+//Custom icons: user location blue, nature trail green
+const blueIcon = L.divIcon({
+  className: 'blue-icon',
+  iconSize: [30, 30],
+  iconAnchor: [15, 1],
+});
+const greenIcon = L.divIcon({
+  className: 'green-icon',
+  iconSize: [30, 30],
+  iconAnchor: [15, 1],
+});
+
+/*Function adds icon markers with a popup text to the map
+* On click function prints trail data on the webpage, if available
+* Navigation link opens Google Maps and shows driving route from user
+* location to the destination (clicked marker).
+*/
 function addMarker(crd, text, icon, data) {
   L.marker([crd.latitude, crd.longitude], {icon: icon}).
       addTo(LayerGroup).
@@ -76,29 +140,22 @@ function addMarker(crd, text, icon, data) {
         if (data.properties.infoFi != null) {
           summary.innerHTML = data.properties.infoFi;
         }
-
         navigate.href = `https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=${myLocation.latitude}, ${myLocation.longitude}&destination=${crd.latitude}, ${crd.longitude}`;
       });
-
-
 }
 
-//Function starts if geolocation search fails
-function error(err) {
-  console.warn(`ERROR(${err.code}): ${err.message}`);
-}
-
-//Start geolocation search
-navigator.geolocation.watchPosition(userLocation, error);
+//--------------------------FETCHING DATA FROM API----------------------------//
 
 /*Function for fetching sport places by type code for nature trails (4404)
 *Shows nature trails within 100km radius from user location
-* First for-loop is for showing all search results. Data is in paginated format and thus can show maximum 100 search results per pager. */
-function searchNature() {
+* First for-loop is for showing all search results. Data is in paginated format and thus can show maximum 100 search results per page. */
+function searchNature(distance) {
+  LayerGroup.clearLayers();
 
+  addMarker(myLocation, 'Olen tässä', blueIcon);
   for (let i = 1; i < 7; i++) {
     fetch(proxyUrl +
-        `http://lipas.cc.jyu.fi/api/sports-places?closeToLon=${myLocation.longitude}&closeToLat=${myLocation.latitude}&closeToDistanceKm=50&typeCodes=4404&pageSize=100&page=${i}`).
+        `http://lipas.cc.jyu.fi/api/sports-places?closeToLon=${myLocation.longitude}&closeToLat=${myLocation.latitude}&closeToDistanceKm=${distance}&typeCodes=4404&pageSize=100&page=${i}`).
         then(function(response) {
           return response.json();
         }).then(function(data) {
@@ -139,7 +196,7 @@ function findTrail(data) {
   });
 }
 
-//Function for searching nature tarils by user input keuword
+//Function for searching nature tarils by user input keyword
 function searchByKeyword() {
 
   LayerGroup.clearLayers();
@@ -161,17 +218,4 @@ function searchByKeyword() {
       console.log(error);
     });
   }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-

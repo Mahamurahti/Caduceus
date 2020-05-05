@@ -178,6 +178,45 @@ body {
     0 17px 50px 0 rgba(0, 0, 0, 0.15);
 }
 
+.dropbutton {
+    background-color: magenta;
+    color: white;
+    padding:16px;
+    border:none;
+    cursor: pointer;
+}
+
+.dropbutton:hover, .dropbutton:focus {
+    background-color: blueviolet;
+}
+
+.dropdown {
+    position:relative;
+    display: inline-block;
+}
+
+.dropdown_items {
+    display: none;
+    position:absolute;
+    background-color: white;
+    min-width: 200px;
+
+}
+
+.dropdown_items a {
+    color: black;
+    padding: 16px;
+    display: block;
+}
+
+.dropdown_items a:hover {
+    background-color: cyan;
+}
+
+.show {
+    display: block;
+}
+
 
 
 
