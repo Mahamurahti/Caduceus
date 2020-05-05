@@ -1,5 +1,6 @@
 /*Header style*/
 header {
+    border-radius: 2% 2% 2% 2%;
     background-color: #04471C;
     padding: 20px;
 }
@@ -15,7 +16,6 @@ button {
     background-color: #87A330;
     padding: 21px;
     font-size: 20px;
-    text-align: center;
     outline: #243010;
 }
 button:hover {
@@ -23,22 +23,35 @@ button:hover {
     0 17px 50px 0 rgba(0,0,0,0.19);
 }
 .leftWrapUp:hover > input{
-    width: 59%;
+    width: 80%;
+}
+#searchbutton {
+    background-repeat: no-repeat;
+    border-style: none;
+    background-color: #87A330;
+    width: 66.5px;
+    height: 66.5px;
+    position: absolute;
+    margin-top: 5px;
+    border-radius: 0 10% 10% 0;
+    background-image: url("../images/search64.png");
+}
+#searchbutton::after {
 }
 /*Searchfield style*/
 input {
+    border-radius: 4% 0 0 4%;
     opacity: 0.7;
     margin-top: 5px;
     padding: 20px;
     font-size: 20px;
-    width: 50%;
+    width: 55%;
     outline: #243010;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
 }
 
 input:hover {
-    width: 59%;
     opacity: 1;
     box-shadow: 0 12px 12px 0 rgba(0,0,0,0.10),
     0 17px 10px 0 rgba(0,0,0,0.10);
@@ -58,6 +71,7 @@ tag2 {
 }
 /*Map style*/
 #map {
+    border-radius: 2% 2% 2% 2%;
     float: right;
     width: 50%;
     height: 700px;
@@ -118,6 +132,8 @@ body {
     background-image: url('../images/metsäPolku.jpg');
     background-size: 65%;
     background-repeat: repeat;
+    background-attachment: fixed;
+    background-position: center;
     font-family: 'Montserrat', sans-serif;
     height: 100%;
     min-height: 100%;
@@ -128,6 +144,7 @@ body {
     display: block;
 }
 .wrapper {
+    border-radius: 4% 4% 4% 4%;
     visibility: hidden;
     opacity: 0.5;
     padding: 15px;
@@ -140,7 +157,8 @@ body {
     opacity: 1;
 }
 .leftWrapUp {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
 }
 .leftWrapDown {
     width: auto;
@@ -151,7 +169,7 @@ body {
     color: #F7F7F9;
     padding: 15px;
     min-width: 100px;
-    width: 100%;
+    width: 50%;
     height: 8%;
     text-decoration: none;
     font-size: 20px;
@@ -164,11 +182,12 @@ body {
 }
 /*Navigoi napin style*/
 #navigate {
+    border-radius: 5% 5% 5% 5%;
     text-align: center;
     background-color: #87A330;
     color: #F7F7F9;
-    padding: 7px;
-    border-style: ridge;
+    padding: 10px;
+    //border-style: ridge;
     border-color: #04471C;
     width: 30%;
     text-decoration: none;
