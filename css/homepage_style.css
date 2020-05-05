@@ -87,6 +87,43 @@ main{
     height: 100%;
     padding: 20px 50px 80px 50px;
 }
+/* ----------------------------WEATHER-------------------------------- */
+#weather{
+    width: 100%;
+    height: 200px;
+    background-image: url("../images/weather_bg.JPG");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#weather h2{
+    margin: 10px;
+    font-size: 40px;
+}
+#weather h2 p{
+    font-size: 20px;
+}
+#weather #temp{
+    margin: 0;
+    font-size: 20px;
+}
+#weather button{
+    position: absolute;
+    left: 45%;
+    right: 45%;
+}
+#weather img{
+    width: 180px;
+    height: 180px;
+    margin: 10px;
+    border: 1px solid white;
+    border-radius: 50%;
+}
+
 /* ----------------------------BUTTONS-------------------------------- */
 a {
     display: block;
