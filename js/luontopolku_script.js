@@ -37,16 +37,16 @@ resetButton.addEventListener('click', function() {
 * Displays all dropdown options on click
 */
 dropdownButton.addEventListener('click', function() {
-  document.getElementById('info').style.visibility = 'hidden';
-  document.getElementById('dropdown_container').classList.toggle('show');
+    document.getElementById('dropdown_container').classList.toggle('show');
+    document.getElementById('info').style.visibility = 'hidden';
 });
 
 /*On click event listener for each option of the dropdown button
 *Displays nature trails within a given distance (km) from the user
 */
 for (let i = 0; i < dropdownOptions.length; i++) {
-  dropdownOptions[i].addEventListener('click', function(event) {
-
+  dropdownOptions[i].addEventListener('click', function(event)
+  {
     switch (event.target.id) {
       case '20km':
         searchNature(20);
@@ -68,8 +68,10 @@ for (let i = 0; i < dropdownOptions.length; i++) {
         searchNature(150);
         break;
     }
+
   });
-  //document.getElementById('dropdown_container').classList.toggle('hidden');
+
+
 }
 
 //--------------------SETTING UP THE MAP AND USER LOCATION--------------------//
