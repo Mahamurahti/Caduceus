@@ -41,6 +41,26 @@ header {
 .info {
     text-align: center;
 }
+.info a{
+    all: unset;
+}
+.info a:link, .info a:visited{
+    all: unset;
+}
+.info a:hover{
+    all: unset;
+}
+.info a{
+    color: #04471C;
+}
+.info a:link, .info a:visited{
+    color: #04471C;
+    text-decoration: underline;
+}
+.info a:hover{
+    background-color: #04471C;
+    color: white;
+}
 /* -----------------------------------MAIN---------------------------------------- */
 /* This height determines the size of the main element */
 main{
@@ -55,16 +75,55 @@ main{
 /* Changing the padding's third value stretches the info */
 .leftside{
     background-color: #04471C;
+    color: #F7F7F9;
     height: 100%;
-    padding: 20px 50px 120px 50px;
+    padding: 20px 50px 80px 50px;
 }
 /* Hiking Trail Side */
 /* Changing the padding's third value stretches the info */
 .rightside{
     background-color: #544B3D;
+    color: #F7F7F9;
     height: 100%;
-    padding: 20px 50px 120px 50px;
+    padding: 20px 50px 80px 50px;
 }
+/* ----------------------------WEATHER-------------------------------- */
+#weather{
+    width: 100%;
+    height: 200px;
+    background-image: url("../images/weather_bg.JPG");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#weather h2{
+    margin: 10px;
+    font-size: 40px;
+}
+#weather h2 p{
+    font-size: 20px;
+}
+#weather #temp{
+    margin: 0;
+    font-size: 20px;
+}
+#weather button{
+    position: absolute;
+    left: 45%;
+    right: 45%;
+}
+#weather img{
+    width: 180px;
+    height: 180px;
+    margin: 10px;
+    border: 1px solid white;
+    border-radius: 50%;
+}
+
 /* ----------------------------BUTTONS-------------------------------- */
 a {
     display: block;
@@ -164,6 +223,8 @@ li a:link, li a:visited{
 }
 video{
     min-width: 400px;
+    width: 50%;
+    height: auto;
 }
 /* -----------------------------------FOOTER---------------------------------------- */
 footer{
@@ -183,8 +244,7 @@ footer{
 }
 .contact img {
     width: 50%;
-    border-radius: 50%;
-    border-top-right-radius: 0%;
+    border-radius: 50% 0% 50% 0%;
     opacity: 0.7;
 }
 .contact img:hover{

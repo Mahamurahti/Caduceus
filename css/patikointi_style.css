@@ -8,11 +8,15 @@ header {
     background-color: #544B3D;
     padding: 20px;
 }
-heading {
+header img{
+    position: absolute;
+    border-style: ridge;
+    padding: 10px;
+}
+header h1 {
     color: #F7F7F9;
     font-size: 60px;
-    vertical-align: 40px;
-    margin-left: 20px;
+    margin: 25px 0px 25px 100px;
 }
 /* -----------------------BUTTONS------------------------- */
 button {
@@ -45,12 +49,19 @@ button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),
     0 17px 50px 0 rgba(0,0,0,0.19);
 }
+#twoButtons{
+    width: 36%;
+    display: flex;
+    justify-content: space-between;
+}
 #reset{
-    margin: 0;
+    width: 30%;
+    margin-left: 5px;
+    min-width: 100px;
 }
 #filterBtn{
     display: block;
-    width: 36%;
+    width: 60%;
 }
 /* -----------------------INFO------------------------- */
 #info {
@@ -64,6 +75,16 @@ button:hover {
 }
 #info:hover {
     opacity: 1;
+}
+#info a{
+    margin-top: 7px;
+    background-color: #856A5D;
+    color: #A1C349;
+    padding: 10px;
+    font-size: 20px;
+    text-align: center;
+    border-style: none;
+    text-decoration: none;
 }
 #info a:link, a:visited{
     margin-top: 7px;
@@ -117,6 +138,7 @@ button:hover {
     margin-top: 8px;
     margin-bottom: 10px;
     opacity: 0.9;
+    border-radius: 2% 2% 2% 2%;
 }
 #mapid:hover {
     opacity: 1;
@@ -175,4 +197,43 @@ button:hover {
         width: 100%;
         float: none;
     }
+    #twoButtons{
+        width: 100%;
+    }
+}
+
+
+/*------LOADING SCREEN-----------*/
+.loader {
+    visibility: hidden;
+    position: fixed;
+    left: 42%;
+    z-index: 1;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid saddlebrown;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+/* Safari */
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#loadingScreen {
+    visibility: hidden;
+    position:fixed;
+    height:100%;
+    width: 100%;
+    background-color: black;
+    z-index: 1;
+    opacity:60%;
 }
