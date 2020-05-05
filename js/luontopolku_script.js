@@ -37,6 +37,7 @@ resetButton.addEventListener('click', function() {
 * Displays all dropdown options on click
 */
 dropdownButton.addEventListener('click', function() {
+  document.getElementById('info').style.visibility = 'hidden';
   document.getElementById('dropdown_container').classList.toggle('show');
 });
 
