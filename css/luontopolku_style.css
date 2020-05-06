@@ -4,10 +4,6 @@ header {
     background-color: #04471C;
     padding: 20px;
 }
-logo {
-    margin: 10px;
-    width: 10%;
-}
 #logoLink {
     text-decoration: none;
 }
@@ -69,10 +65,7 @@ input:hover {
 .container {
     margin:20px;
 }
-tag1 {
-    color: #F7F7F9;
-}
-tag2 {
+heading {
     color: #F7F7F9;
     font-size: 60px;
     vertical-align: 40px;
