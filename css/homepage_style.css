@@ -226,6 +226,19 @@ video{
     width: 50%;
     height: auto;
 }
+.video a{
+    margin: 10px 25% 10px 25%;
+    background-color: #04471C;
+    color: white;
+}
+.video a:link, .video a:visited{
+    background-color: #04471C;
+    color: white;
+}
+.video a:hover{
+    background-color: white;
+    color: #04471C;
+}
 /* -----------------------------------FOOTER---------------------------------------- */
 footer{
     position: absolute;
