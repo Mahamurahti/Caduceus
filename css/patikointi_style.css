@@ -27,6 +27,7 @@ button {
     font-size: 20px;
     text-align: center;
     border-style: none;
+    outline: #544B3D;
 }
 button:hover {
     background-color: white;
@@ -260,4 +261,9 @@ button:hover {
     background-color: black;
     z-index: 1;
     opacity:60%;
+}
+
+/*----------------NAVIGATION---------------------------*/
+#navigation {
+    cursor: pointer;
 }
