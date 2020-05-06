@@ -18,7 +18,7 @@
 </header>
 <main>
 
-    <div class="loader" id="juttu"></div>
+    <div class="loader" id="loadingIcon"></div>
     <button id="searchbutton">Hae</button>
     <input class="searchBar" id="keyword" placeholder="Hae kaupunki...">
 
@@ -43,10 +43,10 @@
 
     <div id="filters">
         <button id="searchFilters">Hae suodattimilla</button>
-        <p>Reitin minimi pituuden perusteella: <input type="checkbox" id="routeLength"  onclick="routeFilters()"></p>
+        <p>Reitin tarkan pituuden perusteella: <input type="checkbox" id="routeLength"  onclick="routeFilters()"></p>
         <p>Reitin etäisyyden perusteella: <input type="checkbox" id="routeDistance"  onclick="routeFilters()"></p>
 
-        <input class="searchBar" id="routeLengthInput" placeholder="Minimi pituus...">
+        <input class="searchBar" id="routeLengthInput" placeholder="tarkka pituus...">
         <input class="searchBar" id="routeDistanceInput" placeholder ="Etäisyys (km)...">
     </div>
 </main>

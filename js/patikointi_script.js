@@ -17,7 +17,7 @@ const keywordInput = document.getElementById('keyword');
 const searchBtn = document.getElementById('searchbutton');
 const info = document.getElementById('info');
 const tutorial = document.getElementById('tutorial');
-const loadingIcon = document.getElementById("juttu");
+const loadingIcon = document.getElementById("loadingIcon");
 const loadingScreen = document.getElementById("loadingScreen");
 
 //---------------------------------VARIABLES-----------------------------------//
@@ -98,11 +98,11 @@ navigator.geolocation.getCurrentPosition(getPosAndSurroundings, error);
 function addMarker(crd, text, data, icon) {
   try {
     if(data.sportsPlaceId == lastTrail) {
-      console.log("Homma valmis");
+      console.log("loading finished");
         window.setTimeout(finishedLoading, 3000);
     }
   } catch {
-    console.log("Tyhjä");
+    console.warn("reittiä ", data.sportsPlaceId, "ei löydy");
   }
 
   L.marker([crd.latitude, crd.longitude], {icon: icon}).
@@ -285,7 +285,6 @@ function filterSearch() {
   // Searching only with Route length filter
   if (rtLengthCB.checked === true && rtDistanceCB.checked === false) {
     if (Number.isInteger(+rtLengthInput.value) && keywordInput.value == "") {
-      console.log('On numero');
       let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?pageSize=100&typeCodes=4405&page=';
       findTrails(apiUrl);
     } else if (Number.isInteger(+rtLengthInput.value) && keywordInput.value != "") {
@@ -293,7 +292,6 @@ function filterSearch() {
     }
     else  {
       alert('Anna reitin pituus ja etäisyys numeroina!');
-      console.log("Pelkkä pituus");
     }
   }
   // Searching only with route distance filter
@@ -310,7 +308,6 @@ function filterSearch() {
         drawCircle(currentPos);
       } else {
         alert('Anna reitin pituus ja etäisyys numeroina!');
-        console.log("Pelkkä etäisyys");
       }
     }
   }
@@ -329,7 +326,6 @@ function filterSearch() {
         drawCircle(currentPos);
       } else {
         alert('Anna reitin pituus ja etäisyys numeroina!');
-        console.log("Molemmat: etäisyys sekä pituus");
       }
     }
   }
@@ -354,6 +350,7 @@ function loading() {
 }
 
 function finishedLoading() {
+  console.log("latausjuttu loppuu");
   loadingIcon.style.visibility = "hidden";
   loadingScreen.style.visibility ="hidden";
 }
@@ -407,9 +404,14 @@ function findInfo(data) {
         return response.json();
       }).then(function(data) {
         clearTimeout(countdown);
+        console.log("countdown nollattu");
         try {
-          if (rtLengthCB.checked && rtLengthInput.value <
-              data.properties.routeLengthKm) {
+          if ((rtLengthCB.checked && rtLengthInput.value ==
+              data.properties.routeLengthKm)
+              || (rtLengthCB.checked && (+rtLengthInput.value + 1) ==
+              data.properties.routeLengthKm)
+              || (rtLengthCB.checked && (+rtLengthInput.value - 1) ==
+                  data.properties.routeLengthKm)) {
             console.log("Reitti riittävän pitkä, reitti on ",
                 data.sportsPlaceId);
             const coords = {
@@ -428,7 +430,6 @@ function findInfo(data) {
             addMarker(coords, data.name, data, brownIcon);
           } else {
             if (data.sportsPlaceId == lastTrail) {
-              console.log("Valmis");
               finishedLoading();
             }
           }
