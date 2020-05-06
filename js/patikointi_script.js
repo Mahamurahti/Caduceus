@@ -102,7 +102,7 @@ function addMarker(crd, text, data, icon) {
         window.setTimeout(finishedLoading, 3000);
     }
   } catch {
-    console.warn("reittiä ", data.sportsPlaceId, "ei löydy");
+    console.warn("reittiä ei löydy");
   }
 
   L.marker([crd.latitude, crd.longitude], {icon: icon}).
