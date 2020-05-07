@@ -5,7 +5,7 @@ body {
     flex-wrap: wrap;
     position: relative;
     background-color: white;
-    background-image: url("../images/background_placeholder.JPG");
+    background-image: url("../images/index_bg.JPG");
     background-size: cover;
     background-position: bottom;
     margin: 0;
