@@ -14,6 +14,7 @@ const dropdownOptions = document.getElementsByClassName('dropdown_option');
 const dropdownButton = document.getElementById('dropdown_button');
 const info = document.getElementById('info');
 
+
 //------------------------------EVENT LISTENERS-------------------------------//
 
 //On click event listener for search button
@@ -74,6 +75,10 @@ for (let i = 0; i < dropdownOptions.length; i++) {
   });
 }
 
+info.addEventListener('click', function() {
+  info.style.visibility = 'hidden';
+});
+
 //--------------------SETTING UP THE MAP AND USER LOCATION--------------------//
 
 let myLocation = null;
@@ -133,8 +138,7 @@ function addMarker(crd, text, icon, data) {
       addTo(LayerGroup).
       bindPopup(text).
       on('click', function() {
-        try {
-          info.style.display = 'block';
+          document.getElementById('info').style.visibility = 'visible';
           name.innerHTML = data.name;
           address.innerHTML = data.location.address;
           city.innerHTML = data.location.city.name;
@@ -146,9 +150,6 @@ function addMarker(crd, text, icon, data) {
             summary.innerHTML = data.properties.infoFi;
           }
           navigate.href = `https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=${myLocation.latitude}, ${myLocation.longitude}&destination=${crd.latitude}, ${crd.longitude}`;
-        } catch {
-          info.style.display = 'none';
-        }
       });
 }
 
