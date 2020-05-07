@@ -14,7 +14,6 @@ const dropdownOptions = document.getElementsByClassName('dropdown_option');
 const dropdownButton = document.getElementById('dropdown_button');
 const info = document.getElementById('info');
 
-
 //------------------------------EVENT LISTENERS-------------------------------//
 
 //On click event listener for search button
@@ -138,18 +137,18 @@ function addMarker(crd, text, icon, data) {
       addTo(LayerGroup).
       bindPopup(text).
       on('click', function() {
-          document.getElementById('info').style.visibility = 'visible';
-          name.innerHTML = data.name;
-          address.innerHTML = data.location.address;
-          city.innerHTML = data.location.city.name;
-          if (data.properties.routeLengthKm != null) {
-            length.innerHTML = 'Luontoreitin pituus on ' +
-                data.properties.routeLengthKm + ' km.';
-          }
-          if (data.properties.infoFi != null) {
-            summary.innerHTML = data.properties.infoFi;
-          }
-          navigate.href = `https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=
+        document.getElementById('info').style.visibility = 'visible';
+        name.innerHTML = data.name;
+        address.innerHTML = data.location.address;
+        city.innerHTML = data.location.city.name;
+        if (data.properties.routeLengthKm != null) {
+          length.innerHTML = 'Luontoreitin pituus on ' +
+              data.properties.routeLengthKm + ' km.';
+        }
+        if (data.properties.infoFi != null) {
+          summary.innerHTML = data.properties.infoFi;
+        }
+        navigate.href = `https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=
           ${myLocation.latitude},  ${myLocation.longitude}&destination=${crd.latitude}, ${crd.longitude}`;
       });
 }
