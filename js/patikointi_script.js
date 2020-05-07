@@ -17,8 +17,8 @@ const keywordInput = document.getElementById('keyword');
 const searchBtn = document.getElementById('searchbutton');
 const info = document.getElementById('info');
 const tutorial = document.getElementById('tutorial');
-const loadingIcon = document.getElementById("loadingIcon");
-const loadingScreen = document.getElementById("loadingScreen");
+const loadingIcon = document.getElementById('loadingIcon');
+const loadingScreen = document.getElementById('loadingScreen');
 
 //---------------------------------VARIABLES-----------------------------------//
 let lastTrail = 0;
@@ -50,7 +50,6 @@ resetBtn.addEventListener('click', function(evt) {
   tutorial.style.display = 'block';
 });
 //-----------------------------------------------------------------------------//
-
 
 let currentPos = null;
 let markerCoord = [];
@@ -97,19 +96,19 @@ navigator.geolocation.getCurrentPosition(getPosAndSurroundings, error);
  */
 function addMarker(crd, text, data, icon) {
   try {
-    if(data.sportsPlaceId == lastTrail) {
-      console.log("loading finished");
-        window.setTimeout(finishedLoading, 3000);
+    if (data.sportsPlaceId == lastTrail) {
+      console.log('loading finished');
+      window.setTimeout(finishedLoading, 3000);
     }
   } catch {
-    console.warn("reittiä ei löydy");
+    console.warn('reittiä ei löydy');
   }
 
   L.marker([crd.latitude, crd.longitude], {icon: icon}).
       addTo(layerGroup).
       bindPopup(`<b>${text}</b>`).
       on('click', function(popup) {
-        try{
+        try {
           console.log(data);
           info.style.display = 'block';
           tutorial.style.display = 'none';
@@ -145,8 +144,8 @@ function addMarker(crd, text, data, icon) {
            */
           addPath(data);
 
-        } catch{
-          console.log("Ei voida lisätä elementtejä markeriin.");
+        } catch {
+          console.log('Ei voida lisätä elementtejä markeriin.');
           info.style.display = 'none';
           tutorial.style.display = 'block';
           layerGroupPath.clearLayers();
@@ -178,13 +177,14 @@ function addPath(data) {
   let latlngs = [];
 
   // Fetching the path coordinates from the data
-  for(let i = 0; i < 500; i++){
-    for(let j = 0; j < 500; j++){
-      if(data.location.geometries.features[j] !== undefined){
-        if(data.location.geometries.features[j].geometry.coordinates[i] !== undefined){
+  for (let i = 0; i < 500; i++) {
+    for (let j = 0; j < 500; j++) {
+      if (data.location.geometries.features[j] !== undefined) {
+        if (data.location.geometries.features[j].geometry.coordinates[i] !==
+            undefined) {
           latlngs[i] = data.location.geometries.features[j].geometry.coordinates[i];
           // Sorting the coordinates, since they are reversed in the data
-          latlngs[i].sort(function(a,b){
+          latlngs[i].sort(function(a, b) {
             return b - a;
           });
         }
@@ -201,23 +201,30 @@ function addPath(data) {
    */
 
   // Drawing the path on the map. We use an antPath library for this.
-  let path = L.polyline.antPath(latlngs,{"delay":1400,"dashArray":[20,30],"weight":5,"color":"red","paused":false,"reverse":false}
+  let path = L.polyline.antPath(latlngs, {
+        'delay': 1400,
+        'dashArray': [20, 30],
+        'weight': 5,
+        'color': 'red',
+        'paused': false,
+        'reverse': false,
+      },
   ).addTo(layerGroupPath);
   map.fitBounds(path.getBounds());
 }
 
-
 //------------------------------DRAW CIRCLE------------------------------------//
 // Drawing a circle if the user has defined a search radius
 function drawCircle(currentPos) {
-    addMarker(currentPos, 'Olet tässä', null, redIcon);
-    let circle = L.circle([currentPos.latitude, currentPos.longitude], {
+  addMarker(currentPos, 'Olet tässä', null, redIcon);
+  let circle = L.circle([currentPos.latitude, currentPos.longitude], {
     color: 'brown',
     fillColor: '#734e03',
     fillOpacity: 0.1,
-    radius: rtDistanceInput.value * 1000
+    radius: rtDistanceInput.value * 1000,
   }).addTo(layerGroup);
 }
+
 //-----------------------------------------------------------------------------//
 
 //-------------------------REMOVE ROUTE INFO-----------------------------------//
@@ -245,6 +252,7 @@ function navigate(currentPos) {
         `https://www.google.com/maps/dir/?api=1&origin=${currentPos.latitude},${currentPos.longitude}&destination=${markerCoord[0].lat},${markerCoord[0].lon}&travelmode=driving`);
   }
 }
+
 //-----------------------------------------------------------------------------//
 
 //--------------------------FILTERING THE SEARCH-------------------------------//
@@ -278,26 +286,25 @@ function routeFilters() {
 
 // Searching for trails with filters
 function filterSearch() {
-
   layerGroupPath.clearLayers();
   layerGroup.clearLayers();
 
   // Searching only with Route length filter
   if (rtLengthCB.checked === true && rtDistanceCB.checked === false) {
-    if (Number.isInteger(+rtLengthInput.value) && keywordInput.value == "") {
+    if (Number.isInteger(+rtLengthInput.value) && keywordInput.value == '') {
       let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?pageSize=100&typeCodes=4405&page=';
       findTrails(apiUrl);
-    } else if (Number.isInteger(+rtLengthInput.value) && keywordInput.value != "") {
+    } else if (Number.isInteger(+rtLengthInput.value) && keywordInput.value !=
+        '') {
       findCity(keywordInput.value);
-    }
-    else  {
+    } else {
       alert('Anna reitin pituus ja etäisyys numeroina!');
     }
   }
   // Searching only with route distance filter
   else if (rtLengthCB.checked === false && rtDistanceCB.checked === true) {
-    if(keywordInput.value != "") {
-      alert("Et voi etsiä kaupungista tietyllä säteellä");
+    if (keywordInput.value != '') {
+      alert('Et voi etsiä kaupungista tietyllä säteellä');
     } else {
       if (Number.isInteger(+rtDistanceInput.value)) {
         let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
@@ -313,8 +320,8 @@ function filterSearch() {
   }
   // Searching with both filters
   else if (rtLengthCB.checked === true && rtDistanceCB.checked === true) {
-    if(keywordInput.value !="") {
-      alert("Et voi etsiä kaupungista tietyllä säteellä!");
+    if (keywordInput.value != '') {
+      alert('Et voi etsiä kaupungista tietyllä säteellä!');
     } else {
       if (Number.isInteger(+rtDistanceInput.value) &&
           Number.isInteger(+rtLengthInput.value)) {
@@ -345,15 +352,16 @@ function searchClick() {
 
 function loading() {
   clearTimeout(countdown);
-  loadingIcon.style.visibility = "visible";
-  loadingScreen.style.visibility ="visible";
+  loadingIcon.style.visibility = 'visible';
+  loadingScreen.style.visibility = 'visible';
 }
 
 function finishedLoading() {
-  console.log("latausjuttu loppuu");
-  loadingIcon.style.visibility = "hidden";
-  loadingScreen.style.visibility ="hidden";
+  console.log('latausjuttu loppuu');
+  loadingIcon.style.visibility = 'hidden';
+  loadingScreen.style.visibility = 'hidden';
 }
+
 //-------------------------FETCHING DATA FROM LIPAS----------------------------//
 // We use a proxyUrl to allow CORS (Cross-origin resource sharing)
 let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
@@ -364,7 +372,7 @@ let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
  */
 function findTrails(url) {
   loading();
-  // First for-loop to cycle throught the pages (7 pages)
+  // First for-loop to cycle through the pages (7 pages)
   for (let i = 1; i < 7; i++) {
     fetch(proxyUrl + url + i).
         then(function(response) {
@@ -385,17 +393,19 @@ function findTrails(url) {
 
 //fetching Trails from certain cities using different API
 function findCity(city) {
-  fetch(`https://bridge.buddyweb.fr/api/hikingtrails/hikingtrails?kunta=` + city).
+  fetch(
+      `https://bridge.buddyweb.fr/api/hikingtrails/hikingtrails?kunta=` + city).
       then(function(response) {
         return response.json();
       }).then(function(cityTrails) {
-        for(let i = 0; i < cityTrails.length; i++) {
-          lastTrail = cityTrails[i].sportsplaceid;
-          console.log("Haetaan reittiä ", cityTrails[i].sportsplaceid);
-          findInfo(cityTrails[i].sportsplaceid);
-        }
-  })
+    for (let i = 0; i < cityTrails.length; i++) {
+      lastTrail = cityTrails[i].sportsplaceid;
+      console.log('Haetaan reittiä ', cityTrails[i].sportsplaceid);
+      findInfo(cityTrails[i].sportsplaceid);
+    }
+  });
 }
+
 // Fetching the trail info with the id that was obtained
 function findInfo(data) {
   loading();
@@ -403,41 +413,42 @@ function findInfo(data) {
       then(function(response) {
         return response.json();
       }).then(function(data) {
-        clearTimeout(countdown);
-        console.log("countdown nollattu");
-        try {
-          if ((rtLengthCB.checked && rtLengthInput.value ==
+    clearTimeout(countdown);
+    console.log('countdown nollattu');
+    try {
+      if ((rtLengthCB.checked && rtLengthInput.value ==
+          data.properties.routeLengthKm)
+          || (rtLengthCB.checked && (+rtLengthInput.value + 1) ==
               data.properties.routeLengthKm)
-              || (rtLengthCB.checked && (+rtLengthInput.value + 1) ==
-              data.properties.routeLengthKm)
-              || (rtLengthCB.checked && (+rtLengthInput.value - 1) ==
-                  data.properties.routeLengthKm)) {
-            console.log("Reitti riittävän pitkä, reitti on ",
-                data.sportsPlaceId);
-            const coords = {
-              latitude: data.location.coordinates.wgs84.lat,
-              longitude: data.location.coordinates.wgs84.lon,
-            };
-            // Adding a marker to the map with the correct location of the trail
-            addMarker(coords, data.name, data, brownIcon);
+          || (rtLengthCB.checked && (+rtLengthInput.value - 1) ==
+              data.properties.routeLengthKm)) {
+        console.log('Reitti riittävän pitkä, reitti on ',
+            data.sportsPlaceId);
+        const coords = {
+          latitude: data.location.coordinates.wgs84.lat,
+          longitude: data.location.coordinates.wgs84.lon,
+        };
+        // Adding a marker to the map with the correct location of the trail
+        addMarker(coords, data.name, data, brownIcon);
 
-          } else if (!rtLengthCB.checked) {
-            const coords = {
-              latitude: data.location.coordinates.wgs84.lat,
-              longitude: data.location.coordinates.wgs84.lon,
-            };
-            // Adding a marker to the map with the correct location of the trail
-            addMarker(coords, data.name, data, brownIcon);
-          } else {
-            if (data.sportsPlaceId == lastTrail) {
-              finishedLoading();
-            }
-          }
-          countdown = setTimeout(finishedLoading, 1000);
-        } catch {
-          console.warn("Virhe, aikaa 10 sek ennen kuin lataus loppuu");
-          countdown = setTimeout(finishedLoading, 10000);
+      } else if (!rtLengthCB.checked) {
+        const coords = {
+          latitude: data.location.coordinates.wgs84.lat,
+          longitude: data.location.coordinates.wgs84.lon,
+        };
+        // Adding a marker to the map with the correct location of the trail
+        addMarker(coords, data.name, data, brownIcon);
+      } else {
+        if (data.sportsPlaceId == lastTrail) {
+          finishedLoading();
         }
+      }
+      countdown = setTimeout(finishedLoading, 1000);
+    } catch {
+      console.warn('Virhe, aikaa 10 sek ennen kuin lataus loppuu');
+      countdown = setTimeout(finishedLoading, 10000);
+    }
   });
 }
+
 //-----------------------------------------------------------------------------//

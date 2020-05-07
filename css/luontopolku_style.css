@@ -4,9 +4,11 @@ header {
     background-color: #04471C;
     padding: 20px;
 }
+
 #logoLink {
     text-decoration: none;
 }
+
 #logoLink:visited {
     color: #F7F7F9;
 }
@@ -23,13 +25,16 @@ button {
     font-size: 20px;
     outline: #243010;
 }
+
 button:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),
-    0 17px 50px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
-.leftWrapUp:hover > input{
+
+.leftWrapUp:hover > input {
     width: 80%;
 }
+
 #searchbutton {
     background-repeat: no-repeat;
     border-style: none;
@@ -41,8 +46,10 @@ button:hover {
     border-radius: 0 10% 10% 0;
     background-image: url("../images/search64.png");
 }
+
 #searchbutton::after {
 }
+
 /*Searchfield style*/
 input {
     border-radius: 4% 0 0 4%;
@@ -58,19 +65,22 @@ input {
 
 input:hover {
     opacity: 1;
-    box-shadow: 0 12px 12px 0 rgba(0,0,0,0.10),
-    0 17px 10px 0 rgba(0,0,0,0.10);
+    box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.10),
+    0 17px 10px 0 rgba(0, 0, 0, 0.10);
 
 }
+
 .container {
-    margin:20px;
+    margin: 20px;
 }
+
 heading {
     color: #F7F7F9;
     font-size: 60px;
     vertical-align: 40px;
     margin-left: 20px;
 }
+
 /*Map style*/
 #map {
     border-radius: 2% 2% 2% 2%;
@@ -81,11 +91,13 @@ heading {
     margin-bottom: 10px;
     opacity: 0.7;
 }
+
 #map:hover {
     opacity: 1;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.15),
-    0 17px 50px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.15),
+    0 17px 50px 0 rgba(0, 0, 0, 0.15);
 }
+
 /*Map marker styles*/
 .blue-icon {
     width: 30px;
@@ -93,19 +105,22 @@ heading {
     border-radius: 50% 50% 50% 0;
     background: #66D1E8;
     position: absolute;
-    //transform: rotate(-45deg);
+/ / transform: rotate(- 45 deg);
     left: 50%;
     top: 50%;
     margin: -15px 0 0 -15px;
 }
+
 .blue-icon::after {
     content: url("../images/shoes.png");
     margin: 4px 0 0 4px;
     position: absolute;
 }
+
 .blue-icon:hover {
     background: #2BBFDF;
 }
+
 .green-icon {
     width: 30px;
     height: 30px;
@@ -117,14 +132,17 @@ heading {
     top: 50%;
     margin: -15px 0 0 -15px;
 }
+
 .green-icon::after {
     content: url("../images/tree.png");
     margin: 3px 0 0 3px;
     position: absolute;
 }
+
 .green-icon:hover {
     background: #179C18;
 }
+
 /*Backround image*/
 body {
     background-image: url('../images/metsäPolku.jpg');
@@ -136,11 +154,13 @@ body {
     height: 100%;
     min-height: 100%;
 }
+
 /*Left info  table style*/
 .wrapContainer {
     width: 40%;
     display: block;
 }
+
 .wrapper {
     border-radius: 4% 4% 4% 4%;
     visibility: hidden;
@@ -151,16 +171,20 @@ body {
     color: #F7F7F9;
     width: auto;
 }
+
 .wrapper:hover {
     opacity: 1;
 }
+
 .leftWrapUp {
     width: auto;
     max-width: 100%;
 }
+
 .leftWrapDown {
     width: auto;
 }
+
 /*Paikanna napin tyyli*/
 #reset {
     margin-top: -58px;
@@ -174,10 +198,12 @@ body {
     font-family: 'Montserrat', sans-serif;
     display: block;
 }
- #reset:hover {
+
+#reset:hover {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.15),
     0 17px 50px 0 rgba(0, 0, 0, 0.15);
 }
+
 /*Navigoi napin style*/
 #navigate {
     border-radius: 5% 5% 5% 5%;
@@ -185,36 +211,40 @@ body {
     background-color: #87A330;
     color: #F7F7F9;
     padding: 10px;
-    //border-style: ridge;
+/ / border-style: ridge;
     border-color: #04471C;
     width: 30%;
     text-decoration: none;
 }
+
 #navigate:hover {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.15),
     0 17px 50px 0 rgba(0, 0, 0, 0.15);
 }
+
 /*Dropdown style*/
 .dropbutton {
     margin-left: 41%;
     width: 40%;
     background-color: #87A330;
     color: white;
-    padding:15px;
-    //border:none;
+    padding: 15px;
+/ / border: none;
     cursor: pointer;
     min-width: 150px;
 }
+
 #dropdown_container {
-    //visibility: visible;
+/ / visibility: visible;
 }
+
 .dropbutton:hover, .dropbutton:focus {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.15),
     0 17px 50px 0 rgba(0, 0, 0, 0.15);
 }
 
 .dropdown {
-    position:relative;
+    position: relative;
     display: block;
 }
 
@@ -222,7 +252,7 @@ body {
     cursor: pointer;
     margin-left: 41%;
     display: none;
-    position:absolute;
+    position: absolute;
     background-color: #A1C349;
     width: 40%;
 
