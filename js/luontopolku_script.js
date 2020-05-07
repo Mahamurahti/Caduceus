@@ -6,7 +6,7 @@ const city = document.getElementById('city');
 const length = document.getElementById('length');
 const summary = document.getElementById('summary');
 const navigate = document.getElementById('navigate');
-const proxyUrl = `https://cors-anywhere.herokuapp.com/`;
+const proxyUrl = `http://users.metropolia.fi/~ilkkamtk/proxy.php?ur=`;
 const searchButton = document.getElementById('searchbutton');
 const resetButton = document.getElementById('reset');
 const input = document.getElementById('input');
@@ -156,17 +156,18 @@ function addMarker(crd, text, icon, data) {
 //--------------------------FETCHING DATA FROM API----------------------------//
 
 /*Function for fetching sport places by type code for nature trails (4404)
-*Shows nature trails within 100km radius from user location
+*Shows nature trails within a given distance from user location
 * First for-loop is for showing all search results. Data is in paginated format and thus can show maximum 100 search results per page. */
 function searchNature(distance) {
   LayerGroup.clearLayers();
+  let url = `http://lipas.cc.jyu.fi/api/sports-places?closeToLon=${myLocation.longitude}
+        &closeToLat=${myLocation.latitude}&closeToDistanceKm=${distance}
+        &typeCodes=4404&pageSize=100&page=`;
+  let encodedApiUrl = encodeURIComponent(url);
 
   addMarker(myLocation, 'Olen tässä', blueIcon);
   for (let i = 1; i < 7; i++) {
-    fetch(proxyUrl +
-        `http://lipas.cc.jyu.fi/api/sports-places?closeToLon=${myLocation.longitude}
-        &closeToLat=${myLocation.latitude}&closeToDistanceKm=${distance}
-        &typeCodes=4404&pageSize=100&page=${i}`).
+    fetch(proxyUrl + encodedApiUrl + i).
         then(function(response) {
           return response.json();
         }).then(function(data) {
@@ -184,8 +185,11 @@ function searchNature(distance) {
 
 //Function fetches nature trail information
 function findTrail(data) {
-  fetch(proxyUrl +
-      `http://lipas.cc.jyu.fi/api/sports-places/${data.sportsPlaceId}`).
+
+  let url = `http://lipas.cc.jyu.fi/api/sports-places/${data.sportsPlaceId}`;
+  let encodedApiUrl = encodeURIComponent(url);
+
+  fetch(proxyUrl + encodedApiUrl).
       then(function(response) {
         return response.json();
       }).then(function(data) {
@@ -207,14 +211,15 @@ function findTrail(data) {
   });
 }
 
-//Function for searching nature tarils by user input keyword
+//Function for searching nature trail by user input keyword
 function searchByKeyword() {
 
   LayerGroup.clearLayers();
-  //addMarker(myLocation, 'Olen tässä', blueIcon);
+  let url = `http://lipas.cc.jyu.fi/api/sports-places?searchString=${input.value}&typeCodes=4404&pageSize=100&page=`;
+  let encodedApiUrl = encodeURIComponent(url);
+
   for (let i = 1; i < 7; i++) {
-    fetch(proxyUrl +
-        `http://lipas.cc.jyu.fi/api/sports-places?searchString=${input.value}&typeCodes=4404&pageSize=100&page=${i}`).
+    fetch(proxyUrl + encodedApiUrl + i).
         then(function(response) {
           return response.json();
         }).then(function(data) {
