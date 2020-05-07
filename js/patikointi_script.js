@@ -364,7 +364,7 @@ let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
  */
 function findTrails(url) {
   loading();
-  // First for-loop to cycle throught the pages (7 pages)
+  // First for-loop to cycle through the pages (7 pages)
   for (let i = 1; i < 7; i++) {
     fetch(proxyUrl + url + i).
         then(function(response) {

@@ -149,7 +149,8 @@ function addMarker(crd, text, icon, data) {
           if (data.properties.infoFi != null) {
             summary.innerHTML = data.properties.infoFi;
           }
-          navigate.href = `https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=${myLocation.latitude}, ${myLocation.longitude}&destination=${crd.latitude}, ${crd.longitude}`;
+          navigate.href = `https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=
+          ${myLocation.latitude},  ${myLocation.longitude}&destination=${crd.latitude}, ${crd.longitude}`;
       });
 }
 
@@ -164,7 +165,9 @@ function searchNature(distance) {
   addMarker(myLocation, 'Olen tässä', blueIcon);
   for (let i = 1; i < 7; i++) {
     fetch(proxyUrl +
-        `http://lipas.cc.jyu.fi/api/sports-places?closeToLon=${myLocation.longitude}&closeToLat=${myLocation.latitude}&closeToDistanceKm=${distance}&typeCodes=4404&pageSize=100&page=${i}`).
+        `http://lipas.cc.jyu.fi/api/sports-places?closeToLon=${myLocation.longitude}
+        &closeToLat=${myLocation.latitude}&closeToDistanceKm=${distance}
+        &typeCodes=4404&pageSize=100&page=${i}`).
         then(function(response) {
           return response.json();
         }).then(function(data) {
