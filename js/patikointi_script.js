@@ -75,7 +75,7 @@ function getPosAndSurroundings(pos) {
   addMarker(currentPos, 'Olet tässä.', null, redIcon);
   let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
       currentPos.longitude + '&closeToLat=' + currentPos.latitude +
-      '&closeToDistanceKm=100&pageSize=100&typeCodes=4405&page=';
+      '&closeToDistanceKm=50&pageSize=100&typeCodes=4405&page=';
   findTrails(apiUrl);
 }
 
@@ -364,18 +364,21 @@ function finishedLoading() {
 
 //-------------------------FETCHING DATA FROM LIPAS----------------------------//
 // We use a proxyUrl to allow CORS (Cross-origin resource sharing)
-let proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+let proxyUrl = 'https://users.metropolia.fi/~ilkkamtk/proxy.php?ur=',
     targetUrlId = 'http://lipas.cc.jyu.fi/api/sports-places/';
+
 
 /* Fetching the type of sports activity we want to use (hiking)
  * The result will be an id which we will use in the next fetch
  */
 function findTrails(url) {
 
+  let encodedApiUrl = encodeURIComponent(url);
+
   loading();
   // First for-loop to cycle through the pages (7 pages)
   for (let i = 1; i < 7; i++) {
-    fetch(proxyUrl + url + i).
+    fetch(proxyUrl + encodedApiUrl + i).
         then(function(response) {
           return response.json();
         }).then(function(data) {
