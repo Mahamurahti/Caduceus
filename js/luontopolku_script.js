@@ -29,6 +29,7 @@ searchButton.addEventListener('click', function() {
 * */
 resetButton.addEventListener('click', function() {
   LayerGroup.clearLayers();
+  document.getElementById('info').style.visibility = 'hidden';
   addMarker(myLocation, 'Olen tässä', blueIcon);
   searchNature(50);
 });
