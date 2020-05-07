@@ -260,8 +260,6 @@ li a:link, li a:visited {
 }
 iframe{
     min-width: 400px;
-    width: 50%;
-    height: auto;
 }
 
 .video a {
