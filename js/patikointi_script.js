@@ -372,7 +372,9 @@ let proxyUrl = 'https://users.metropolia.fi/~ilkkamtk/proxy.php?ur=',
  * The result will be an id which we will use in the next fetch
  */
 function findTrails(url) {
+
   let encodedApiUrl = encodeURIComponent(url);
+
   loading();
   // First for-loop to cycle through the pages (7 pages)
   for (let i = 1; i < 7; i++) {
