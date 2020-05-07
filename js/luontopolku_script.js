@@ -12,6 +12,7 @@ const resetButton = document.getElementById('reset');
 const input = document.getElementById('input');
 const dropdownOptions = document.getElementsByClassName('dropdown_option');
 const dropdownButton = document.getElementById('dropdown_button');
+const info = document.getElementById('info');
 
 //------------------------------EVENT LISTENERS-------------------------------//
 
@@ -38,7 +39,7 @@ resetButton.addEventListener('click', function() {
 * Displays all dropdown options on click
 */
 dropdownButton.addEventListener('click', function() {
-  document.getElementById('dropdown_container').style.visibility= 'visible';
+  document.getElementById('dropdown_container').style.visibility = 'visible';
   document.getElementById('dropdown_container').classList.toggle('show');
   document.getElementById('info').style.visibility = 'hidden';
 });
@@ -47,8 +48,7 @@ dropdownButton.addEventListener('click', function() {
 *Displays nature trails within a given distance (km) from the user
 */
 for (let i = 0; i < dropdownOptions.length; i++) {
-  dropdownOptions[i].addEventListener('click', function(event)
-  {
+  dropdownOptions[i].addEventListener('click', function(event) {
     switch (event.target.id) {
       case '20km':
         searchNature(20);
@@ -70,7 +70,7 @@ for (let i = 0; i < dropdownOptions.length; i++) {
         searchNature(150);
         break;
     }
-    document.getElementById('dropdown_container').style.visibility= 'hidden';
+    document.getElementById('dropdown_container').style.visibility = 'hidden';
   });
 }
 
@@ -133,18 +133,22 @@ function addMarker(crd, text, icon, data) {
       addTo(LayerGroup).
       bindPopup(text).
       on('click', function() {
-        document.getElementById('info').style.visibility = 'visible';
-        name.innerHTML = data.name;
-        address.innerHTML = data.location.address;
-        city.innerHTML = data.location.city.name;
-        if (data.properties.routeLengthKm != null) {
-          length.innerHTML = 'Luontoreitin pituus on ' +
-              data.properties.routeLengthKm + ' km.';
+        try {
+          info.style.display = 'block';
+          name.innerHTML = data.name;
+          address.innerHTML = data.location.address;
+          city.innerHTML = data.location.city.name;
+          if (data.properties.routeLengthKm != null) {
+            length.innerHTML = 'Luontoreitin pituus on ' +
+                data.properties.routeLengthKm + ' km.';
+          }
+          if (data.properties.infoFi != null) {
+            summary.innerHTML = data.properties.infoFi;
+          }
+          navigate.href = `https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=${myLocation.latitude}, ${myLocation.longitude}&destination=${crd.latitude}, ${crd.longitude}`;
+        } catch {
+          info.style.display = 'none';
         }
-        if (data.properties.infoFi != null) {
-          summary.innerHTML = data.properties.infoFi;
-        }
-        navigate.href = `https://www.google.com/maps/dir/?api=1&travelmode=driving&origin=${myLocation.latitude}, ${myLocation.longitude}&destination=${crd.latitude}, ${crd.longitude}`;
       });
 }
 
