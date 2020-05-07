@@ -221,7 +221,7 @@ li a:link, li a:visited{
     padding: 20px 0px 20px 0px;
     background-color: #5ccc7a;
 }
-video{
+iframe{
     min-width: 400px;
     width: 50%;
     height: auto;
