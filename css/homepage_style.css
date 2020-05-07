@@ -20,6 +20,7 @@ header {
     margin: 0;
     background-color: white;
 }
+
 .heading {
     position: relative;
     height: 15em;
@@ -27,68 +28,82 @@ header {
     align-items: center;
     justify-content: center;
 }
-.heading img{
+
+.heading img {
     width: 40px;
     margin-right: 10px;
 }
-.heading h1{
+
+.heading h1 {
     text-align: center;
     font-size: 55px;
     letter-spacing: 3px;
     margin: 0;
     color: #04471C;
 }
+
 .info {
     text-align: center;
 }
-.info a{
+
+.info a {
     all: unset;
 }
-.info a:link, .info a:visited{
+
+.info a:link, .info a:visited {
     all: unset;
 }
-.info a:hover{
+
+.info a:hover {
     all: unset;
 }
-.info a{
+
+.info a {
     color: #04471C;
 }
-.info a:link, .info a:visited{
+
+.info a:link, .info a:visited {
     color: #04471C;
     text-decoration: underline;
 }
-.info a:hover{
+
+.info a:hover {
     background-color: #04471C;
     color: white;
 }
+
 /* -----------------------------------MAIN---------------------------------------- */
 /* This height determines the size of the main element */
-main{
+main {
     position: relative;
     height: 100%;
 }
-.leftside .rightside{
+
+.leftside .rightside {
     height: 100%;
     width: 100%;
 }
+
 /* Nature Trail Side */
 /* Changing the padding's third value stretches the info */
-.leftside{
+.leftside {
     background-color: #04471C;
     color: #F7F7F9;
     height: 100%;
     padding: 20px 50px 80px 50px;
 }
+
 /* Hiking Trail Side */
 /* Changing the padding's third value stretches the info */
-.rightside{
+.rightside {
     background-color: #544B3D;
     color: #F7F7F9;
     height: 100%;
     padding: 20px 50px 80px 50px;
 }
+
 /* ----------------------------WEATHER-------------------------------- */
-#weather{
+#weather {
     width: 100%;
     height: 200px;
     background-image: url("../images/weather_bg.JPG");
@@ -100,23 +115,27 @@ main{
     justify-content: center;
 }
 
-#weather h2{
+#weather h2 {
     margin: 10px;
     font-size: 40px;
 }
-#weather h2 p{
+
+#weather h2 p {
     font-size: 20px;
 }
-#weather #temp{
+
+#weather #temp {
     margin: 0;
     font-size: 20px;
 }
-#weather button{
+
+#weather button {
     position: absolute;
     left: 45%;
     right: 45%;
 }
-#weather img{
+
+#weather img {
     width: 180px;
     height: 180px;
     margin: 10px;
@@ -129,34 +148,41 @@ a {
     display: block;
     color: white;
 }
-a:link, a:visited{
+
+a:link, a:visited {
     background-color: darkolivegreen;
     color: white;
     text-decoration: none;
     padding: 10px;
 }
-a:hover{
+
+a:hover {
     background-color: white;
     color: #04471C
 }
-.leftside a{
+
+.leftside a {
     position: absolute;
     bottom: 20px;
     background-color: forestgreen;
 }
-.leftside a:hover{
+
+.leftside a:hover {
     color: forestgreen;
     background-color: white;
 }
-.rightside a{
+
+.rightside a {
     position: absolute;
     bottom: 20px;
     background-color: #856A5D;
 }
-.rightside a:hover{
+
+.rightside a:hover {
     color: #856A5D;
     background-color: white;
 }
+
 /* ---------------------------IMAGES---------------------------------- */
 /* Images below info (change width depending on how many images there are) */
 .column {
@@ -164,28 +190,33 @@ a:hover{
     /* Default image count: 6 */
     width: 16.66666666666666666667%;
 }
-.row{
+
+.row {
     width: 100%;
     margin: 0;
 }
+
 /* ----------------------------NATURE GALLERY-------------------------- */
-main h1{
+main h1 {
     text-align: center;
     width: 100%;
     padding: 20px 0px 20px 0px;
     background-color: white;
     margin: 0;
 }
-.imageSection{
+
+.imageSection {
     position: relative;
 }
-.imageList{
+
+.imageList {
     background-color: #5ccc7a;
     width: 100%;
     height: 25%;
     margin: 0;
 }
-ul{
+
+ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -193,58 +224,70 @@ ul{
     padding: 20px 20px 20px 20px;
     list-style-type: none;
 }
-ul .column{
+
+ul .column {
     position: relative;
     float: none;
     width: 16.6666666666666666667%;
 }
-li img{
+
+li img {
     width: 100%;
 }
-li a:link, li a:visited{
+
+li a:link, li a:visited {
     width: 100%;
     padding: 1px;
 }
-@media screen and (max-width: 1080px){
-    ul .column{
+
+@media screen and (max-width: 1080px) {
+    ul .column {
         width: 25%;
     }
 }
-@media screen and (max-width: 600px){
-    ul .column{
+
+@media screen and (max-width: 600px) {
+    ul .column {
         width: 33.33333333333333333333%;
     }
 }
+
 /* -----------------------------------VIDEO---------------------------------------- */
 .video {
     text-align: center;
     padding: 20px 0px 20px 0px;
     background-color: #5ccc7a;
 }
-video{
+
+video {
     min-width: 400px;
     width: 50%;
     height: auto;
 }
-.video a{
+
+.video a {
     margin: 10px 25% 10px 25%;
     background-color: #04471C;
     color: white;
 }
-.video a:link, .video a:visited{
+
+.video a:link, .video a:visited {
     background-color: #04471C;
     color: white;
 }
-.video a:hover{
+
+.video a:hover {
     background-color: white;
     color: #04471C;
 }
+
 /* -----------------------------------FOOTER---------------------------------------- */
-footer{
+footer {
     position: absolute;
     bottom: 0;
     width: 100%;
 }
+
 .bottomInfo {
     position: absolute;
     opacity: 0.7;
@@ -252,36 +295,44 @@ footer{
     color: #F7F7F9;
     width: 100%;
 }
+
 .bottomInfo:hover {
     opacity: 1;
 }
+
 .contact img {
     width: 50%;
     border-radius: 50% 0% 50% 0%;
     opacity: 0.7;
 }
-.contact img:hover{
+
+.contact img:hover {
     opacity: 1;
 }
-.contact{
+
+.contact {
     float: left;
     width: 25%;
     padding: 5px;
     text-align: center;
 }
-@media screen and (max-width: 1080px){
-    .contact{
+
+@media screen and (max-width: 1080px) {
+    .contact {
         width: 50%;
     }
-    .contact img{
+
+    .contact img {
         width: 50%;
     }
 }
-@media screen and (max-width: 600px){
-    .contact{
+
+@media screen and (max-width: 600px) {
+    .contact {
         width: 100%;
     }
-    .contact img{
+
+    .contact img {
         width: 30%;
     }
 }
