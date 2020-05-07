@@ -6,7 +6,7 @@ const city = document.getElementById('city');
 const length = document.getElementById('length');
 const summary = document.getElementById('summary');
 const navigate = document.getElementById('navigate');
-const proxyUrl = `http://users.metropolia.fi/~ilkkamtk/proxy.php?ur=`;
+const proxyUrl = `https://users.metropolia.fi/~ilkkamtk/proxy.php?ur=`;
 const searchButton = document.getElementById('searchbutton');
 const resetButton = document.getElementById('reset');
 const input = document.getElementById('input');
