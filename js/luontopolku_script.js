@@ -160,9 +160,7 @@ function addMarker(crd, text, icon, data) {
 * First for-loop is for showing all search results. Data is in paginated format and thus can show maximum 100 search results per page. */
 function searchNature(distance) {
   LayerGroup.clearLayers();
-  let url = `http://lipas.cc.jyu.fi/api/sports-places?closeToLon=${myLocation.longitude}
-        &closeToLat=${myLocation.latitude}&closeToDistanceKm=${distance}
-        &typeCodes=4404&pageSize=100&page=`;
+  let url = `http://lipas.cc.jyu.fi/api/sports-places?closeToLon=${myLocation.longitude}&closeToLat=${myLocation.latitude}&closeToDistanceKm=${distance}&typeCodes=4404&pageSize=100&page=`;
   let encodedApiUrl = encodeURIComponent(url);
 
   addMarker(myLocation, 'Olen tässä', blueIcon);
@@ -177,6 +175,8 @@ function searchNature(distance) {
       for (let j = 0; j < data.length; j++) {
         findTrail(data[j]);
       }
+      document.querySelector('pre').innerHTML = JSON.stringify(data, null,
+          2);
     }).catch(function(error) {
       console.log(error);
     });
@@ -207,7 +207,10 @@ function findTrail(data) {
 
     //Centers map view around group of visible markers
     map.fitBounds(LayerGroup.getBounds());
-
+    document.querySelector('pre').innerHTML = JSON.stringify(data, null,
+        2);
+  }).catch(function(error) {
+    console.log(error);
   });
 }
 
@@ -218,8 +221,8 @@ function searchByKeyword() {
   let url = `http://lipas.cc.jyu.fi/api/sports-places?searchString=${input.value}&typeCodes=4404&pageSize=100&page=`;
   let encodedApiUrl = encodeURIComponent(url);
 
-  for (let i = 1; i < 7; i++) {
-    fetch(proxyUrl + encodedApiUrl + i).
+  for (let k = 1; k < 7; k++) {
+    fetch(proxyUrl + encodedApiUrl + k).
         then(function(response) {
           return response.json();
         }).then(function(data) {
@@ -229,7 +232,8 @@ function searchByKeyword() {
       for (let j = 0; j < data.length; j++) {
         findTrail(data[j]);
       }
-
+      document.querySelector('pre').innerHTML = JSON.stringify(data, null,
+          2);
     }).catch(function(error) {
       console.log(error);
     });
