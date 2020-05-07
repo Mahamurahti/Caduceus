@@ -75,7 +75,7 @@ function getPosAndSurroundings(pos) {
   addMarker(currentPos, 'Olet tässä.', null, redIcon);
   let apiUrl = 'http://lipas.cc.jyu.fi/api/sports-places?closeToLon=' +
       currentPos.longitude + '&closeToLat=' + currentPos.latitude +
-      '&closeToDistanceKm=100&pageSize=100&typeCodes=4405&page=';
+      '&closeToDistanceKm=50&pageSize=100&typeCodes=4405&page=';
   findTrails(apiUrl);
 }
 
