@@ -87,12 +87,24 @@ h2 {
     width: 100%;
     text-align: center;
 }
+#icons h2{
+    width: 100%;
+    text-align: center;
+}
+#icons p{
+    width: 100%;
+    text-align: center;
+}
+#icons{
+    display: flex;
+    flex-wrap: wrap;
+}
 
-#left {
+.left {
     width: 50%;
 }
 
-#right {
+.right {
     width: 50%;
 }
 #zip a{
