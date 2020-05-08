@@ -29,7 +29,7 @@ header h1 {
 button {
     margin-top: 7px;
     background-color: #856A5D;
-    color: #A1C349;
+    color: white;
     padding: 10px;
     font-size: 20px;
     text-align: center;
@@ -37,10 +37,10 @@ button {
     outline: #544B3D;
 }
 a{
-    color: #A1C349;
+    color: white;
 }
 a:link, a:visited{
-    color: #A1C349;
+    color: white;
 }
 button:hover {
     background-color: white;
@@ -100,7 +100,7 @@ button:hover {
 #info a {
     margin-top: 7px;
     background-color: #856A5D;
-    color: #A1C349;
+    color: white;
     padding: 10px;
     font-size: 20px;
     text-align: center;
@@ -111,7 +111,7 @@ button:hover {
 #info a:link, a:visited {
     margin-top: 7px;
     background-color: #856A5D;
-    color: #A1C349;
+    color: white;
     padding: 10px;
     font-size: 20px;
     text-align: center;

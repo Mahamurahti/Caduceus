@@ -3,6 +3,11 @@ header {
     border-radius: 2% 2% 2% 2%;
     background-color: #04471C;
     padding: 20px;
+    height: 140px;
+    display: block;
+}
+header img{
+    position: absolute;
 }
 
 #logoLink {
@@ -74,11 +79,12 @@ input:hover {
     margin: 20px;
 }
 
-heading {
+h1 {
+    padding-top: 20px;
     color: #F7F7F9;
     font-size: 60px;
     vertical-align: 40px;
-    margin-left: 20px;
+    margin: 10px 0px 20px 100px;
 }
 
 /*Map style*/
@@ -271,6 +277,25 @@ body {
 
 .show {
     display: block;
+}
+/*Responsivity*/
+@media screen and (max-width: 800px){
+    #map{
+        width: 100%;
+    }
+    .wrapContainer{
+        width: 96%;
+    }
+    #logoLink img{
+        position: absolute;
+    }
+    header{
+        height: 138px;
+    }
+    h1{
+        padding-top: 25px;
+        font-size: 50px;
+    }
 }
 
 
